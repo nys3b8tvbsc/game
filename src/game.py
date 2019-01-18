@@ -35,3 +35,4 @@ class Game():
 
     def quest(self):
         pass
+

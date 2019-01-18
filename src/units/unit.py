@@ -1,7 +1,5 @@
 from abc import ABCMeta, abstractmethod
-
 import pygame
-
 
 class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
     def __init__(self, level: int, img_path: str):
@@ -21,3 +19,4 @@ class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
         pass
 
 # TODO ?? HP
+
