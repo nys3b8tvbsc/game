@@ -1,6 +1,8 @@
-import pygame
-import unit
+from unit import Unit
 
-class Animal(unit.Unit):
-    def __init__(self):
-        pass
+
+class Animal(Unit):
+    """Player`s pet."""
+
+    def __init__(self, level: int, image: str):
+        Unit.__init__(level, image)

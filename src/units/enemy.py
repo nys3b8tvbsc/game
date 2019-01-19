@@ -6,8 +6,8 @@ from unit import Unit
 
 
 class Enemy(Unit):
-    def __init__(self, level: int, actions: List[Callable], img_path: str):
-        super().__init__(level, img_path)
+    def __init__(self, level: int, actions: List[Callable], image: str):
+        Unit.__init__(level, image)
         self.actions = actions
 
     def make_action(self, player: Player):
