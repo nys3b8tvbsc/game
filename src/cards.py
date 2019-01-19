@@ -20,6 +20,7 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
         TODO
         """
         self.image = pygame.image.load(image).convert_alpha()
+        self.image_path=image
         self.back = pygame.image.load('Cards_Image/background.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.hover = False
@@ -43,14 +44,14 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
         rect1 = txt.get_rect(center=(230, 275))
         self.image.blit(txt, rect1)
 
-
-
     def blit(self, surf: pygame.Surface):
         """Method for displaying card on screen."""
         if self.hover:
             surf.blit(self.back, self.rect)
         surf.blit(self.image, self.rect)
-
+    @abstractmethod
+    def getinf(self):
+        pass
 
 
 class Attack_card(Card, metaclass=ABCMeta):
@@ -73,7 +74,8 @@ class Magic_Attack(Attack_card):
 
     def Attack(self, player, enemy):
         pass
-
+    def getinf(self):
+        return {'type':'Magic attack','image':self.image_path,'name':self.name,'text':self.text,'damage':self.damage,'mana_cost':self.mana_cost,'type_magic':self.type}
 
 class Physical_Attack(Attack_card):
     def __init__(self, image, name, text, damage, energy):
@@ -82,6 +84,8 @@ class Physical_Attack(Attack_card):
 
     def Attack(self, player, enemy):
         pass
+    def getinf(self):
+        return {'type':'Physical attack','image':self.image_path,'name':self.name,'text':self.text,'damage':self.damage,'energy':self.energy}
 
 
 def Card_Create(type, image, name, text, damage, mana_or_energy, type_magic='Fire'):
@@ -102,6 +106,7 @@ def Card_Create(type, image, name, text, damage, mana_or_energy, type_magic='Fir
 pygame.init()
 srf=pygame.display.set_mode((1000,500))
 c=Card_Create('Physical attack','Cards_Image/attack_card1.png','Буря мечей','Наносит урон в 1000 единиц всем юнитам на поле',1000,100)
+print (c.getinf())
 c.rect.x=50
 c.blit(srf)
 pygame.display.update()
