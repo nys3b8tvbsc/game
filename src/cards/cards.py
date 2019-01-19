@@ -52,7 +52,7 @@ class Magic_Attack(Attack_card):
         pass
 
 
-class Physical_Attak(Attack_card):
+class Physical_Attack(Attack_card):
     def __init__(self, image, damage, energy):
         self.energy = energy
         Attack_card.__init__(self, image, damage)
@@ -64,7 +64,7 @@ class Physical_Attak(Attack_card):
 """
 pygame.init()
 srf=pygame.display.set_mode((1000,500))
-c=Physical_Attak('Cards_Image/attack_card1.png',1000,100)
+c=Physical_Attack('Cards_Image/attack_card1.png',1000,100)
 c.rect.x=50
 c.blit(srf)
 pygame.display.update()
