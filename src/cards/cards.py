@@ -13,7 +13,7 @@ import pygame
 class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
     """Abstract base card class for all cards."""
 
-    def __init__(self, image: str):
+    def __init__(self, image: str, name: str, text: str):
         """
 
         Img_path is absolute or relative path to unit`s sprite picture.
@@ -23,6 +23,8 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
         self.back = pygame.image.load('Cards_Image/background.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.hover = False
+        self.name = name
+        self.text = text
 
     def blit(self, surf: pygame.Surface):
         """Method for displaying card on screen."""
@@ -34,9 +36,9 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
 class Attack_card(Card, metaclass=ABCMeta):
     """Abstract base class for all attack cards."""
 
-    def __init__(self, image, damage):
+    def __init__(self, image, name, text, damage):
         self.damage = damage
-        Card.__init__(self, image)
+        Card.__init__(self, image, name, text)
 
     @abstractmethod
     def Attack(self, player, enemy):
@@ -44,18 +46,18 @@ class Attack_card(Card, metaclass=ABCMeta):
 
 
 class Magic_Attack(Attack_card):
-    def __init__(self, image, damage, mana):
-        self.mana = mana
-        Attack_card.__init__(self, image, damage)
+    def __init__(self, image, name, text, damage, mana_cost):
+        self.mana_cost = mana_cost
+        Attack_card.__init__(self, image, name, text, damage)
 
     def Attack(self, player, enemy):
         pass
 
 
 class Physical_Attack(Attack_card):
-    def __init__(self, image, damage, energy):
+    def __init__(self, image, name, text, damage, energy):
         self.energy = energy
-        Attack_card.__init__(self, image, damage)
+        Attack_card.__init__(self, image, name, text, damage)
 
     def Attack(self, player, enemy):
         pass
