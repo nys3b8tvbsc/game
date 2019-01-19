@@ -19,6 +19,7 @@ class Game():
             self.handle_events()
             self.game_logic()
             self.screen_update()
+            pygame.display.update()
             clock.tick(self.FPS)
 
     def handle_events(self):
