@@ -1,12 +1,24 @@
+"""
+Module provides main game class.
+"""
 import sys
 
 import pygame
 
 
 class Game():
+    """
+    Main game class.
+    Provides initialization of all game objects,
+    main game loop,
+    events handling,
+    all game logic,
+    display updating.
+    """
     FPS = 60
 
     def __init__(self, player, enemies, cards):
+        """Initialization of pygame and game objects."""
         pygame.init()
         self.screen = pygame.display.set_mode()
         self.player = player
@@ -14,6 +26,7 @@ class Game():
         self.cards = cards
 
     def start(self):
+        """Main game loop."""
         clock = pygame.time.Clock()
         while True:
             self.handle_events()
@@ -23,6 +36,10 @@ class Game():
             clock.tick(self.FPS)
 
     def handle_events(self):
+        """Handles events:
+            game quit
+            TODO
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -36,4 +53,3 @@ class Game():
 
     def quest(self):
         pass
-
