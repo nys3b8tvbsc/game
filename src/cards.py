@@ -66,8 +66,9 @@ class Attack_card(Card, metaclass=ABCMeta):
 
 
 class Magic_Attack(Attack_card):
-    def __init__(self, image, name, text, damage, mana_cost):
+    def __init__(self, image, name, text, damage, mana_cost,type_magic):
         self.mana_cost = mana_cost
+        self.type=type_magic
         Attack_card.__init__(self, image, name, text, damage)
 
     def Attack(self, player, enemy):
@@ -83,10 +84,24 @@ class Physical_Attack(Attack_card):
         pass
 
 
+def Card_Create(type, image, name, text, damage, mana_or_energy, type_magic='Fire'):
+    type=type.split()
+    if type[1]=='attack':
+       if type[0]=='Magic':
+           card=Magic_Attack(image, name, text, damage, mana_or_energy,type_magic)
+       elif type[0]=='Physical':
+           card = Physical_Attack(image, name, text, damage, mana_or_energy)
+       else:
+           return 0
+    else:
+        return 0
+    return card
+
+
 """
 pygame.init()
 srf=pygame.display.set_mode((1000,500))
-c=Physical_Attack('Cards_Image/attack_card1.png','Буря мечей','Наносит урон в 1000 единиц всем юнитам на поле',1000,100)
+c=Card_Create('Physical attack','Cards_Image/attack_card1.png','Буря мечей','Наносит урон в 1000 единиц всем юнитам на поле',1000,100)
 c.rect.x=50
 c.blit(srf)
 pygame.display.update()
