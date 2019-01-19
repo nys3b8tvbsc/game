@@ -6,7 +6,7 @@ import sys
 import pygame
 
 
-class Game():
+class Game:
     """
     Main game class.
     Provides initialization of all game objects,
