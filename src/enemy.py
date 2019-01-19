@@ -1,13 +1,12 @@
 import random
 from typing import List, Callable
 
-from player import Player
-from unit import Unit
+from unit import Unit, Player
 
 
 class Enemy(Unit):
     def __init__(self, level: int, actions: List[Callable], image: str):
-        Unit.__init__(level, image)
+        Unit.__init__(self, level, image)
         self.actions = actions
 
     def make_action(self, player: Player):
