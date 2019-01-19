@@ -26,11 +26,31 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
         self.name = name
         self.text = text
 
+        rect1=pygame.Rect((140,288,0,0))
+        f1=pygame.font.Font('DECOR6DI.TTF', 26) #Грамотное отображение текста
+        while len(text)>25:
+            n=text[0:25].rfind(' ')
+            txt=f1.render(text[0:n], 1, (0, 0, 0))
+            self.image.blit(txt,rect1)
+            rect1.y+=17
+            text=text[n:]
+        txt = f1.render(text[0:n], 1, (0, 0, 0))
+        self.image.blit(txt, rect1)
+
+
+        f1 = pygame.font.Font('font.ttf', 30)
+        txt = f1.render(self.name, 1, (0, 0, 0))
+        rect1 = txt.get_rect(center=(230, 275))
+        self.image.blit(txt, rect1)
+
+
+
     def blit(self, surf: pygame.Surface):
         """Method for displaying card on screen."""
         if self.hover:
             surf.blit(self.back, self.rect)
         surf.blit(self.image, self.rect)
+
 
 
 class Attack_card(Card, metaclass=ABCMeta):
@@ -66,16 +86,17 @@ class Physical_Attack(Attack_card):
 """
 pygame.init()
 srf=pygame.display.set_mode((1000,500))
-c=Physical_Attack('Cards_Image/attack_card1.png',1000,100)
+c=Physical_Attack('Cards_Image/attack_card1.png','Буря мечей','Наносит урон в 1000 единиц всем юнитам на поле',1000,100)
 c.rect.x=50
 c.blit(srf)
 pygame.display.update()
 clock = pygame.time.Clock()
-while True:
+param=True
+while param:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-            sys.exit()
+            param=False
     if c.rect.collidepoint(pygame.mouse.get_pos()):
         c.hover=True
     else:
@@ -84,4 +105,4 @@ while True:
     c.blit(srf)
     pygame.display.update()
     clock.tick(60)
-    """
+"""
