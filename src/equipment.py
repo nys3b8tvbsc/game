@@ -1,8 +1,10 @@
 """
-Provides hero equipment classes.
+Provides all hero equipment classes.
 """
 
 from abc import ABCMeta, abstractmethod
+
+from unit import Unit
 
 
 class Equipment(metaclass=ABCMeta):
@@ -42,4 +44,12 @@ class Shield(Equipment):
 
 class Weapon(Equipment):
     def __init__(self, player, name: str, text: str):
+        Equipment.__init__(self, player, name, text)
+
+
+class Animal(Unit, Equipment):
+    """Player`s pet."""
+
+    def __init__(self, level: int, image: str, player, name: str, text: str):
+        Unit.__init__(self, level, image)
         Equipment.__init__(self, player, name, text)
