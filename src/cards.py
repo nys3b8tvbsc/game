@@ -29,7 +29,7 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
         self.text = text
 
         rect1 = pygame.Rect((140, 288, 0, 0))
-        f1 = pygame.font.Font('DECOR6DI.TTF', 26)  # Грамотное отображение текста
+        f1 = pygame.font.Font('Fonts/DECOR6DI.TTF', 26)  # Грамотное отображение текста
         while len(text) > 25:
             n = text[0:25].rfind(' ')
             txt = f1.render(text[0:n], 1, (0, 0, 0))
@@ -39,7 +39,7 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
         txt = f1.render(text[0:n], 1, (0, 0, 0))
         self.image.blit(txt, rect1)
 
-        f1 = pygame.font.Font('font.ttf', 30)
+        f1 = pygame.font.Font('Fonts/font.ttf', 30)
         txt = f1.render(self.name, 1, (0, 0, 0))
         rect1 = txt.get_rect(center=(230, 275))
         self.image.blit(txt, rect1)
