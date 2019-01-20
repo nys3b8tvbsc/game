@@ -6,6 +6,7 @@ import sys
 import pygame
 
 from loading import load_player, load_next_quest
+from panel import Panel
 from scene import create_scene
 
 
@@ -27,7 +28,7 @@ class Game:
         self.player: dict = load_player(player_file)
         self.__quest = load_next_quest()
         self.scene = create_scene(self.__quest)
-        # TODO interface
+        self.panel = Panel(self.screen, self.player)
 
     def start(self):
         """Main game loop."""
@@ -48,7 +49,6 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
 
     def game_logic(self):
         pass
