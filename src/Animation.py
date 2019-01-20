@@ -17,7 +17,7 @@ class Animation:
             self.cadr=self.cadrs[0]
             return False
         self.cadr = self.cadrs[self.number]
-        return False
+        return True
 
 """
 pygame.init()

@@ -1,0 +1,4 @@
+DEFAULT = 0
+ATTACK = 1
+APPEAR = 2
+DEAD = 3
