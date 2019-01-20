@@ -94,7 +94,7 @@ class Physical_Attack(Attack_card):
                 'damage': self.damage, 'energy': self.energy}
 
 
-def Card_Create(type, image, name, text, damage, mana_or_energy, type_magic='Fire') -> Optional[None]:
+def Card_Create(type, image, name, text, damage, mana_or_energy, type_magic='Fire') -> Optional[Card]:
     type = type.split()
     if type[1] == 'attack':
         if type[0] == 'Magic':
