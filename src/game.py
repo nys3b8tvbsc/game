@@ -2,6 +2,7 @@
 Module provides main game class.
 """
 import sys
+from typing import Dict
 
 import pygame
 
@@ -25,7 +26,7 @@ class Game:
         """Initialization of pygame and game objects."""
         pygame.init()
         self.screen = pygame.display.set_mode()
-        self.player: dict = load_player(player_file)
+        self.player: Dict = load_player(player_file)
         self.__quest = load_next_quest()
         self.scene = create_scene(self.__quest)
         self.panel = Panel(self.screen, self.player)

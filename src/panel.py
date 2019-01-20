@@ -1,8 +1,10 @@
+from typing import Dict
+
 import pygame
 
 
 class Panel:
-    def __init__(self, screen: pygame.Surface, players_config: dict):
+    def __init__(self, screen: pygame.Surface, players_config: Dict):
         self.screen = screen
         self.size = screen.get_width(), 50
         self.pos = 0, 0
