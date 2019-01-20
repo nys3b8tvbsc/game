@@ -2,14 +2,12 @@
 Main game module.
 Loads config create game object and starts in up.
 """
-import json
+from game import Game
 
 
 def main():
-    with open('config.json', 'r') as config_file:
-        config = json.load(config_file)
-
-    # game = Game()
+    player_file = 'player1.json'
+    game = Game(player_file)
 
 
 if __name__ == '__main__':

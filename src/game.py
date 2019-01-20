@@ -5,6 +5,9 @@ import sys
 
 import pygame
 
+from loading import load_player, load_next_quest
+from scene import create_scene
+
 
 class Game:
     """
@@ -17,23 +20,24 @@ class Game:
     """
     FPS = 60
 
-    def __init__(self, player, enemies, cards):
+    def __init__(self, player_file: str):
         """Initialization of pygame and game objects."""
         pygame.init()
         self.screen = pygame.display.set_mode()
-        self.player = player
-        self.enemies = enemies
-        self.cards = cards
+        self.player: dict = load_player(player_file)
+        self.__quest = load_next_quest()
+        self.scene = create_scene(self.__quest)
+        # TODO interface
 
     def start(self):
         """Main game loop."""
         clock = pygame.time.Clock()
+        pygame.display.update()
         while True:
+            clock.tick(self.FPS)
             self.handle_events()
             self.game_logic()
             self.screen_update()
-            pygame.display.update()
-            clock.tick(self.FPS)
 
     def handle_events(self):
         """Handles events:
@@ -45,11 +49,10 @@ class Game:
                 pygame.quit()
                 sys.exit()
 
+
     def game_logic(self):
         pass
+        # TODO ??
 
     def screen_update(self):
-        pass
-
-    def quest(self):
-        pass
+        self.scene.update()

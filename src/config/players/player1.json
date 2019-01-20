@@ -1,0 +1,9 @@
+{
+  "hp": 100,
+  "mana": 100,
+  "cards": [
+    "card1.json",
+    "card2.json"
+  ]
+}
+

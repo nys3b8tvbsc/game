@@ -1,0 +1,9 @@
+{
+  "type": "attack",
+  "subtype": "magic",
+  "damage": 20,
+  "mana_cost": 50,
+  "name": "test_name",
+  "text": "test_text",
+  "image": "cards/Cards_image/attack_card1.png"
+}
