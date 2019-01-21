@@ -1,7 +1,9 @@
 {
   "type": "mage",
   "hp": 100,
+  "max_hp": 100,
   "mana": 100,
+  "max_mana": 100,
   "hp_regen": 1,
   "mana_regen": 1,
   "cards": [

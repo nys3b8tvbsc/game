@@ -55,7 +55,7 @@ class Quest(Scene):
         pass
 
 
-def create_scene(scene_info: dict):
+def create_scene(screen, scene_info):
     pass
 
 
