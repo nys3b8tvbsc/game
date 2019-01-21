@@ -73,19 +73,23 @@ class Knight(Hero):
         animations.append(Animation('pictures/Knight/Stand/', 9))
         animations.append(Animation('pictures/Knight/Attack1H/', 9))
         animations.append(Animation('pictures/Knight/Die/', 9))
-        Hero.__init__(self, max_hp, level, animations)
+        Hero.__init__(self, max_hp, animations,level)
 
 
 class Mage(Hero):
     def __init__(self, max_hp, level=1):
-        pass
+        animations = list()
+        animations.append(Animation('pictures/IceWizard/Stand/', 9))
+        animations.append(Animation('pictures/IceWizard/Cast1H/', 10))
+        animations.append(Animation('pictures/IceWizard/Die/', 9))
+        Hero.__init__(self, max_hp, animations,level)
         'TODO'
 
 """
 pygame.init()
 srf = pygame.display.set_mode((1000, 500))
-p1=Hero()
-p1.blit(srf)
+p1=Mage(10000,1)
+p1.blit_me(srf)
 pygame.display.update()
 clock = pygame.time.Clock()
 param = True
@@ -95,7 +99,7 @@ while param:
             param = False
     p1.animated()
     srf.fill((0, 0, 0))
-    p1.blit(srf)
+    p1.blit_me(srf)
     pygame.display.update()
     clock.tick(20)
 """
