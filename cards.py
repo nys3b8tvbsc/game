@@ -39,7 +39,7 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
             self.image.blit_me(txt, rect1)
             rect1.y += 17
             text = text[n:]
-        txt = f1.render(text[0:n], 1, BLACK)  # TODO n might be referenced before assignment
+        txt = f1.render(text, 1, BLACK)  # TODO n might be referenced before assignment
         self.image.blit_me(txt, rect1)
 
         f1 = pygame.font.Font('fonts/font.ttf', 30)
