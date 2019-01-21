@@ -1,6 +1,8 @@
 {
   "type": "warrior",
   "hp": 100,
+  "max_hp": 100,
+  "energy": 0,
   "max_energy": 100,
   "hp_regen": 1,
   "cards": [

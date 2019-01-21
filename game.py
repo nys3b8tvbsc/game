@@ -28,11 +28,11 @@ class Game:
         :param player_file: path
         """
         pygame.init()
-        self.screen = pygame.display.set_mode()
+        self.__screen = pygame.display.set_mode()
         self.__hero = load_player(player_file)  # Type Dict
-        self.__quest = load_next_quest()
-        self.__scene = create_scene(self.__quest)
-        self.__panel = Panel(self.screen, self.__hero)
+        self.__quest = load_next_quest()  # Type Dict
+        self.__scene = create_scene(self.__screen, self.__quest)
+        self.__panel = Panel(self.__screen, self.__hero)
 
     def start(self):
         """Main game loop."""
@@ -42,7 +42,7 @@ class Game:
             clock.tick(self.FPS)
             self.handle_events()
             self.game_logic()
-            self.screen_update()
+            self.screen_blit()
 
     def handle_events(self):
         """Handles events:
@@ -55,8 +55,9 @@ class Game:
                 sys.exit()
 
     def game_logic(self):
-        pass
-        # TODO ??
+        self.__scene.update(self.__hero)
+        self.__panel.update(self.__hero)
 
-    def screen_update(self):
-        self.__scene.update()
+    def screen_blit(self):
+        self.__scene.blit_me()
+        self.__panel.blit_me()

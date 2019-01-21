@@ -9,7 +9,7 @@ class Panel:
     TODO
     """
 
-    def __init__(self, screen, players_config):
+    def __init__(self, screen, hero):
         """
         :param screen: pygame.Surface
         :param players_config: Dict
@@ -23,10 +23,12 @@ class Panel:
         self.main_surface.fill(self.color)
         self.font = pygame.font.Font(None, 20)
         self.text_color = (0, 0, 0)
+        self.hp = '{}/{}'.format(hero['hp'], hero['max_hp'])
+        self.mana = '{}/{}'.format(hero['mana'], hero['max_mana'])
         self.text11 = self.font.render('HP', 0, self.text_color)
-        self.text12 = self.font.render('25/100', 0, self.text_color)
+        self.text12 = self.font.render(self.hp, 0, self.text_color)
         self.text21 = self.font.render('Mana', 0, self.text_color)
-        self.text22 = self.font.render('50/100', 0, self.text_color)
+        self.text22 = self.font.render(self.mana, 0, self.text_color)
 
     def blit_me(self):
         """
@@ -37,6 +39,10 @@ class Panel:
         self.main_surface.blit(self.text12, (70, 10))
         self.main_surface.blit(self.text22, (70, 30))
         self.screen.blit(self.main_surface, self.pos)
+
+    def update(self, hero):
+        self.hp = '{}/{}'.format(hero['hp'], hero['max_hp'])
+        self.mana = '{}/{}'.format(hero['mana'], hero['max_mana'])
 
 
 """
