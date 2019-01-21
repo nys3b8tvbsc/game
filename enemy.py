@@ -63,11 +63,11 @@ class Golem(Enemy):
         """
         :param surface: pygame.Surface
         """
-        surface.blit_me(self.image, self.rect)
+        surface.blit(self.image, self.rect)
         self.bar_rect.y = self.rect.y - 25
         pygame.draw.rect(surface, (255, 0, 0), (
             self.bar_rect.x + X_BAR, self.bar_rect.y + Y_BAR, int(MAX_HP_BAR * (float(self.hp / self.max_hp))), H_BAR))
-        surface.blit_me(self.bar, self.bar_rect)
+        surface.blit(self.bar, self.bar_rect)
 
 
 """

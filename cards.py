@@ -54,8 +54,8 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
         :param surface: pygame.Surface. Surface on which this card is drawn.
         """
         if self.hover:
-            surface.blit_me(self.back, self.rect)
-        surface.blit_me(self.image, self.rect)
+            surface.blit(self.back, self.rect)
+        surface.blit(self.image, self.rect)
 
     @abstractmethod
     def get_info(self):
