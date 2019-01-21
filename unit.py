@@ -47,12 +47,9 @@ class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
 
 
 class Hero(Unit):
-    def __init__(self, max_hp, level=1):  # cards
+    def __init__(self, max_hp, animations, level=1):  # cards
         Unit.__init__(self, max_hp, level)
-        self.animations = []
-        self.animations.append(Animation('pictures/Knight/Stand/', 9))
-        self.animations.append(Animation('pictures/Knight/Attack1H/', 9))
-        self.animations.append(Animation('pictures/Knight/Die/', 9))
+        self.animations = animations
         self.state = DEFAULT
         self.image = self.animations[self.state].frame
         self.rect = self.image.get_rect()
@@ -62,13 +59,27 @@ class Hero(Unit):
         pass
 
     def blit_me(self, screen):
-        screen.blit_me(self.image, self.rect)
+        screen.blit(self.image, self.rect)
 
     def animated(self):
         if not self.animations[self.state].update():
             self.state = DEFAULT
         self.image = self.animations[self.state].frame
 
+
+class Knight(Hero):
+    def __init__(self, max_hp, level=1):
+        animations = list()
+        animations.append(Animation('pictures/Knight/Stand/', 9))
+        animations.append(Animation('pictures/Knight/Attack1H/', 9))
+        animations.append(Animation('pictures/Knight/Die/', 9))
+        Hero.__init__(self, max_hp, level, animations)
+
+
+class Mage(Hero):
+    def __init__(self, max_hp, level=1):
+        pass
+        'TODO'
 
 """
 pygame.init()
