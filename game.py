@@ -28,7 +28,7 @@ class Game:
         :param player_file: path
         """
         pygame.init()
-        self.__screen = pygame.display.set_mode()  # Type pygame.Surface
+        self.__screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)  # Type pygame.Surface
         self.__panel = Panel(self.__screen)
         self.__panel_rect = self.__panel.get_rect()
         self.__hero = load_player(player_file)  # Type Dict
@@ -55,6 +55,10 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_F4 and event.mod == pygame.KMOD_LALT:
+                    pygame.quit()
+                    sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if self.__scene_rect.collidepoint(event.pos):
