@@ -46,8 +46,6 @@ class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
     # pass
 
 
-# TODO ?? HP
-
 class Hero(Unit):
     def __init__(self, max_hp, level=1):  # cards
         Unit.__init__(self, max_hp, level)
