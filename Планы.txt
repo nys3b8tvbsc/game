@@ -17,3 +17,9 @@ rect панели и сцены
 
 
 
+Quest
+Battle
+Quest End
+
+next scene -> create_scene
+quest -> battle -> next scene = quest end
