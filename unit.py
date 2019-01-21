@@ -12,15 +12,18 @@ class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
     And methods for interaction between characters.
     """
 
-    def __init__(self, level):
+    def __init__(self, max_hp, level):
         """
         Img_path is absolute or relative path to unit`s sprite picture.
 
         :param level: int. Unit`s level should be 1 or more
+        :param max_hp: int
         :return: Unit object
         """
         assert level >= 1
         self.level = level
+        self.max_hp = max_hp
+        self.hp = self.max_hp
         # self.image = pygame.image.load(image).convert_alpha()
 
     @abstractmethod
@@ -46,7 +49,8 @@ class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
 # TODO ?? HP
 
 class Hero(Unit):
-    def __init__(self):  # cards
+    def __init__(self, max_hp, level=1):  # cards
+        Unit.__init__(self, max_hp, level)
         self.animations = []
         self.animations.append(Animation('pictures/Knight/Stand/', 9))
         self.animations.append(Animation('pictures/Knight/Attack1H/', 9))
@@ -54,10 +58,9 @@ class Hero(Unit):
         self.state = DEFAULT
         self.image = self.animations[self.state].frame
         self.rect = self.image.get_rect()
-        Unit.__init__(self, level=1)
         # self.cards = cards
 
-    def take_damage(self, damage: int):
+    def take_damage(self, damage):
         pass
 
     def blit_me(self, screen):

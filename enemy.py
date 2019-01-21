@@ -9,17 +9,15 @@ class Enemy(Unit):
     """Base class for all enemies.
     TODO implement base class methods"""
 
-    def __init__(self, level, power, max_hp):
+    def __init__(self, power, max_hp, level):
         """
         :param level: int
         :param power: int
         :param max_hp: int
         :return: Enemy object
         """
-        Unit.__init__(self, level)
+        Unit.__init__(self, max_hp, level)
         self.power = power
-        self.max_hp = max_hp
-        self.hp = self.max_hp
         self.bar = pygame.image.load('pictures/manabar.png').convert_alpha()
         # self.actions = actions
 
