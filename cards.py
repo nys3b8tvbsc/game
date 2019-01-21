@@ -90,7 +90,7 @@ class AttackCard(Card, metaclass=ABCMeta):
 
 
 class MagicAttack(AttackCard):
-    def __init__(self, image, name, text, damage, mana_cost, type_magic):
+    def __init__(self, image, name, text, damage, mana_cost, magic_type):
         """
 
         :param image: path. Absolute or relative path to unit`s sprite picture.
@@ -98,11 +98,11 @@ class MagicAttack(AttackCard):
         :param text: str
         :param damage: int
         :param mana_cost: int
-        :param type_magic: TODO ??
+        :param magic_type: TODO ??
         """
         AttackCard.__init__(self, image, name, text, damage)
         self.mana_cost = mana_cost
-        self.type = type_magic
+        self.type = magic_type
 
     def attack(self, hero, enemy):
         """
@@ -112,8 +112,9 @@ class MagicAttack(AttackCard):
         pass
 
     def get_info(self):
-        return {'type': 'Magic attack', 'image': self.image_path, 'name': self.name, 'text': self.text,
-                'damage': self.damage, 'mana_cost': self.mana_cost, 'type_magic': self.type}
+        return {'type': 'attack', 'subtype': 'maigc',
+                'image': self.image_path, 'name': self.name, 'text': self.text,
+                'damage': self.damage, 'cost': self.mana_cost, 'magic_type': self.type}
 
 
 class PhysicalAttack(AttackCard):
@@ -136,28 +137,31 @@ class PhysicalAttack(AttackCard):
         pass
 
     def get_info(self):
-        return {'type': 'Physical attack', 'image': self.image_path, 'name': self.name, 'text': self.text,
-                'damage': self.damage, 'energy': self.energy}
+        return {'type': 'attack', 'subtype': 'physical',
+                'image': self.image_path, 'name': self.name, 'text': self.text,
+                'damage': self.damage, 'cost': self.energy}
 
 
-def create_card(type, image, name, text, damage, mana_or_energy, type_magic='Fire'):
+def create_card(config):
     """
-    TODO config param
-    :param type: str
-    :param image: path
-    :param name: str
-    :param text: str
-    :param damage: int
-    :param mana_or_energy: int
-    :param type_magic: str
+    :param config: Dict
     :return: Card object
     """
-    type = type.split()
-    if type[1] == 'attack':
-        if type[0] == 'Magic':
-            return MagicAttack(image, name, text, damage, mana_or_energy, type_magic)
-        elif type[0] == 'Physical':
-            return PhysicalAttack(image, name, text, damage, mana_or_energy)
+    if config['card_type'] == 'attack':
+        if config['subtype'] == 'magic':
+            return MagicAttack(config['image'],
+                               config['name'],
+                               config['text'],
+                               config['damage'],
+                               config['cost'],
+                               config['magic_type'])
+
+        elif config['subtype'] == 'physical':
+            return PhysicalAttack(config['image'],
+                                  config['name'],
+                                  config['text'],
+                                  config['damage'],
+                                  config['cost'])
 
 
 """
