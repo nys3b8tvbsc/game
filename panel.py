@@ -16,11 +16,11 @@ class Panel:
         :param screen_width: int
         :return: Panel object
         """
-        self.width = screen_width
+        width = screen_width
         self.pos = 0, 0
         self.main_surface = pygame.image.load('pictures/panel.png').convert_alpha()
-        self.height = int(self.main_surface.get_height() * self.width / self.main_surface.get_width())
-        self.main_surface = pygame.transform.scale(self.main_surface, (self.width, self.height))
+        height = int(self.main_surface.get_height() * width / self.main_surface.get_width())
+        self.main_surface = pygame.transform.scale(self.main_surface, (width, height))
         self.rect = self.main_surface.get_rect()
         self.font = pygame.font.Font(None, 20)
         self.text_color = BLACK
@@ -47,12 +47,15 @@ class Panel:
         self.main_surface.blit(i_mana, (70, 30))
         surface.blit(self.main_surface, self.pos)
 
-
-"""
+    """
     def update(self, hero):
         self.hp = '{}/{}'.format(hero['hp'], hero['max_hp'])
         self.mana = '{}/{}'.format(hero['mana'], hero['max_mana'])
-"""
+    """
+
+    def handle_event(self, event):
+        pass
+
 
 pygame.init()
 screen = pygame.display.set_mode()

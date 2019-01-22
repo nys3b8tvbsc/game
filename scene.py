@@ -7,70 +7,91 @@ import pygame
 
 
 class Scene(metaclass=ABCMeta):
-    def __init__(self, back, screen):
-        self.back = pygame.image.load(back).convert_alpha()
-        self.back = pygame.transform.scale(self.back, (screen.get_width(), screen.get_height() - 100))
-        self.back_rect = self.back.get_rect()
-        self.screen = screen
-        self.pos = (0, 100)
+    def __init__(self, image, scene_size):
+        width = scene_size[0]
+        self.image = pygame.image.load(image).convert_alpha()
+        height = int(self.image.get_height() * width / self.image.get_width())
+        self.image = pygame.transform.scale(self.image, (width, height))
+        self.rect = self.image.get_rect()
+        self.pos = 0, scene_size[1] - height
+
+    def get_rect(self):
+        """
+        :return: pygame.Rect object
+        """
+        return self.rect
 
     @abstractmethod
     def update(self):
         pass
 
     @abstractmethod
-    def blit_me(self):
-        self.screen.blit(self.back, self.pos)
+    def blit_me(self, screen):
+        screen.blit(self.image, self.pos)
 
     @abstractmethod
-    def handle_events(self):
+    def handle_event(self, event):
+        pass
+
+    @abstractmethod
+    @property
+    def is_over(self):
+        pass
+
+    @abstractmethod
+    def get_data(self):
+        """
+        :return: Dict
+        """
         pass
 
 
 class Battle(Scene):
-    def __init__(self, back, screen):
-        Scene.__init__(self, back, screen)
+    def __init__(self, image):
+        Scene.__init__(self, image)
 
     def update(self):
         pass
 
-    def blit_me(self):
-        Scene.blit_me(self)
+    def blit_me(self, screen):
+        Scene.blit_me(self, screen)
 
-    def handle_events(self):
+    def handle_event(self, event):
+        pass
+
+    @property
+    def is_over(self):
+        pass
+
+    def get_data(self):
         pass
 
 
 class Quest(Scene):
-    def __init__(self, back, screen):
-        Scene.__init__(self, back, screen)
+    def __init__(self, image):
+        Scene.__init__(self, image)
 
     def update(self):
         pass
 
-    def blit_me(self):
-        Scene.blit_me(self)
+    def blit_me(self, screen):
+        Scene.blit_me(self, screen)
 
-    def handle_events(self):
+    def handle_event(self, event):
+        pass
+
+    @property
+    def is_over(self):
+        pass
+
+    def get_data(self):
         pass
 
 
-def create_scene(screen, scene_info):
+def create_scene(screen_size, scene_config):
+    """
+    :param screen_size: Tuple(x, y)
+    :param scene_config: Dict
+    :return: Scene object
+    """
     pass
-
-
-"""
-pygame.init()
-screen = pygame.display.set_mode()
-q = Quest('pictures/BG/battleback1.png', screen)
-q.blit_me()
-pygame.display.update()
-clock = pygame.time.Clock()
-param = True
-while param:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            param = False
-    clock.tick(60)
-"""
