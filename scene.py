@@ -13,13 +13,7 @@ class Scene(metaclass=ABCMeta):
         height = int(self.image.get_height() * width / self.image.get_width())
         self.image = pygame.transform.scale(self.image, (width, height))
         self.rect = self.image.get_rect()
-        self.pos = 0, screen_size[1] - height
-
-    def get_rect(self):
-        """
-        :return: pygame.Rect object
-        """
-        return self.rect
+        self.rect[0] = 0, screen_size[1] - height
 
     @abstractmethod
     def update(self):
@@ -27,7 +21,7 @@ class Scene(metaclass=ABCMeta):
 
     @abstractmethod
     def blit_me(self, screen):
-        screen.blit(self.image, self.pos)
+        screen.blit(self.image, self.rect)
 
     @abstractmethod
     def handle_event(self, event):
@@ -90,8 +84,8 @@ class Quest(Scene):
 
 def create_scene(screen_size, scene_config):
     """
-    :param screen_size: Tuple(x, y)
+    :param screen_size: Tuple(width, height)
     :param scene_config: Dict
-    :return: Scene object
+    :return: Union[Battle, Quest] object
     """
     pass

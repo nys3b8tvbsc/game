@@ -1,4 +1,8 @@
 {
-  "name": "test_name1",
-  "test": "test_text1"
+  "type": "quest",
+  "name": "quest1",
+  "test": "Long quest text test.\nBla BLa Blallllaaa lalallala."
+  "buttons": [
+  ]
+
 }

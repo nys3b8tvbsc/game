@@ -17,19 +17,14 @@ class Panel:
         :return: Panel object
         """
         width = screen_width
-        self.pos = 0, 0
+        pos = 0, 0
         self.main_surface = pygame.image.load('pictures/panel.png').convert_alpha()
         height = int(self.main_surface.get_height() * width / self.main_surface.get_width())
         self.main_surface = pygame.transform.scale(self.main_surface, (width, height))
         self.rect = self.main_surface.get_rect()
+        self.rect[0] = pos
         self.font = pygame.font.Font(None, 20)
         self.text_color = BLACK
-
-    def get_rect(self):
-        """
-        :return: pygame.Rect object
-        """
-        return self.rect
 
     def blit_me(self, surface, hero):
         """
@@ -45,7 +40,7 @@ class Panel:
         self.main_surface.blit(t_mana, (10, 30))
         self.main_surface.blit(i_hp, (70, 10))
         self.main_surface.blit(i_mana, (70, 30))
-        surface.blit(self.main_surface, self.pos)
+        surface.blit(self.main_surface, self.rect)
 
     """
     def update(self, hero):
