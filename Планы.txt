@@ -1,21 +1,17 @@
 треугольники
 зачем True/False в анимации?
-TODO
 
 Доделать персонажа
 характеристики добавить
 
 доделать врага
 
-игра обработка событий кто крайний
-
-rect панели и сцены
-
 доделать панельку
 
 выбрана ли карта метод
 
 
+Доделать и протестировать Game
 
 Quest
 Battle
@@ -23,3 +19,6 @@ Quest End
 
 next scene -> create_scene
 quest -> battle -> next scene = quest end
+
+
+check all TODO

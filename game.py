@@ -1,6 +1,5 @@
 """
 Module provides main game class.
-TODO ohhhh...
 """
 import sys
 
@@ -28,12 +27,12 @@ class Game:
         :param player_file: path
         """
         pygame.init()
-        self.__screen = pygame.display.set_mode()  # Type pygame.Surface
+        self.__screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)  # Type pygame.Surface
         self.__panel = Panel(self.__screen)
         self.__panel_rect = self.__panel.get_rect()
         self.__hero = load_player(player_file)  # Type Dict
         self.__quest = load_next_quest()  # Type Dict
-        self.__scene = create_scene(self.get_scene_size(), self.__quest)
+        self.__scene = create_scene(self.__screen.get_size(), self.__quest)
         self.__scene_rect = self.__scene.get_rect()
 
     def start(self):
@@ -55,12 +54,16 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_F4 and event.mod == pygame.KMOD_LALT:
+                    pygame.quit()
+                    sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
+                if event.button == 1:  # Left click
                     if self.__scene_rect.collidepoint(event.pos):
-                        self.__scene.handle_events()
+                        self.__scene.handle_event(event)
                     elif self.__panel_rect.collidepoint(event.pos):
-                        self.__panel.handle_events()
+                        self.__panel.handle_event(event)
 
     def game_logic(self):
         self.__scene.update(self.__hero)
@@ -70,9 +73,6 @@ class Game:
     def screen_blit(self):
         self.__scene.blit_me(self.__screen)
         self.__panel.blit_me(self.__screen)
-        if self.__scene.is_over():
+        if self.__scene.is_over:
             self.__scene.get_data()  # TODO refactor ??
             # TODO if data ...
-
-    def get_scene_rect(self):  # tuple tuple pos, tuple rect
-        pass  # self.__panel_rect / self.screen
