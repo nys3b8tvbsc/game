@@ -47,12 +47,25 @@ class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
 
 
 class Hero(Unit):
-    def __init__(self, max_hp, animations, level=1):  # cards
-        Unit.__init__(self, max_hp, level)
+    def __init__(self, player_config, animations):  # cards
+        Unit.__init__(self, player_config['max_hp'], player_config['level'])
         self.animations = animations
         self.state = DEFAULT
         self.image = self.animations[self.state].frame
         self.rect = self.image.get_rect()
+        self.specifications={}
+        self.max_mana=player_config['max_mana']
+        self.mana=self.max_mana
+        self.max_power==player_config['max_power']
+        self.power=self.max_power
+        self.specifications['fire']=player_config['fire']
+        self.specifications['water'] = player_config['water']
+        self.specifications['water'] = player_config['water']
+        self.specifications['terra'] = player_config['terra']
+        self.specifications['air'] = player_config['air']
+        self.specifications['sword']=player_config['sword']
+        self.specifications['archery']=player_config['archery']
+        self.specifications['fists']=self.specifications['fists']
         # self.cards = cards
 
     def take_damage(self, damage):
@@ -68,21 +81,21 @@ class Hero(Unit):
 
 
 class Knight(Hero):
-    def __init__(self, max_hp, level=1):
+    def __init__(self, player_config):
         animations = list()
         animations.append(Animation('pictures/Knight/Stand/', 9))
         animations.append(Animation('pictures/Knight/Attack1H/', 9))
         animations.append(Animation('pictures/Knight/Die/', 9))
-        Hero.__init__(self, max_hp, animations,level)
+        Hero.__init__(self, player_config, animations)
 
 
 class Mage(Hero):
-    def __init__(self, max_hp, level=1):
+    def __init__(self, player_config):
         animations = list()
         animations.append(Animation('pictures/IceWizard/Stand/', 9))
         animations.append(Animation('pictures/IceWizard/Cast1H/', 10))
         animations.append(Animation('pictures/IceWizard/Die/', 9))
-        Hero.__init__(self, max_hp, animations,level)
+        Hero.__init__(self, player_config, animations)
         'TODO'
 
 """
