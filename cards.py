@@ -9,6 +9,29 @@ from abc import ABCMeta, abstractmethod
 
 import pygame
 
+from constans import BLACK
+
+
+# TODO move ??
+def blit_long_text(surface, text):
+    rect = pygame.Rect((140, 288, 0, 0))
+    f1 = pygame.font.Font('fonts/DECOR6DI.TTF', 26)
+    while len(text) > 25:
+        string_end = text[:25].rfind(' ')
+        string = f1.render(text[:string_end], 1, BLACK)
+        surface.blit(string, rect)
+        rect.y += 17
+        text = text[string_end:]
+    text = f1.render(text, 1, BLACK)
+    surface.blit(text, rect)
+
+
+def blit_text(surface, text):
+    font = pygame.font.Font('fonts/font.ttf', 30)
+    txt = font.render(text, 1, BLACK)
+    rect = txt.get_rect(center=(230, 275))
+    surface.blit(txt, rect)
+
 
 class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
     """Abstract base card class for all cards."""
@@ -29,23 +52,9 @@ class Card(pygame.sprite.Sprite, metaclass=ABCMeta):
         self.name = name
         self.text = text
 
-        'TODO'
-        BLACK = (0, 0, 0)
-        rect1 = pygame.Rect((140, 288, 0, 0))
-        f1 = pygame.font.Font('fonts/DECOR6DI.TTF', 26)  # Грамотное отображение текста
-        while len(text) > 25:
-            n = text[0:25].rfind(' ')
-            txt = f1.render(text[0:n], 1, BLACK)
-            self.image.blit_me(txt, rect1)
-            rect1.y += 17
-            text = text[n:]
-        txt = f1.render(text, 1, BLACK)  # TODO n might be referenced before assignment
-        self.image.blit_me(txt, rect1)
+        blit_long_text(self.image, text)
 
-        f1 = pygame.font.Font('fonts/font.ttf', 30)
-        txt = f1.render(self.name, 1, BLACK)
-        rect1 = txt.get_rect(center=(230, 275))
-        self.image.blit_me(txt, rect1)
+        blit_text(self.image, name)
 
     def blit_me(self, surface):
         """
@@ -81,9 +90,8 @@ class AttackCard(Card, metaclass=ABCMeta):
         self.damage = damage
 
     @abstractmethod
-    def attack(self, hero, enemy):
+    def attack(self, enemy):
         """
-        :param hero: Hero
         :param enemy: Enemy
         """
         pass
@@ -104,15 +112,14 @@ class MagicAttack(AttackCard):
         self.mana_cost = mana_cost
         self.type = magic_type
 
-    def attack(self, hero, enemy):
+    def attack(self, enemy):
         """
-        :param hero: Hero
         :param enemy: Enemy
         """
         pass
 
     def get_info(self):
-        return {'type': 'attack', 'subtype': 'maigc',
+        return {'type': 'attack', 'subtype': 'magic',
                 'image': self.image_path, 'name': self.name, 'text': self.text,
                 'damage': self.damage, 'cost': self.mana_cost, 'magic_type': self.type}
 
@@ -129,9 +136,8 @@ class PhysicalAttack(AttackCard):
         AttackCard.__init__(self, image, name, text, damage)
         self.energy = energy
 
-    def attack(self, hero, enemy):
+    def attack(self, enemy):
         """
-        :param hero: Hero
         :param enemy: Enemy
         """
         pass
