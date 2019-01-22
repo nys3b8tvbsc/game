@@ -48,7 +48,7 @@ class Panel:
 """
 
 pygame.init()
-screen = pygame.display.set_mode()
+screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 i = Panel(screen.get_width())
 i.blit_me(screen,{'hp':50,'max_hp':100,'mana':25,'max_mana':100})
 pygame.display.update()
@@ -57,6 +57,8 @@ param = True
 while param:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            param = False
+        elif event.type==pygame.KEYDOWN:
             param = False
     pygame.display.update()
     clock.tick(60)
