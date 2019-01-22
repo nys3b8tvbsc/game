@@ -7,13 +7,13 @@ import pygame
 
 
 class Scene(metaclass=ABCMeta):
-    def __init__(self, image, scene_size):
-        width = scene_size[0]
+    def __init__(self, image, screen_size):
+        width = screen_size[0]
         self.image = pygame.image.load(image).convert_alpha()
         height = int(self.image.get_height() * width / self.image.get_width())
         self.image = pygame.transform.scale(self.image, (width, height))
         self.rect = self.image.get_rect()
-        self.pos = 0, scene_size[1] - height
+        self.pos = 0, screen_size[1] - height
 
     def get_rect(self):
         """
@@ -47,8 +47,8 @@ class Scene(metaclass=ABCMeta):
 
 
 class Battle(Scene):
-    def __init__(self, image):
-        Scene.__init__(self, image)
+    def __init__(self, screen_size, scene_config):
+        Scene.__init__(self, scene_config['image'], screen_size)
 
     def update(self):
         pass
@@ -68,8 +68,8 @@ class Battle(Scene):
 
 
 class Quest(Scene):
-    def __init__(self, image):
-        Scene.__init__(self, image)
+    def __init__(self, screen_size, scene_config):
+        Scene.__init__(self, scene_config['image'], screen_size)
 
     def update(self):
         pass
