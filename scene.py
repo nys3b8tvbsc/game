@@ -27,8 +27,8 @@ class Scene(metaclass=ABCMeta):
     def handle_event(self, event):
         pass
 
-    @abstractmethod
     @property
+    @abstractmethod
     def is_over(self):
         pass
 

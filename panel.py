@@ -22,7 +22,7 @@ class Panel:
         height = int(self.main_surface.get_height() * width / self.main_surface.get_width())
         self.main_surface = pygame.transform.scale(self.main_surface, (width, height))
         self.rect = self.main_surface.get_rect()
-        self.rect[0] = pos
+        self.rect[0] = pos  # TODO FIX
         self.font = pygame.font.Font(None, 20)
         self.text_color = BLACK
 
@@ -52,6 +52,7 @@ class Panel:
         pass
 
 
+"""
 pygame.init()
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 i = Panel(screen.get_width())
@@ -67,3 +68,4 @@ while param:
             param = False
     pygame.display.update()
     clock.tick(60)
+"""
