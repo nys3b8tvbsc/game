@@ -1,7 +1,7 @@
 import pygame
 
 from animation import Animation
-from constans import *
+from constants import *
 from unit import Unit
 
 

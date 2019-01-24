@@ -3,7 +3,7 @@ Module provides top panel.
 """
 import pygame
 
-from constans import BLACK
+from constants import BLACK
 
 
 class Panel:

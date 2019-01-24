@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 import pygame
 
 from animation import Animation
-from constans import *
+from constants import *
 
 
 class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):

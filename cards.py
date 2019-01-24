@@ -9,7 +9,7 @@ from abc import ABCMeta, abstractmethod
 
 import pygame
 
-from constans import BLACK
+from constants import BLACK
 
 
 # TODO move ??

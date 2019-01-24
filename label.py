@@ -1,6 +1,6 @@
 import pygame
 
-from constans import BLACK, WHITE
+from constants import BLACK, WHITE
 
 
 class Label:
