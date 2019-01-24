@@ -13,7 +13,7 @@ class Scene(metaclass=ABCMeta):
         height = int(self.image.get_height() * width / self.image.get_width())
         self.image = pygame.transform.scale(self.image, (width, height))
         self.rect = self.image.get_rect()
-        self.rect[0] = 0, screen_size[1] - height
+        self.rect.move_ip(0, screen_size[1] - height)
 
     @abstractmethod
     def update(self):
