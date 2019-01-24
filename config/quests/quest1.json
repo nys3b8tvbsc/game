@@ -1,8 +1,18 @@
 {
   "type": "quest",
   "name": "quest1",
-  "test": "Long quest text test.\nBla BLa Blallllaaa lalallala."
+  "test": "Long quest text test.\nBla BLa Blallllaaa lalallala.",
   "buttons": [
-  ]
-
+    {
+      "text": "test1",
+      "on_click": "game quit"
+    },
+    {
+      "text": "test2",
+      "on_click": "gain max hp",
+      "value": 2
+    }
+  ],
+  "next quest": null,
+  "next next quest": null
 }
