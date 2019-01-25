@@ -1,14 +1,60 @@
 import pygame
 
-from constants import BLACK, WHITE
+from constants import BLACK
+
+"""
+def print_txt(surface, rect, text, font, font_size, color):  # version 1.0 :)
+    f = pygame.font.Font(font, font_size)
+    n = rect.width // f.get_linesize()
+    while len(text) > n:
+        num = text[:n].rfind(' ') + 1
+        if num <= 0:
+            num = n
+        txt = f.render(text[:num], 1, color)
+        surface.blit(txt, rect)
+        text = text[num:]
+        rect.y += f.get_height() + 2
+    txt = f.render(text, 1, color)
+    surface.blit(txt, rect)
+"""
 
 
 class Label:
-    def __init__(self, size, text, font, font_size, color=WHITE, text_color=BLACK):
-        self.surface = pygame.Surface(size)
-        self.rect = self.surface.get_rect()
-        self.font = pygame.font.Font(font, font_size)
-        self.text = self.font.render(text, 0, text_color)
+    def __init__(self, pos, size, strings, font_name=None, color=BLACK):
+        strings = [string.replace('\n', '').strip() for string in strings]
 
-    def set_rect(self, center):
-        self.rect = self.surface.get_rect(center)
+        self.__size = size
+        self.__font_name = font_name
+
+        self.__font_size = self.calc_size(strings)
+        if self.__font_size == 0:
+            raise ValueError("Strings are too long.")
+
+        self.__font = pygame.font.Font(font_name, self.__font_size)
+        self.__spacing = self.__font.get_linesize()
+        self.__positions = self.calc_pos(strings, pos)
+        self.__strings = tuple(self.__font.render(string, 0, color) for string in strings)
+
+    def calc_size(self, strings):
+        width, height = self.__size
+        for font_size in range(1, 10 ** 5):
+            font = pygame.font.Font(self.__font_name, font_size)
+            sizes = [font.size(string) for string in strings]
+            for size in sizes:
+                if size[0] + 2 * font.size('w')[0] > width:
+                    return font_size - 1
+            if (2 * len(strings) + 1) * font.get_linesize() > height:
+                return font_size - 1
+
+    def calc_pos(self, strings, pos):
+        width, height = self.__size
+        positions = []
+        for i, string in enumerate(strings):
+            x = pos[0] + (width - self.__font.size(string)[0]) / 2
+            y = pos[1] + (i + 1) * self.__font.get_linesize()
+            positions.append((x, y))
+        return tuple(positions)
+
+    def blit_me(self, surface):
+        for string, pos in zip(self.__strings, self.__positions):
+            surface.blit(string, pos)
