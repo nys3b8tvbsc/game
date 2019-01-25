@@ -3,6 +3,7 @@ import pygame
 from animation import Animation
 from constants import *
 from unit import Unit
+import json
 
 
 class Enemy(Unit):
@@ -79,11 +80,17 @@ class Vampire(Enemy):
         self.animations.append(Animation('pictures/Archive/appear/appear', 12))
         self.animations.append(Animation('pictures/Archive/die/appear', 12))
         Enemy.__init__(self, level, power, max_hp, self.animations)
-
+def Create_Enemy(enemy_config):
+    if enemy_config["type"]=='golem':
+        return Golem(enemy_config["level"],enemy_config["power"],enemy_config["max_hp"])
+    elif enemy_config["type"]=='vampire':
+        return Vampire(enemy_config["level"],enemy_config["power"],enemy_config["max_hp"])
 
 pygame.init()
 srf = pygame.display.set_mode((1000, 500))
-gol = Golem(1, 1000, 1000)
+with open('config/enemy/enemy1.json', 'r', encoding='utf-8') as fh:
+    enemy_config=json.load(fh)
+gol=Create_Enemy(enemy_config)
 gol.rect.y = 100
 gol.blit_me(srf)
 pygame.display.update()

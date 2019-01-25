@@ -1,5 +1,5 @@
 {
-  "type":'golem',
+  "type": "golem",
   "max_hp": 100,
   "power": 50,
   "level": 1
