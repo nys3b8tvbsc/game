@@ -1,17 +1,14 @@
 import sys
-import os
+
 import pygame
-from button import Button
-from label import Label
-from constants import WHITE,CYAN
+
+from constants import WHITE
 
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((1000, 1000))
-but=Button(('Выход',),(190,74))
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen.fill(WHITE)
-but.blit_me(screen)
 pygame.display.update()
 while True:
     clock.tick(FPS)
@@ -20,6 +17,7 @@ while True:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            pygame.quit()
-            sys.exit()
+            if event.key == pygame.K_F4 and event.mod == pygame.KMOD_LALT:
+                pygame.quit()
+                sys.exit()
     pygame.display.update()

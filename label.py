@@ -32,7 +32,7 @@ class Label:
         self.__font = pygame.font.Font(font_name, self.__font_size)
         self.__spacing = self.__font.get_linesize()
         self.__positions = self.calc_pos(strings, pos)
-        self.__strings = tuple(self.__font.render(string, 0, color) for string in strings)
+        self.__strings = tuple(self.__font.render(string, 1, color) for string in strings)
 
     def calc_size(self, strings):
         width, height = self.__size
