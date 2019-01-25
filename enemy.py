@@ -4,6 +4,7 @@ from animation import Animation
 from constants import *
 from unit import Unit, Create_Hero
 import random
+import cards
 import json
 
 
@@ -56,7 +57,9 @@ class Enemy(Unit):
         """
         :param damage: int
         """
-        pass
+        self.hp-=damage
+        if self.hp<=0:
+            self.state=DEAD
     def attack(self,hero):
         hero.take_damage(random.randint(int(0.7*self.power),self.power))
 
@@ -83,23 +86,26 @@ class Vampire(Enemy):
         self.animations.append(Animation('pictures/Archive/appear/appear', 12))
         self.animations.append(Animation('pictures/Archive/die/appear', 12))
         Enemy.__init__(self, level, power, max_hp, self.animations)
+
 def Create_Enemy(enemy_config):
     if enemy_config["type"]=='golem':
         return Golem(enemy_config["level"],enemy_config["power"],enemy_config["max_hp"])
     elif enemy_config["type"]=='vampire':
         return Vampire(enemy_config["level"],enemy_config["power"],enemy_config["max_hp"])
-"""
+
 pygame.init()
 srf = pygame.display.set_mode((1000, 500))
+with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
+    card=cards.create_card(json.load(fh))
 with open('config/enemy/enemy1.json', 'r', encoding='utf-8') as fh:
     enemy_config=json.load(fh)
 gol=Create_Enemy(enemy_config)
 with open('config/hero/hero1.json', 'r', encoding='utf-8') as fh:
     player_config=json.load(fh)
 p1=Create_Hero(player_config)
-print(p1.hp)
-gol.attack(p1)
-print(p1.hp)
+print(gol.hp)
+p1.attack(gol,card)
+print(gol.hp)
 gol.rect.y = 100
 gol.blit_me(srf)
 pygame.display.update()
@@ -109,9 +115,11 @@ while param:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             param = False
+        elif event.type==pygame.KEYDOWN:
+            p1.attack(gol, card)
     gol.animated()
     srf.fill((0, 0, 0))
     gol.blit_me(srf)
     pygame.display.update()
     clock.tick(20)
-"""
+

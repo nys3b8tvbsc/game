@@ -5,6 +5,6 @@
   "cost": 50,
   "name": "test_name",
   "text": "test_text",
-  "image": "cards/Cards_image/attack_card1.png",
-  "magic_type": "Fire"
+  "image": "card_images/attack_card1.png",
+  "magic_type": "fire"
 }

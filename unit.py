@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 
 import pygame
 import json
+import cards
 from animation import Animation
 from constants import *
 
@@ -77,6 +78,13 @@ class Hero(Unit):
         if not self.animations[self.state].update():
             self.state = DEFAULT
         self.image = self.animations[self.state].frame
+    def attack(self,enemy,card):
+        enemy.take_damage(int(self.specifications[card.type]/100*card.damage))
+        info=card.get_info()
+        if info["subtype"]=='magic':
+            self.mana=-card.mana_cost
+        elif info["subtype"]=='physycal':
+            self.power-=card.energy
 
 
 class Knight(Hero):
