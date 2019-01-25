@@ -1,10 +1,10 @@
 import pygame
-
+from constants import *
 from label import Label
 
 
 class Button:
-    def __init__(self, size=(0, 0), pos=(0, 0), on_press=lambda: None, label=Label()):
+    def __init__(self,  text,size=(0, 0), pos=(0, 0), on_press=lambda: None): #label=Label()
         """
         :param size: Tuple(width, height)
         :param pos: Tuple(x, y)
@@ -13,13 +13,17 @@ class Button:
         :return: Button object
         """
 
-        self.__image = pygame.image.load('Рома доделай и подгони по размеру').convert_alpha()  # TODO
+        self.__image = pygame.image.load('pictures/button2.png').convert_alpha()  # TODO
+        trans_x=size[0]/DEFAULT_W
+        trans_y=size[1]/DEFAULT_H
+        self.__image=pygame.transform.scale(self.__image,size)
 
         self.__rect = self.__image.get_rect()
         self.__rect.move_ip(pos)
 
-        self.__label = label
-
+        l_size=(int(trans_x*LABEL_X),int(trans_y*LABEL_Y))
+        l_pos=(int(trans_x*LABEL_W),int(trans_y*LABEL_H))
+        self.__label = Label(text,l_size,l_pos,'fonts/DECOR6DI.TTF',WHITE)
         self.on_press = on_press
 
     def blit_me(self, surface):
