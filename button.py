@@ -18,14 +18,11 @@ class Button:
         self.__image_path = os.path.join('pictures', 'button1.png')
         self.__image = pygame.image.load(self.__image_path).convert_alpha()
         self.__image = pygame.transform.scale(self.__image, size)
-        trans_x = size[0] / DEFAULT_W
-        trans_y = size[1] / DEFAULT_H
+
         self.__rect = self.__image.get_rect()
         self.__rect.move_ip(pos)
 
-        l_size=(int(trans_x*LABEL_X),int(trans_y*LABEL_Y))
-        l_pos=(int(trans_x*LABEL_W),int(trans_y*LABEL_H))
-        self.__label = Label(text,l_size,l_pos,'fonts/DECOR6DI.TTF',WHITE)
+        self.__label = Label(text,size,(0,0),'fonts/DECOR6DI.TTF',WHITE)
        # self.__label = label if label is not None else Label()
 
         self.on_press = on_press
