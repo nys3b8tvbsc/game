@@ -1,3 +1,4 @@
+# TODO min size ? / line wrap
 import pygame
 
 from constants import BLACK
@@ -27,8 +28,6 @@ class Label:
         self.__font_name = font_name
 
         self.__font_size = self.calc_size(strings)
-        if self.__font_size == 0:
-            raise ValueError("Strings are too long.")
 
         self.__font = pygame.font.Font(font_name, self.__font_size)
         self.__spacing = self.__font.get_linesize()
@@ -37,7 +36,7 @@ class Label:
 
     def calc_size(self, strings):
         width, height = self.__size
-        for font_size in range(1, 10 ** 5):
+        for font_size in range(6, 10 ** 5):
             font = pygame.font.Font(self.__font_name, font_size)
             sizes = [font.size(string) for string in strings]
             for size in sizes:
