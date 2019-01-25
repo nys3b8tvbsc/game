@@ -127,13 +127,14 @@ class MagicAttack(AttackCard):
         pass
 
     def get_info(self):
-        # TODO label get_info
-        """
-        return {'type': 'attack', 'subtype': 'magic',
-                'image': self.image_path, 'name': self.name, 'text': self.text,
-                'damage': self.damage, 'cost': self.mana_cost, 'magic_type': self.type}
-        """
-        pass
+        return {'card_type': 'attack',
+                'subtype': 'magic',
+                'damage': self._damage,
+                'cost': self._mana_cost,
+                'name': self._name_label.get_info(),
+                'text': self._text_label.get_info(),
+                'image': self._image_path,
+                'magic_type': self._magic_type}
 
 
 class PhysicalAttack(AttackCard):
@@ -157,13 +158,13 @@ class PhysicalAttack(AttackCard):
         pass
 
     def get_info(self):
-        # TODO label get_info
-        """
-        return {'type': 'attack', 'subtype': 'physical',
-                'image': self.image_path, 'name': self.name, 'text': self.text,
-                'damage': self.damage, 'cost': self.energy}
-        """
-        pass
+        return {'card_type': 'attack',
+                'subtype': 'physical',
+                'damage': self._damage,
+                'cost': self._energy,
+                'name': self._name_label.get_info(),
+                'text': self._text_label.get_info(),
+                'image': self._image_path}
 
 
 def create_card(pos, height, config):
@@ -178,7 +179,7 @@ def create_card(pos, height, config):
     name_pos = (0, 0)
     name_font = os.path.join('fonts', 'DECOR6DI.TTF')
 
-    name_label = Label(strings=(config['name'],),
+    name_label = Label(text=config['name'],
                        size=name_size,
                        pos=name_pos,
                        font_name=name_font)
@@ -187,7 +188,7 @@ def create_card(pos, height, config):
     text_pos = (500, 500)
     text_font = os.path.join('fonts', 'font.ttf')
 
-    text_label = Label(strings=(config['text'],),
+    text_label = Label(text=config['text'],
                        size=text_size,
                        pos=text_pos,
                        font_name=text_font)

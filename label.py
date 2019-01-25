@@ -61,3 +61,6 @@ class Label:
     def blit_me(self, surface):
         for string, pos in zip(self.__strings, self.__positions):
             surface.blit(string, pos)
+
+    def get_info(self):
+        return self._raw_text
