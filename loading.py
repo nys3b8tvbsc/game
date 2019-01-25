@@ -38,6 +38,16 @@ def load_battle(file):
     :return: Dict
     """
     path = os.path.join('battles', file)
+    battle = __load_json(path)
+    battle['enemies'] = [load_enemy(enemy) for enemy in battle['enemies']]
+
+
+def load_enemy(file):
+    """
+    :param file: path
+    :return: Dict
+    """
+    path = os.path.join('enemies', file)
     return __load_json(path)
 
 

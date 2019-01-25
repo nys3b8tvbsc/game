@@ -1,4 +1,7 @@
 {
   "name": "test_name1",
-  "test": "test_text1"
+  "test": "test_text1",
+  "enemies": [
+    "enemy1.json"
+  ]
 }
