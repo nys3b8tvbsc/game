@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 import pygame
+import json
 
 from animation import Animation
 from constants import *
@@ -56,16 +57,15 @@ class Hero(Unit):
         self.specifications={}
         self.max_mana=player_config['max_mana']
         self.mana=self.max_mana
-        self.max_power==player_config['max_power']
+        self.max_power=player_config['max_power']
         self.power=self.max_power
         self.specifications['fire']=player_config['fire']
-        self.specifications['water'] = player_config['water']
         self.specifications['water'] = player_config['water']
         self.specifications['terra'] = player_config['terra']
         self.specifications['air'] = player_config['air']
         self.specifications['sword']=player_config['sword']
         self.specifications['archery']=player_config['archery']
-        self.specifications['fists']=self.specifications['fists']
+        self.specifications['fists']=player_config['fists']
         # self.cards = cards
 
     def take_damage(self, damage):
@@ -98,10 +98,19 @@ class Mage(Hero):
         Hero.__init__(self, player_config, animations)
         'TODO'
 
+def Create_Hero(player_config):
+    if player_config['type']=='warrior':
+        return Knight(player_config)
+    elif player_config['type']=='mage':
+        return Mage(player_config)
+
+
 """
 pygame.init()
 srf = pygame.display.set_mode((1000, 500))
-p1=Mage(10000,1)
+with open('config/hero/hero1.json', 'r', encoding='utf-8') as fh:
+    player_config=json.load(fh)
+p1=Create_Hero(player_config)
 p1.blit_me(srf)
 pygame.display.update()
 clock = pygame.time.Clock()
