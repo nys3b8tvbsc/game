@@ -31,6 +31,7 @@ class Enemy(Unit):
             self.state = DEFAULT
         self.image = self.animations[self.state].frame
 
+
     def blit_me(self, surface):
         """
         :param surface: pygame.Surface
@@ -40,7 +41,7 @@ class Enemy(Unit):
         pygame.draw.rect(surface, RED, (
             self.bar_rect.x + X_BAR, self.bar_rect.y + Y_BAR, int(MAX_HP_BAR * (float(self.hp / self.max_hp))), H_BAR))
         surface.blit(self.bar, self.bar_rect)
-        
+
     def make_action(self, hero):
         """
         :param hero: Hero
@@ -70,7 +71,14 @@ class Golem(Enemy):
         self.animations.append(Animation('pictures/Archive (1)/die/die', 7))
         Enemy.__init__(self, level, power, max_hp, self.animations)
 
-
+class Vampire(Enemy):
+    def __init__(self,level,power, max_hp):
+        self.animations = []
+        self.animations.append(Animation('pictures/Archive/walk-idle/go', 8))
+        self.animations.append(Animation('pictures/Archive/attack/hit', 13))
+        self.animations.append(Animation('pictures/Archive/appear/appear', 12))
+        self.animations.append(Animation('pictures/Archive/die/appear', 12))
+        Enemy.__init__(self, level, power, max_hp, self.animations)
 
 
 pygame.init()
