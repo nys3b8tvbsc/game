@@ -21,8 +21,12 @@ def print_txt(surface, rect, text, font, font_size, color):  # version 1.0 :)
 
 
 class Label:
-    def __init__(self, strings=tuple(str()), size=(0, 0), pos=(0, 0), font_name=None, color=BLACK):
-        strings = [string.replace('\n', '').strip() for string in strings]
+    def __init__(self, text='', size=(0, 0), pos=(0, 0), font_name=None, color=BLACK):
+        self._raw_text = text
+        if isinstance(text, str):
+            strings = (text.strip().replace('\n', ''),)
+        else:
+            strings = (string.strip().replace('\n', '') for string in text)
 
         self.__size = size
         self.__font_name = font_name
