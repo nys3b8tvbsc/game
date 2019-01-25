@@ -2,7 +2,8 @@ import pygame
 
 from animation import Animation
 from constants import *
-from unit import Unit
+from unit import Unit, Create_Hero
+import random
 import json
 
 
@@ -56,6 +57,8 @@ class Enemy(Unit):
         :param damage: int
         """
         pass
+    def attack(self,hero):
+        hero.take_damage(random.randint(int(0.7*self.power),self.power))
 
 
 class Golem(Enemy):
@@ -85,12 +88,18 @@ def Create_Enemy(enemy_config):
         return Golem(enemy_config["level"],enemy_config["power"],enemy_config["max_hp"])
     elif enemy_config["type"]=='vampire':
         return Vampire(enemy_config["level"],enemy_config["power"],enemy_config["max_hp"])
-
+"""
 pygame.init()
 srf = pygame.display.set_mode((1000, 500))
 with open('config/enemy/enemy1.json', 'r', encoding='utf-8') as fh:
     enemy_config=json.load(fh)
 gol=Create_Enemy(enemy_config)
+with open('config/hero/hero1.json', 'r', encoding='utf-8') as fh:
+    player_config=json.load(fh)
+p1=Create_Hero(player_config)
+print(p1.hp)
+gol.attack(p1)
+print(p1.hp)
 gol.rect.y = 100
 gol.blit_me(srf)
 pygame.display.update()
@@ -105,4 +114,4 @@ while param:
     gol.blit_me(srf)
     pygame.display.update()
     clock.tick(20)
-
+"""

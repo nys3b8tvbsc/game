@@ -2,7 +2,6 @@ from abc import ABCMeta, abstractmethod
 
 import pygame
 import json
-
 from animation import Animation
 from constants import *
 
@@ -69,7 +68,7 @@ class Hero(Unit):
         # self.cards = cards
 
     def take_damage(self, damage):
-        pass
+        self.hp-=damage
 
     def blit_me(self, screen):
         screen.blit(self.image, self.rect)
