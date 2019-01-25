@@ -1,8 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 import pygame
-import json
-import cards
+
 from animation import Animation
 from constants import *
 

@@ -1,11 +1,12 @@
+import json
+import random
+
 import pygame
 
+import card
 from animation import Animation
 from constants import *
 from unit import Unit, Create_Hero
-import random
-import cards
-import json
 
 
 class Enemy(Unit):
@@ -96,7 +97,7 @@ def Create_Enemy(enemy_config):
 pygame.init()
 srf = pygame.display.set_mode((1000, 500))
 with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
-    card=cards.create_card(json.load(fh))
+    card = card.create_card(json.load(fh))
 with open('config/enemy/enemy1.json', 'r', encoding='utf-8') as fh:
     enemy_config=json.load(fh)
 gol=Create_Enemy(enemy_config)
