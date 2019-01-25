@@ -20,7 +20,7 @@ def print_txt(surface, rect, text, font, font_size, color):  # version 1.0 :)
 
 
 class Label:
-    def __init__(self, pos, size, strings, font_name=None, color=BLACK):
+    def __init__(self, strings=tuple(str()), size=(0, 0), pos=(0, 0), font_name=None, color=BLACK):
         strings = [string.replace('\n', '').strip() for string in strings]
 
         self.__size = size
