@@ -1,9 +1,9 @@
 {
   "card_type": "attack",
   "subtype": "physical",
-  "damage": 30,
+  "value": 30,
   "cost": 56,
   "name": "test_name2",
   "text": "test_text2",
-  "image": "cards/Cards_image/attack_card1.png"
+  "image": "sword1.png"
 }

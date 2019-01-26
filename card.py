@@ -7,208 +7,92 @@ Module provides all card types:
 """
 
 import os
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 
 import pygame
 
+from constants import NAME_LABEL, TEXT_LABEL, LEFT_LABEL, RIGHT_LABEL, WHITE
 from label import Label
-
-"""
-def blit_long_text(surface, text):
-    rect = pygame.Rect((140, 288, 0, 0))
-    f1 = pygame.font.Font('fonts/DECOR6DI.TTF', 26)
-    while len(text) > 25:
-        string_end = text[:25].rfind(' ')
-        string = f1.render(text[:string_end], 1, BLACK)
-        surface.blit(string, rect)
-        rect.y += 17
-        text = text[string_end:]
-    text = f1.render(text, 1, BLACK)
-    surface.blit(text, rect)
-
-
-def blit_text(surface, text):
-    font = pygame.font.Font('fonts/font.ttf', 30)
-    txt = font.render(text, 1, BLACK)
-    rect = txt.get_rect(center=(230, 275))
-    surface.blit(txt, rect)
-"""
 
 
 class Card(metaclass=ABCMeta):
-    """Abstract base card class for all cards."""
-
-    def __init__(self, pos, height, image, name_label, text_label):
-        """
-        :param pos: Tuple(x, y)
-        :param height: int
-        :param image: path. Absolute or relative path to unit`s sprite picture.
-        :param name_label: Label
-        :param name_label: Label
-        :return: Card object
-        """
-        self._image_path = image
+    def __init__(self, pos, height, config):
+        self._config = config
+        image = os.path.join('card_images', config['image'])
         self._image = pygame.image.load(image).convert_alpha()
-        width = int(round((self._image.get_width() * height / self._image.get_height())))
+        self._scaling = height / self._image.get_height()
+        width = int(round(self._image.get_width() * self._scaling))
         self._image = pygame.transform.scale(self._image, (width, height))
         self._rect = self._image.get_rect()
         self._rect.move_ip(pos)
-        self._name_label = name_label
-        self._text_label = text_label
-        self._hover = False  # TODO method
+
+        self._name_label = Label(text=config['name'],
+                                 size=(NAME_LABEL[2] * self._scaling, NAME_LABEL[3] * self._scaling),
+                                 pos=(NAME_LABEL[0] * self._scaling, NAME_LABEL[1] * self._scaling), color=WHITE)
+
+        self._text_label = Label(text=config['text'],
+                                 size=(TEXT_LABEL[2] * self._scaling, TEXT_LABEL[3] * self._scaling),
+                                 pos=(TEXT_LABEL[0] * self._scaling, TEXT_LABEL[1] * self._scaling))
+
         back_path = os.path.join('card_images', 'background.png')
         self._back = pygame.image.load(back_path).convert_alpha()
 
-    def blit_me(self, surface):
-        """
-        Method for displaying card on screen.
+        self._hover = False  # TODO method
 
-        :param surface: pygame.Surface. Surface on which this card is drawn.
-        """
+    def blit_me(self, surface):
         self._name_label.blit_me(self._image)
         self._text_label.blit_me(self._image)
+        self._left_label.blit_me(self._image)
+        self._right_label.blit_me(self._image)
         if self._hover:
             surface.blit(self._back, self._rect)
         surface.blit(self._image, self._rect)
 
-    @abstractmethod
-    def get_info(self):
-        """Get config of this card.
-
-        :return: Dict.
-        """
-        pass
-
 
 class AttackCard(Card, metaclass=ABCMeta):
-    """Abstract base class for all attack cards."""
+    def __init__(self, pos, height, config):
+        Card.__init__(self, pos, height, config)
+        self._damage = config['value']
+        self._left_label = Label(text=config['value'],
+                                 size=(LEFT_LABEL[2] * self._scaling, LEFT_LABEL[3] * self._scaling),
+                                 pos=(LEFT_LABEL[0] * self._scaling, LEFT_LABEL[1] * self._scaling))
 
-    def __init__(self, pos, height, image, name_label, text_label, damage):
-        """
-        :param pos: Tuple(x, y)
-        :param height: int
-        :param image: path. Absolute or relative path to unit`s sprite picture.
-        :param name_label: Label
-        :param text_label: Label
-        :param damage: int
-        :return: AttackCard object
-        """
-        Card.__init__(self, pos, height, image, name_label, text_label)
-        self._damage = damage
-
-    @abstractmethod
     def attack(self, enemy):
-        """
-        :param enemy: Enemy
-        """
         pass
 
 
 class MagicAttack(AttackCard):
-    def __init__(self, pos, height, image, name_label, text_label, damage, mana_cost, magic_type):
-        """
-        :param pos: Tuple(x, y)
-        :param height: int
-        :param image: path. Absolute or relative path to unit`s sprite picture.
-        :param name_label: Label
-        :param text_label: Label
-        :param damage: int
-        :param mana_cost: int
-        :param magic_type: str
-        """
-        AttackCard.__init__(self, pos, height, image, name_label, text_label, damage)
-        self._mana_cost = mana_cost
-        self._magic_type = magic_type
+    def __init__(self, pos, height, config):
+        AttackCard.__init__(self, pos, height, config)
+        self._magic_type = config['magic_type']
+        self._mana_cost = config['cost']
+        self._right_label = Label(text=config['cost'],
+                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling),
+                                  pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling))
 
     def attack(self, enemy):
-        """
-        :param enemy: Enemy
-        """
-        pass
-
-    def get_info(self):
-        return {'card_type': 'attack',
-                'subtype': 'magic',
-                'damage': self._damage,
-                'cost': self._mana_cost,
-                'name': self._name_label.get_info(),
-                'text': self._text_label.get_info(),
-                'image': self._image_path,
-                'magic_type': self._magic_type}
+        AttackCard.attack(self, enemy)
 
 
 class PhysicalAttack(AttackCard):
-    def __init__(self, pos, height, image, name_label, text_label, damage, energy):
-        """
-        :param pos: Tuple(x, y)
-        :param height: int
-        :param image: path. Absolute or relative path to unit`s sprite picture.
-        :param name_label: Label
-        :param text_label: Label
-        :param damage: int
-        :param energy: int
-        """
-        AttackCard.__init__(self, pos, height, image, name_label, text_label, damage)
-        self._energy = energy
+    def __init__(self, pos, height, config):
+        AttackCard.__init__(self, pos, height, config)
+        self._energy = config['cost']
+        self._right_label = Label(text=config['cost'],
+                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling),
+                                  pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling))
 
     def attack(self, enemy):
-        """
-        :param enemy: Enemy
-        """
-        pass
-
-    def get_info(self):
-        return {'card_type': 'attack',
-                'subtype': 'physical',
-                'damage': self._damage,
-                'cost': self._energy,
-                'name': self._name_label.get_info(),
-                'text': self._text_label.get_info(),
-                'image': self._image_path}
+        AttackCard.attack(self, enemy)
 
 
 def create_card(pos, height, config):
-    """
-    :param pos: Tuple(x, y)
-    :param height: int
-    :param config: Dict
-    :return: Card object
-    """
-
-    name_size = (300, 100)  # TODO
-    name_pos = (0, 0)
-    name_font = os.path.join('fonts', 'DECOR6DI.TTF')
-
-    name_label = Label(text=config['name'],
-                       size=name_size,
-                       pos=name_pos,
-                       font_name=name_font)
-
-    text_size = (300, 100)  # TODO
-    text_pos = (500, 500)
-    text_font = os.path.join('fonts', 'font.ttf')
-
-    text_label = Label(text=config['text'],
-                       size=text_size,
-                       pos=text_pos,
-                       font_name=text_font)
-
     if config['card_type'] == 'attack':
         if config['subtype'] == 'magic':
-            return MagicAttack(pos,
-                               height,
-                               config['image'],
-                               name_label,
-                               text_label,
-                               config['damage'],
-                               config['cost'],
-                               config['magic_type'])
-
+            return MagicAttack(pos, height, config)
         elif config['subtype'] == 'physical':
-            return PhysicalAttack(pos,
-                                  height,
-                                  config['image'],
-                                  name_label,
-                                  text_label,
-                                  config['damage'],
-                                  config['cost'])
+            return PhysicalAttack(pos, height, config)
+        else:
+            raise ValueError('Wrong subtype')
+    else:
+        raise ValueError('Wrong type')

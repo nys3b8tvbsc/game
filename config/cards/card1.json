@@ -1,10 +1,10 @@
 {
   "card_type": "attack",
   "subtype": "magic",
-  "damage": 20,
+  "value": 20,
   "cost": 50,
   "name": "test_name",
   "text": "test_text",
-  "image": "card_images/attack_card1.png",
+  "image": "sword1.png",
   "magic_type": "fire"
 }
