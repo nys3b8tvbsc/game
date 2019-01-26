@@ -24,9 +24,11 @@ class Label:
     def __init__(self, text='', size=(0, 0), pos=(0, 0), font_name=None, color=BLACK):
         self._raw_text = text
         if isinstance(text, str):
-            strings = (text.strip().replace('\n', ''),)
+            strings = (text,)
+        elif isinstance(text, int) or isinstance(text, float):
+            strings = (str(text),)
         else:
-            strings = (string.strip().replace('\n', '') for string in text)
+            strings = tuple(text)
 
         self.__size = size
         self.__font_name = font_name
