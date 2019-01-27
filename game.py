@@ -24,14 +24,16 @@ class Game:
     def __init__(self, player_file):
         """
         Initialization of pygame and game objects.
-        :param player_file: path
+
+        :param str player_file: path
+        :rtype: Game
         """
         pygame.init()
-        self.__screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)  # Type pygame.Surface
-        self.__panel = Panel(self.__screen.get_width())
-        self.__hero = load_player(player_file)  # Type Dict
-        self.__quest = load_next_quest()  # Type Dict
-        self.__scene = create_scene(self.__screen.get_size(), self.__quest)
+        self._screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self._panel = Panel(self.__screen.get_width())
+        self._hero = load_player(player_file)  # Type dict
+        self._quest = load_next_quest()  # Type dict
+        self._scene = create_scene(self._screen.get_size(), self._quest)
 
     def start(self):
         """Main game loop."""
@@ -46,6 +48,8 @@ class Game:
     def handle_events(self):
         """Handles events:
             game quit
+            alt + f4
+            mouse left click
             TODO
         """
         for event in pygame.event.get():
@@ -58,19 +62,19 @@ class Game:
                     sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:  # Left click
-                    if self.__scene.rect.collidepoint(event.pos):
-                        self.__scene.handle_event(event)
-                    elif self.__panel.rect.collidepoint(event.pos):
-                        self.__panel.handle_event(event)
+                    if self._scene.rect.collidepoint(event.pos):
+                        self._scene.handle_event(event)
+                    elif self._panel.rect.collidepoint(event.pos):
+                        self._panel.handle_event(event)
 
     def game_logic(self):
-        self.__scene.update(self.__hero)
-        self.__panel.update(self.__hero)
+        self._scene.update(self._hero)
+        self._panel.update(self._hero)
         # TODO ??
 
     def screen_blit(self):
-        self.__scene.blit_me(self.__screen)
-        self.__panel.blit_me(self.__screen)
-        if self.__scene.is_over:
-            self.__scene.get_data()  # TODO refactor ??
+        self._scene.blit_me(self._screen)
+        self._panel.blit_me(self._screen)
+        if self._scene.is_over:
+            self._scene.get_data()  # TODO refactor ??
             # TODO if data ...

@@ -14,11 +14,9 @@ class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
 
     def __init__(self, max_hp, level):
         """
-        Img_path is absolute or relative path to unit`s sprite picture.
-
-        :param level: int. Unit`s level should be 1 or more
-        :param max_hp: int
-        :return: Unit object
+        :param int max_hp:
+        :param int level: Unit`s level should be 1 or more
+        :rtype: Unit
         """
         assert level >= 1
         self.level = level
@@ -28,16 +26,12 @@ class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
 
     @abstractmethod
     def blit_me(self, screen):
-        """Method for displaying character on screen.
-
-        :param screen: pygame.sprite.Sprite
-        """
         pass
 
     @abstractmethod
     def take_damage(self, damage):
         """
-        :param damage: int
+        :param int damage:
         """
         pass
 

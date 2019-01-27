@@ -7,14 +7,10 @@ from constants import BLACK
 
 
 class Panel:
-    """
-    TODO
-    """
-
     def __init__(self, screen_width):
         """
-        :param screen_width: int
-        :return: Panel object
+        :param int screen_width:
+        :rtype: Panel
         """
         width = screen_width
         pos = 0, 0
@@ -26,9 +22,6 @@ class Panel:
         self.text_color = BLACK
 
     def blit_me(self, surface, hero):
-        """
-        TODO
-        """
         hp = '{}/{}'.format(hero['hp'], hero['max_hp'])
         mana = '{}/{}'.format(hero['mana'], hero['max_mana'])  # TODO refactor energy
         t_hp = self.font.render('HP', 0, self.text_color)
@@ -49,22 +42,3 @@ class Panel:
 
     def handle_event(self, event):
         pass
-
-
-"""
-pygame.init()
-screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
-i = Panel(screen.get_width())
-i.blit_me(screen, {'hp': 50, 'max_hp': 100, 'mana': 25, 'max_mana': 100})
-pygame.display.update()
-clock = pygame.time.Clock()
-param = True
-while param:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            param = False
-        elif event.type==pygame.KEYDOWN:
-            param = False
-    pygame.display.update()
-    clock.tick(60)
-"""

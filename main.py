@@ -1,6 +1,6 @@
 """
 Main game module.
-Loads config create game object and starts in up.
+Create game object and starts it up.
 """
 from game import Game
 

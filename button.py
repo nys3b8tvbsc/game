@@ -1,6 +1,7 @@
 import os
 
 import pygame
+
 from constants import *
 from label import Label
 
@@ -12,7 +13,7 @@ class Button:
         :param pos: Tuple(x, y)
         :param on_press: Callable
         :param label: Label object
-        :return: Button object
+        :rtype: Button
         """
 
         self.__image_path = os.path.join('pictures', 'button1.png')
