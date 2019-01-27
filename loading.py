@@ -21,7 +21,7 @@ def load_card(file):
     return __load_json(path)
 
 
-def load_player(file):
+def load_hero(file):
     """
     :param str file: path
     :rtype: dict

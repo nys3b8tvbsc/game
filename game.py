@@ -5,7 +5,7 @@ import sys
 
 import pygame
 
-from loading import load_player, load_next_quest
+from loading import load_hero, load_next_quest
 from panel import Panel
 from scene import create_scene
 
@@ -31,7 +31,7 @@ class Game:
         pygame.init()
         self._screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self._panel = Panel(self.__screen.get_width())
-        self._hero = load_player(player_file)  # Type dict
+        self._hero = load_hero(player_file)  # Type dict
         self._quest = load_next_quest()  # Type dict
         self._scene = create_scene(self._screen.get_size(), self._quest)
 
