@@ -37,6 +37,9 @@ class Card(metaclass=ABCMeta):
         back_path = os.path.join('card_images', 'background.png')
         self._back = pygame.image.load(back_path).convert_alpha()
 
+        self._right_label = Label()
+        self._left_label = Label()
+
         self._hover = False  # TODO method
 
     def blit_me(self, surface):
