@@ -5,7 +5,9 @@ import pygame
 
 
 class Scene(metaclass=ABCMeta):
-    def __init__(self, image, screen_size):
+    def __init__(self, image, screen_size, scene_config):
+        self._config = scene_config
+
         width = screen_size[0]
         self._image = pygame.image.load(image).convert_alpha()
         height = int(self._image.get_height() * width / self._image.get_width())
@@ -34,11 +36,14 @@ class Scene(metaclass=ABCMeta):
     def is_over(self):
         pass
 
+    def create_button_fun(self):
+        pass
+
 
 class Battle(Scene):
     def __init__(self, screen_size, scene_config):
         self._image_path = os.path.join('BG', scene_config['image'])
-        Scene.__init__(self, self._image_path, screen_size)
+        Scene.__init__(self, self._image_path, screen_size, scene_config)
 
     def update(self):
         pass
@@ -57,14 +62,15 @@ class Battle(Scene):
 class Quest(Scene):
     def __init__(self, screen_size, scene_config):
         self._image_path = os.path.join('pictures', 'blueframe2.png')
-        Scene.__init__(self, self._image_path, screen_size)
+        Scene.__init__(self, self._image_path, screen_size, scene_config)
 
     def update(self):
         pass
 
     def blit_me(self, surface):
+        self._label.blit_me(self._image)
         for button in self._buttons:
-            button.blit_me(surface)
+            button.blit_me(self._image)
         Scene.blit_me(self, surface)
 
     def handle_event(self, event):
@@ -77,8 +83,8 @@ class Quest(Scene):
 
 def create_scene(screen_size, scene_config):
     if scene_config['type'] == 'quest':
-        pass
+        return Quest(screen_size, scene_config)
     elif scene_config['type'] == 'battle':
-        pass
+        return Battle(screen_size, scene_config)
     else:
         raise ValueError('Scene has unknown type.')
