@@ -3,8 +3,12 @@
   "subtype": "magic",
   "value": 20,
   "cost": 50,
-  "name": "test_name",
-  "text": "test_text",
-  "image": "sword1.png",
+  "name": "Демоническое пламя",
+  "text": [
+            "Древнее заклинание,",
+            "наносящее невосполнимый",
+            "урон врагу."
+  ],
+  "image": "fire1.png",
   "magic_type": "fire"
 }

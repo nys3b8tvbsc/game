@@ -1,14 +1,18 @@
 import sys
 
 import pygame
-
+from card import *
+import json
 from constants import WHITE
 
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
+    c1=create_card((0,0),500,json.load(fh))
 screen.fill(WHITE)
+c1.blit_me(screen)
 pygame.display.update()
 while True:
     clock.tick(FPS)
@@ -17,7 +21,6 @@ while True:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_F4 and event.mod == pygame.KMOD_LALT:
-                pygame.quit()
-                sys.exit()
+            pygame.quit()
+            sys.exit()
     pygame.display.update()

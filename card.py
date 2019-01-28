@@ -28,11 +28,11 @@ class Card(metaclass=ABCMeta):
 
         self._name_label = Label(text=config['name'],
                                  size=(NAME_LABEL[2] * self._scaling, NAME_LABEL[3] * self._scaling),
-                                 pos=(NAME_LABEL[0] * self._scaling, NAME_LABEL[1] * self._scaling), color=WHITE)
+                                 pos=(NAME_LABEL[0] * self._scaling, NAME_LABEL[1] * self._scaling),font_name='fonts/font.ttf',color=WHITE)
 
         self._text_label = Label(text=config['text'],
                                  size=(TEXT_LABEL[2] * self._scaling, TEXT_LABEL[3] * self._scaling),
-                                 pos=(TEXT_LABEL[0] * self._scaling, TEXT_LABEL[1] * self._scaling))
+                                 pos=(TEXT_LABEL[0] * self._scaling, TEXT_LABEL[1] * self._scaling),font_name='fonts/DECOR6DI.TTF')
 
         back_path = os.path.join('card_images', 'background.png')
         self._back = pygame.image.load(back_path).convert_alpha()
