@@ -40,7 +40,7 @@ class Hand:
             if self.cards[i]._rect.collidepoint(xy):
                 self.cards[i].click()
 
-    @prorerty
+    @property
     def get_size(self):
         return len(self.cards)
 
