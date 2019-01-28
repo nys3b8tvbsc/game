@@ -22,6 +22,7 @@ cards.append(c2)
 cards.append(c3)
 h1=Hand((screen.get_width(),screen.get_height()),cards)
 screen.fill(WHITE)
+print(h1.get_size)
 h1.blit_me(screen)
 pygame.display.update()
 while True:
