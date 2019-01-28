@@ -9,9 +9,6 @@ class Hand:
         self._y=screen_size[1]-cards[0]._rect.height
         self._card_width=cards[0]._rect.width
         self.positioning()
-        self._cards_rects=[]
-        for temp in cards:
-            self._cards_rects.append(temp._rect)
     def positioning(self):
         width=int(self._width/len(self.cards))
         start_position=int(width/2-self._card_width/2)
@@ -26,6 +23,13 @@ class Hand:
     def app_card(self,config):
         self.cards.append(create_card((0,0),self.cards[0]._rect.height,config))
         self.positioning()
+    def hover(self,xy):
+        for i in range(len(self.cards)):
+            if self.cards[i]._rect.collidepoint(xy):
+                self.cards[i]._hover=True
+            else:
+                self.cards[i]._hover=False
+
 
 
 pygame.init()
@@ -38,8 +42,6 @@ with open('config/cards/card2.json', 'r', encoding='utf-8') as fh:
     c2=create_card((0,0),200,json.load(fh))
 with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
     c3=create_card((0,0),200,json.load(fh))
-with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
-    c4=create_card((0,0),200,json.load(fh))
 cards.append(c1)
 cards.append(c2)
 cards.append(c3)
@@ -56,6 +58,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
                 h1.app_card(json.load(fh))
+    h1.hover(pygame.mouse.get_pos())
     screen.fill(WHITE)
     h1.blit_me(screen)
     pygame.display.update()

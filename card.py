@@ -36,7 +36,8 @@ class Card(metaclass=ABCMeta):
 
         back_path = os.path.join('card_images', 'background.png')
         self._back = pygame.image.load(back_path).convert_alpha()
-
+        width = int(round(self._back.get_width() * self._scaling))
+        self._back=pygame.transform.scale(self._back, (width, height))
         self._right_label = Label()
         self._left_label = Label()
 
