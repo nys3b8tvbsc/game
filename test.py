@@ -9,7 +9,7 @@ FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
+with open('config/cards/card2.json', 'r', encoding='utf-8') as fh:
     c1=create_card((0,0),500,json.load(fh))
 screen.fill(WHITE)
 c1.blit_me(screen)
