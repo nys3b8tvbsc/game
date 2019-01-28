@@ -29,7 +29,10 @@ class Hand:
                 self.cards[i]._hover=True
             else:
                 self.cards[i]._hover=False
-
+    def click(self,xy):
+        for i in range(len(self.cards)):
+            if self.cards[i]._rect.collidepoint(xy):
+                self.cards[i].click()
 
 
 pygame.init()
@@ -55,9 +58,11 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:
             with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
                 h1.app_card(json.load(fh))
+        elif event.type==pygame.MOUSEBUTTONDOWN:
+            h1.click(pygame.mouse.get_pos())
     h1.hover(pygame.mouse.get_pos())
     screen.fill(WHITE)
     h1.blit_me(screen)

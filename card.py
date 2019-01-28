@@ -36,21 +36,31 @@ class Card(metaclass=ABCMeta):
 
         back_path = os.path.join('card_images', 'background.png')
         self._back = pygame.image.load(back_path).convert_alpha()
-        width = int(round(self._back.get_width() * self._scaling))
         self._back=pygame.transform.scale(self._back, (width, height))
+
+        back_path1 = os.path.join('card_images', 'background1.png')
+        self._back1 = pygame.image.load(back_path1).convert_alpha()
+        self._back1 = pygame.transform.scale(self._back1, (width, height))
+
         self._right_label = Label()
         self._left_label = Label()
 
-        self._hover = False  # TODO method
+        self._hover = False # TODO method
+        self._active=False
 
     def blit_me(self, surface):
         self._name_label.blit_me(self._image)
         self._text_label.blit_me(self._image)
         self._left_label.blit_me(self._image)
         self._right_label.blit_me(self._image)
-        if self._hover:
+        if self._hover and (not self._active):
             surface.blit(self._back, self._rect)
+        if self._active:
+            surface.blit(self._back1, self._rect)
         surface.blit(self._image, self._rect)
+
+    def click(self):
+        self._active=(not self._active)
 
 
 class AttackCard(Card, metaclass=ABCMeta):
