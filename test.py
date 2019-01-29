@@ -4,7 +4,7 @@ import pygame
 from card import *
 from hand import *
 from deck import *
-from  loading import load_card
+from  loading import load_card, load_deck
 import json
 from constants import WHITE
 
@@ -12,9 +12,7 @@ FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-with open('config/deck/deck1.json', 'r', encoding='utf-8') as fh:
-    d1=json.load(fh)
-dec=Deck(d1)
+dec=Deck(load_deck('deck1.json'))
 h1=hand_create(dec,(screen.get_width(),screen.get_height()),450)
 screen.fill(WHITE)
 print(h1.get_size)

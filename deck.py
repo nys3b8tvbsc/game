@@ -26,13 +26,3 @@ class Deck:
     def appcard(self,config):
         self.cards.append(config)
 
-"""
-pygame.init()
-pygame.display.set_mode((100,100))
-with open('config/deck/deck1.json', 'r', encoding='utf-8') as fh:
-    d1=json.load(fh)
-dec=Deck(d1)
-print(dec.get_size)
-dec.return_cards(6,100)
-print(dec.get_size)
-"""

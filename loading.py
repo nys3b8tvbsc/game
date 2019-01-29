@@ -20,6 +20,9 @@ def load_card(file):
     path = os.path.join('cards', file)
     return __load_json(path)
 
+def load_deck(file):
+    path = os.path.join('deck', file)
+    return __load_json(path)
 
 def load_hero(file):
     """
