@@ -75,11 +75,10 @@ class Hero(Unit):
             self.state = DEFAULT
         self.image = self.animations[self.state].frame
     def attack(self,enemy,card):
-        enemy.take_damage(int(self.specifications[card.type]/100*card.damage))
-        info=card.get_info()
-        if info["subtype"]=='magic':
+        enemy.take_damage(int(self.specifications[card._type]/100*card._damage))
+        if card.get_type=='magic':
             self.mana=-card.mana_cost
-        elif info["subtype"]=='physycal':
+        elif card.get_type=='physycal':
             self.power-=card.energy
 
 
