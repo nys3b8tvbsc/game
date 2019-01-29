@@ -15,9 +15,6 @@
   "fists": 4,
   "hp_regen": 1,
   "mana_regen": 1,
-  "cards": [
-    "card1.json",
-    "card2.json"
-  ]
+  "deck":"deck1.json"
 }
 

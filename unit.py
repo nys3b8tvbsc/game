@@ -4,7 +4,8 @@ import pygame
 
 from animation import Animation
 from constants import *
-
+from loading import load_deck
+from deck import *
 
 class Unit(pygame.sprite.Sprite, metaclass=ABCMeta):
     """Abstract base class for all other units.
@@ -59,6 +60,8 @@ class Hero(Unit):
         self.specifications['sword']=player_config['sword']
         self.specifications['archery']=player_config['archery']
         self.specifications['fists']=player_config['fists']
+        self.deck=load_deck(player_config["deck"])
+        self.stack=Deck()
         # self.cards = cards
 
     def take_damage(self, damage):
