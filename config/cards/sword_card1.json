@@ -1,9 +1,10 @@
 {
   "card_type": "attack",
   "subtype": "physical",
-  "value": 70,
-  "cost": 50,
+  "value": 20,
+  "cost": 30,
   "name": "Сокрушительный удар",
+  "type":"sword",
   "text": [
     "Причиняет неимоверный",
     "урон противнику"

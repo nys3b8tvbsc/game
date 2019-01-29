@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 15,
+  "cost": 25,
+  "type":"archery",
+  "name": "Окрыленная стрела",
+  "text": [
+    "Доверься стреле,",
+    "она не подведёт."
+  ],
+  "image": "archery1.png"
+}

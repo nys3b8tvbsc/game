@@ -55,11 +55,11 @@ pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((1500, 1000))
 cards=[]
-with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
+with open('config/cards/fire_card1.json', 'r', encoding='utf-8') as fh:
     c1=create_card((0,0),500,json.load(fh))
-with open('config/cards/card2.json', 'r', encoding='utf-8') as fh:
+with open('config/cards/sword_card1.json', 'r', encoding='utf-8') as fh:
     c2=create_card((0,0),500,json.load(fh))
-with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
+with open('config/cards/fire_card1.json', 'r', encoding='utf-8') as fh:
     c3=create_card((0,0),500,json.load(fh))
 cards.append(c1)
 cards.append(c2)
@@ -75,7 +75,7 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
+            with open('config/cards/fire_card1.json', 'r', encoding='utf-8') as fh:
                 h1.app_card(json.load(fh))
         elif event.type==pygame.MOUSEBUTTONDOWN:
             h1.click(pygame.mouse.get_pos())

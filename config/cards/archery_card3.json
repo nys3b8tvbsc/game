@@ -1,0 +1,15 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 60,
+  "cost": 50,
+  "type":"archery",
+  "name": "Прямо в цель",
+  "text": [
+    "Точный выстрел",
+    "оставит от",
+    "черепа врага",
+    "черепки"
+  ],
+  "image": "archery3.png"
+}

@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 70,
+  "cost": 70,
+  "name": "Яростный удар",
+  "type":"sword",
+  "text": [
+    "Сосредоточь свой",
+    "гнев в клинке"
+  ],
+  "image": "sword4.png"
+}

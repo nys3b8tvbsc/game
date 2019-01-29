@@ -1,0 +1,15 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 90,
+  "cost": 90,
+  "name": "Мастер клинка",
+  "type":"sword",
+  "text": [
+    "Твоё умение так",
+    "велико, что",
+    "никто тебя не",
+    "остановит"
+  ],
+  "image": "sword5.png"
+}

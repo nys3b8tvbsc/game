@@ -1,0 +1,14 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 25,
+  "cost": 30,
+  "name": "Пламя в руке",
+  "text": [
+            "Слабая, но не",
+            "затратная",
+            "атака."
+  ],
+  "image": "fire7.png",
+  "magic_type": "fire"
+}

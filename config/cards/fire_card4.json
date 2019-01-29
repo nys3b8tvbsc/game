@@ -1,0 +1,14 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 55,
+  "cost": 70,
+  "name": "Огненный дождь",
+  "text": [
+            "Тяжело выжить,",
+            "когда небо карает",
+            "огнём."
+  ],
+  "image": "fire4.png",
+  "magic_type": "fire"
+}

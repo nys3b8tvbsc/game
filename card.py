@@ -92,6 +92,7 @@ class PhysicalAttack(AttackCard):
     def __init__(self, pos, height, config):
         AttackCard.__init__(self, pos, height, config)
         self._energy = config['cost']
+        self._attack_type=config['type']
         self._right_label = Label(text=config['cost'],
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling),
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling))

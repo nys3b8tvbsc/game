@@ -15,7 +15,6 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 dec=Deck(load_deck('deck1.json'))
 h1=hand_create(dec,(screen.get_width(),screen.get_height()),450)
 screen.fill(WHITE)
-print(h1.get_size)
 h1.blit_me(screen)
 pygame.display.update()
 while True:

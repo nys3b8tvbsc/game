@@ -1,0 +1,14 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 30,
+  "cost": 50,
+  "name": "Буря клинков",
+  "type":"sword",
+  "text": [
+    "Противник не",
+    "устоит под",
+    "таким шквалом"
+  ],
+  "image": "sword2.png"
+}

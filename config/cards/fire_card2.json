@@ -1,0 +1,14 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 15,
+  "cost": 30,
+  "name": "Огненный шар",
+  "text": [
+            "Эффективная атака,",
+            "не требующая много",
+            "маны."
+  ],
+  "image": "fire2.png",
+  "magic_type": "fire"
+}

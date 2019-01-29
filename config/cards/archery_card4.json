@@ -1,0 +1,14 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 40,
+  "cost": 40,
+  "name": "Замысловатый выстрел",
+  "type":"archery",
+  "text": [
+    "Враг умрёт,",
+    "не поняв",
+    "что ты сделал"
+  ],
+  "image": "archery4.png"
+}

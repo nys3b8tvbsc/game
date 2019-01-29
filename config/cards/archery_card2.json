@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 25,
+  "cost": 40,
+  "type":"archery",
+  "name": "Град стрел",
+  "text": [
+    "Обрушь на врага",
+    "сталь с небес"
+  ],
+  "image": "archery2.png"
+}

@@ -1,0 +1,14 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 80,
+  "cost": 80,
+  "name": "Испепеление",
+  "text": [
+            "Увидь, как",
+            "твои враги",
+            "становятся прахом."
+  ],
+  "image": "fire6.png",
+  "magic_type": "fire"
+}

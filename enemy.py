@@ -88,7 +88,7 @@ def Create_Enemy(enemy_config):
 
 pygame.init()
 srf = pygame.display.set_mode((1000, 500))
-with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
+with open('config/cards/fire_card1.json', 'r', encoding='utf-8') as fh:
     card = card.create_card(json.load(fh))
 with open('config/enemy/enemy1.json', 'r', encoding='utf-8') as fh:
     enemy_config = json.load(fh)

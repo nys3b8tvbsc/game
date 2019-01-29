@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 45,
+  "cost": 60,
+  "name": "Ловкий клинок",
+  "type":"sword",
+  "text": [
+    "Враг не поймёт,",
+    "что случилось."
+  ],
+  "image": "sword3.png"
+}
