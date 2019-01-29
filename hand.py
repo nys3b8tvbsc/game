@@ -1,6 +1,8 @@
 import pygame
 import json
 from card import *
+from deck import *
+from constants import MAX_HAND
 
 class Hand:
     def __init__(self,screen_size,cards):
@@ -44,6 +46,9 @@ class Hand:
     def get_size(self):
         return len(self.cards)
 
+def hand_create(d,screen_size,heigt):
+    cards=d.return_cards(MAX_HAND,heigt)
+    return Hand(screen_size,cards)
 
 """
 pygame.init()
