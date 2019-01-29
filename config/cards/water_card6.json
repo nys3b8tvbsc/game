@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 65,
+  "cost": 70,
+  "name": "Всплеск",
+  "text": [
+            "Обрушь на врага",
+            "тонны воды"
+  ],
+  "image": "water6.png",
+  "magic_type": "water"
+}

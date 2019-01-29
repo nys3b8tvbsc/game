@@ -1,0 +1,15 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 45,
+  "cost": 50,
+  "name": "Фонтан",
+  "text": [
+            "Противник будет",
+            "поражён, когда",
+            "из под его ног",
+            "вырвется вода"
+  ],
+  "image": "water3.png",
+  "magic_type": "water"
+}

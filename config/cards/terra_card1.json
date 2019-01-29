@@ -1,0 +1,15 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 20,
+  "cost": 35,
+  "name": "Дождь камней",
+  "text": [
+            "Булыжники,",
+            "летящие со",
+            "страшной скоростью",
+            "смертельно опасны"
+  ],
+  "image": "terra1.png",
+  "magic_type": "terra"
+}

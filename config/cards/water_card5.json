@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 50,
+  "cost": 60,
+  "name": "Скоростные потоки",
+  "text": [
+            "Изрежь врага",
+            "потоками воды"
+  ],
+  "image": "water5.png",
+  "magic_type": "water"
+}

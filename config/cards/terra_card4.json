@@ -1,0 +1,15 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 50,
+  "cost": 60,
+  "name": "Зелёные путы",
+  "text": [
+            "Враг умрёт",
+            "в страшных муках,",
+            "когда растения",
+            "разорвут его."
+  ],
+  "image": "terra4.png",
+  "magic_type": "terra"
+}

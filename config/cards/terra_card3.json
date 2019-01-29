@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 65,
+  "cost": 70,
+  "name": "Печать розы",
+  "text": [
+            "Не верь её красоте,",
+            "эта роза смертельна"
+  ],
+  "image": "terra3.png",
+  "magic_type": "terra"
+}

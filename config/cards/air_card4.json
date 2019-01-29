@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 75,
+  "cost": 70,
+  "name": "Двойной ветряной удар",
+  "text": [
+            "Сначала сносит,",
+            "затем добивает"
+  ],
+  "image": "air4.png",
+  "magic_type": "air"
+}

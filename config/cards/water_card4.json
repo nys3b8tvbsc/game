@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 30,
+  "cost": 30,
+  "name": "Смертоносные капли",
+  "text": [
+            "Многие недооцениваю воду,",
+            "а зря."
+  ],
+  "image": "water4.png",
+  "magic_type": "water"
+}

@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 10,
+  "cost": 15,
+  "type":"fists",
+  "name": "Быстрый удар",
+  "text": [
+    "Примитивно,",
+    "но всё же."
+  ],
+  "image": "fists1.png"
+}

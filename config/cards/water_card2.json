@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 15,
+  "cost": 20,
+  "name": "Пронзающий дождь",
+  "text": [
+            "Слабое, но",
+            "простое заклинание."
+  ],
+  "image": "water2.png",
+  "magic_type": "water"
+}

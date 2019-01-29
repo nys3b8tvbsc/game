@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 50,
+  "cost": 50,
+  "name": "Земляной взрыв",
+  "text": [
+            "Похорони врага",
+            "под землёй"
+  ],
+  "image": "terra6.png",
+  "magic_type": "terra"
+}

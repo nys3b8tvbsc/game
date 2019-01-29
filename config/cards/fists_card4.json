@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 50,
+  "cost": 50,
+  "type":"fists",
+  "name": "Гнев",
+  "text": [
+    "Твоя ярость",
+    "предаст тебе сил."
+  ],
+  "image": "fists4.png"
+}

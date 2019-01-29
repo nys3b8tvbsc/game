@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 35,
+  "cost": 25,
+  "type":"fists",
+  "name": "Удар ногой",
+  "text": [
+    "Ногой всегда",
+    "эффективнее."
+  ],
+  "image": "fists3.png"
+}

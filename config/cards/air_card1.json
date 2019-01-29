@@ -1,0 +1,15 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 150,
+  "cost": 100,
+  "name": "Вихрь Мерсена",
+  "text": [
+            "Мало кто знает,",
+            "о нём, ведь",
+            "почти никто",
+            "не выжил"
+  ],
+  "image": "air1.png",
+  "magic_type": "air"
+}

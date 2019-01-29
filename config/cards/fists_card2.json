@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "physical",
+  "value": 20,
+  "cost": 20,
+  "type":"fists",
+  "name": "Стальной кулак",
+  "text": [
+    "Никто не оценит",
+    "удар сталью."
+  ],
+  "image": "fists2.png"
+}

@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 40,
+  "cost": 50,
+  "name": "Завихрение",
+  "text": [
+            "Закружи врага",
+            "до смерти."
+  ],
+  "image": "air2.png",
+  "magic_type": "air"
+}

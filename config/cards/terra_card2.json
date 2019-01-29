@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 25,
+  "cost": 40,
+  "name": "Оползень",
+  "text": [
+            "Засыпь врага",
+            "с головой."
+  ],
+  "image": "terra2.png",
+  "magic_type": "terra"
+}

@@ -1,0 +1,13 @@
+{
+  "card_type": "attack",
+  "subtype": "magic",
+  "value": 60,
+  "cost": 60,
+  "name": "Ветряное лезвие",
+  "text": [
+            "Даже ветер",
+            "бывает острым"
+  ],
+  "image": "air3.png",
+  "magic_type": "air"
+}
