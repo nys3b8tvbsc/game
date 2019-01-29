@@ -8,9 +8,13 @@ class Deck:
     def __init__(self,deck_config):
         self.cards=[]
         for i in deck_config:
-            self.cards=load_card(i)
-    
-
+            self.cards.append(load_card(i))
+    @property
+    def get_size(self):
+        return len(self.cards)
+"""
 with open('config/deck/deck1.json', 'r', encoding='utf-8') as fh:
     d1=json.load(fh)
 dec=Deck(d1)
+print(dec.get_size)
+"""
