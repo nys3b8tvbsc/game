@@ -1,0 +1,16 @@
+import pygame
+from hand import Hand
+import random
+from loading import load_card
+import json
+
+class Deck:
+    def __init__(self,deck_config):
+        self.cards=[]
+        for i in deck_config:
+            self.cards=load_card(i)
+    
+
+with open('config/deck/deck1.json', 'r', encoding='utf-8') as fh:
+    d1=json.load(fh)
+dec=Deck(d1)

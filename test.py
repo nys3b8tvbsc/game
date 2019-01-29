@@ -3,6 +3,7 @@ import sys
 import pygame
 from card import *
 from hand import *
+from  loading import load_card
 import json
 from constants import WHITE
 
@@ -10,13 +11,16 @@ FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
-    c1=create_card((0,0),500,json.load(fh))
-with open('config/cards/card2.json', 'r', encoding='utf-8') as fh:
-    c2=create_card((0,0),500,json.load(fh))
-with open('config/cards/card1.json', 'r', encoding='utf-8') as fh:
-    c3=create_card((0,0),500,json.load(fh))
+c1=create_card((0,0),450,load_card('card1.json'))
+c2=create_card((0,0),450,load_card('card2.json'))
+c3=create_card((0,0),450,load_card('card1.json'))
 cards=[]
+cards.append(c1)
+cards.append(c2)
+cards.append(c3)
+c1=create_card((0,0),450,load_card('card1.json'))
+c2=create_card((0,0),450,load_card('card2.json'))
+c3=create_card((0,0),450,load_card('card1.json'))
 cards.append(c1)
 cards.append(c2)
 cards.append(c3)
