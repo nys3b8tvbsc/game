@@ -25,8 +25,9 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            pygame.quit()
-            sys.exit()
+            if event.key == pygame.K_SPACE:
+                pygame.quit()
+                sys.exit()
         elif event.type==pygame.MOUSEBUTTONDOWN:
             h1.click(pygame.mouse.get_pos())
     h1.hover(pygame.mouse.get_pos())
