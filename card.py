@@ -32,7 +32,7 @@ class Card(metaclass=ABCMeta):
 
         self._text_label = Label(text=config['text'],
                                  size=(TEXT_LABEL[2] * self._scaling, TEXT_LABEL[3] * self._scaling),
-                                 pos=(TEXT_LABEL[0] * self._scaling, TEXT_LABEL[1] * self._scaling),font_name='fonts/DECOR6DI.TTF')
+                                 pos=(TEXT_LABEL[0] * self._scaling, TEXT_LABEL[1] * self._scaling),font_name='fonts/PhillippScript.ttf')
 
         back_path = os.path.join('card_images', 'background.png')
         self._back = pygame.image.load(back_path).convert_alpha()
