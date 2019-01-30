@@ -46,9 +46,9 @@ class Label:
             font = pygame.font.Font(self.__font_name, font_size)
             sizes = [font.size(string) for string in strings]
             for size in sizes:
-                if size[0] + 2 * font.size('w')[0] > width:
+                if size[0] > width:
                     return font_size - 1
-            if (2 * len(strings) + 1) * font.get_linesize() > height:
+            if (2 * len(strings) - 1) * font.get_linesize() > height:
                 return font_size - 1
 
     def calc_pos(self, strings, pos):
@@ -56,7 +56,7 @@ class Label:
         positions = []
         for i, string in enumerate(strings):
             x = pos[0] + (width - self.__font.size(string)[0]) / 2
-            y = pos[1] + (i + 1) * self.__font.get_linesize()
+            y = pos[1] + i * self.__font.get_linesize()
             positions.append((x, y))
         return tuple(positions)
 
