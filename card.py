@@ -28,7 +28,7 @@ class Card(metaclass=ABCMeta):
 
         self._name_label = Label(text=config['name'],
                                  size=(NAME_LABEL[2] * self._scaling, NAME_LABEL[3] * self._scaling),
-                                 pos=(NAME_LABEL[0] * self._scaling, NAME_LABEL[1] * self._scaling),font_name='fonts/font.ttf',color=WHITE)
+                                 pos=(NAME_LABEL[0] * self._scaling, NAME_LABEL[1] * self._scaling),font_name='fonts/CharlemagneC.ttf',color=WHITE)
 
         self._text_label = Label(text=config['text'],
                                  size=(TEXT_LABEL[2] * self._scaling, TEXT_LABEL[3] * self._scaling),
