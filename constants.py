@@ -27,7 +27,7 @@ DEFAULT_H = 74
 
 # card label`s positions
 NAME_LABEL = (100, 18, 190, 43)
-TEXT_LABEL = (65, 296, 234, 149)
+TEXT_LABEL = (65, 296, 234, 250)
 LEFT_LABEL = (15, 241, 60, 60)
 RIGHT_LABEL = (285, 241, 60, 60)
 
