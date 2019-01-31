@@ -3,7 +3,7 @@
   "subtype": "physical",
   "value": 15,
   "cost": 25,
-  "type":"archery",
+  "type": "archery",
   "name": "Окрыленная стрела",
   "text": [
     "Доверься стреле,",

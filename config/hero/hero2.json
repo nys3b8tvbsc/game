@@ -5,8 +5,5 @@
   "energy": 0,
   "max_energy": 100,
   "hp_regen": 1,
-  "cards": [
-    "card1.json",
-    "card2.json"
-  ]
+  "deck": "deck1.json"
 }

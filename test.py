@@ -1,20 +1,19 @@
 import sys
 
 import pygame
-from card import *
-from hand import *
-from deck import *
-from  loading import load_card, load_deck
-import json
+
 from constants import WHITE
+from deck import Deck
+from hand import hand_create
+from loading import load_deck
 
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-dec=Deck(load_deck('deck1.json'))
-print(dec.get_size)
-h1=hand_create(dec,(screen.get_width(),screen.get_height()),450)
+deck = Deck(load_deck('deck1.json'))
+print(len(deck))
+h1 = hand_create(deck, (screen.get_width() // 2, screen.get_height() // 2), 450)
 screen.fill(WHITE)
 h1.blit_me(screen)
 pygame.display.update()
@@ -28,7 +27,7 @@ while True:
             if event.key == pygame.K_SPACE:
                 pygame.quit()
                 sys.exit()
-        elif event.type==pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             h1.click(pygame.mouse.get_pos())
     h1.hover(pygame.mouse.get_pos())
     screen.fill(WHITE)

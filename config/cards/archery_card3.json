@@ -3,7 +3,7 @@
   "subtype": "physical",
   "value": 60,
   "cost": 50,
-  "type":"archery",
+  "type": "archery",
   "name": "Прямо в цель",
   "text": [
     "Точный выстрел",

@@ -1,59 +1,35 @@
 """
 Module provides Animation class for units animations.
 """
+from itertools import cycle
+
 import pygame
 
 
 class Animation:
-    """
-    TODO
-    """
-
-    def __init__(self, frames, n):
+    def __init__(self, animation_path, cycle_len):
         """
-        :param frames: str
-        :param n: int
+        :param animation_path: str
+        :param cycle_len: int
         :return: Animation object
         """
-        self.frames = []
-        for i in range(1, n + 1):
-            path = frames + '_{}.png'.format(i)
-            frame = pygame.image.load(path).convert_alpha()
-            self.frames.append(frame)
-        self.n = n
-        self.number = 0
-        self.frame = self.frames[0]
+        frames = []
+        for i in range(cycle_len):
+            frame_path = animation_path + '_{}.png'.format(i + 1)
+            frame = pygame.image.load(frame_path).convert_alpha()
+            frames.append(frame)
+
+        self._frames = cycle(frames)
+        self._current_frame = next(self._frames)
+        self._start_frame = self._current_frame
+
+    @property
+    def frame(self):
+        return self._current_frame
+
+    @property
+    def is_finished(self):
+        return self._current_frame == self._start_frame
 
     def update(self):
-        """
-        Get next frame.
-
-        :return: False if animation starts from the beginning, else True.
-        """
-        self.number += 1
-        if self.number == self.n:
-            self.number = 0
-            self.frame = self.frames[0]
-            return False
-        self.frame = self.frames[self.number]
-        return True
-
-
-"""
-pygame.init()
-srf = pygame.display.set_mode((1000, 500))
-animation = Animation('pictures/Archive (1)/idle-walk/idle', 6)
-srf.blit(animation.frame, (0, 0))
-pygame.display.update()
-clock = pygame.time.Clock()
-param = True
-while param:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            param = False
-    srf.fill((0, 0, 0))
-    srf.blit(animation.frame, (0, 0))
-    animation.update()
-    pygame.display.update()
-    clock.tick(15)
-"""
+        self._current_frame = next(self._frames)

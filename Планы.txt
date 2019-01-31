@@ -1,17 +1,4 @@
 треугольники
-зачем True/False в анимации?
-
-Доделать персонажа
-характеристики добавить
-
-доделать врага
-
-доделать панельку
-
-выбрана ли карта метод
-
-
-Доделать и протестировать Game
 
 Quest
 Battle
@@ -20,5 +7,4 @@ Quest End
 next scene -> create_scene
 quest -> battle -> next scene = quest end
 
-
-check all TODO
+lable центровка по высоте

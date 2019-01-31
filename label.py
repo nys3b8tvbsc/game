@@ -3,22 +3,6 @@ import pygame
 
 from constants import BLACK
 
-"""
-def print_txt(surface, rect, text, font, font_size, color):  # version 1.0 :)
-    f = pygame.font.Font(font, font_size)
-    n = rect.width // f.get_linesize()
-    while len(text) > n:
-        num = text[:n].rfind(' ') + 1
-        if num <= 0:
-            num = n
-        txt = f.render(text[:num], 1, color)
-        surface.blit(txt, rect)
-        text = text[num:]
-        rect.y += f.get_height() + 2
-    txt = f.render(text, 1, color)
-    surface.blit(txt, rect)
-"""
-
 
 class Label:
     def __init__(self, text='', size=(0, 0), pos=(0, 0), font_name=None, color=BLACK):

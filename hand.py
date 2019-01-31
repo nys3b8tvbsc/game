@@ -1,54 +1,58 @@
-import pygame
-import json
-from card import *
-from deck import *
 from constants import MAX_HAND
+from deck import *
+
 
 class Hand:
-    def __init__(self,screen_size,cards):
-        self.cards=cards
-        self._width=screen_size[0]
-        self._y=screen_size[1]-cards[0]._rect.height
-        self._card_width=cards[0]._rect.width
+    def __init__(self, screen_size, cards):
+        self._cards = cards
+        self._width = screen_size[0]
+        self._height = cards[0].rect.height
+        self._y = screen_size[1] - self._height
+        self._card_width = cards[0].rect.width
         self.positioning()
-        self._active=0
+        self._active = 0
 
     def positioning(self):
-        width=int(self._width/len(self.cards))
-        start_position=int(width/2-self._card_width/2)
-        if start_position<0:
-            start_position=0
-        for i in range(len(self.cards)):
-            self.cards[i]._rect.x=start_position+i*width
-            self.cards[i]._rect.y=self._y
+        width = int(self._width / len(self._cards))
+        start_position = int(width / 2 - self._card_width / 2)
+        if start_position < 0:
+            start_position = 0
 
-    def blit_me(self,screen):
-        for i in range(len(self.cards)):
-            self.cards[i].blit_me(screen)
+        for i, card in enumerate(self._cards):
+            card.move_to(start_position + i * width, self._y)
 
-    def app_card(self,config):
-        self.cards.append(create_card((0,0),self.cards[0]._rect.height,config))
+    def blit_me(self, surface):
+        for card in self._cards:
+            card.blit_me(surface)
+
+    def append(self, config):
+        self._cards.append(create_card(self._height, config))
         self.positioning()
 
-    def hover(self,xy):
-        for i in range(len(self.cards)):
-            if self.cards[i]._rect.collidepoint(xy):
-                self.cards[i]._hover=True
-            else:
-                self.cards[i]._hover=False
+    def hover(self, xy):
+        for card in self._cards:
+            card.defocus()
+        for card in reversed(self._cards):
+            if card.rect.collidepoint(xy):
+                card.focus()
+                return
 
-    def click(self,xy):
-        for i in range(len(self.cards)):
-            if self.cards[i]._rect.collidepoint(xy):
-                self.cards[i].click()
+    def click(self, xy):
+        for card in reversed(self._cards):
+            if card.rect.collidepoint(xy):
+                for card_ in self._cards:
+                    card_.deselect()
+                card.select()
+                return
 
-    @property
-    def get_size(self):
-        return len(self.cards)
+    def __len__(self):
+        return len(self._cards)
 
-def hand_create(d,screen_size,heigt):
-    cards=d.return_cards(MAX_HAND,heigt)
-    return Hand(screen_size,cards)
+
+def hand_create(deck, screen_size, height):
+    cards = deck.return_cards(MAX_HAND, height)
+    return Hand(screen_size, cards)
+
 
 """
 pygame.init()

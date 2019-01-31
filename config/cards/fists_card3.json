@@ -3,7 +3,7 @@
   "subtype": "physical",
   "value": 35,
   "cost": 25,
-  "type":"fists",
+  "type": "fists",
   "name": "Удар ногой",
   "text": [
     "Ногой всегда",

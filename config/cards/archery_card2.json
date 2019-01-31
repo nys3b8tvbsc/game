@@ -3,7 +3,7 @@
   "subtype": "physical",
   "value": 25,
   "cost": 40,
-  "type":"archery",
+  "type": "archery",
   "name": "Град стрел",
   "text": [
     "Обрушь на врага",

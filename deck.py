@@ -1,28 +1,24 @@
-import pygame
 import random
-from loading import load_card
+
 from card import create_card
-import json
+from loading import load_card
+
 
 class Deck:
-    def __init__(self,deck_config=[]):
-        self.cards=[]
-        for i in deck_config:
-            self.cards.append(load_card(i))
-    @property
-    def get_size(self):
-        return len(self.cards)
-    def return_cards(self,n,heigt):
-        cards=[]
-        if n<self.get_size:
-            N=n
-        else:
-            N=self.get_size
-        for i in range(N):
-            k=random.randint(0,self.get_size-1)
-            cards.append(create_card(pos=(0,0),height=heigt,config=self.cards[k]))
-            del self.cards[k]
-        return cards
-    def appcard(self,config):
-        self.cards.append(config)
+    def __init__(self, deck_config=()):
+        self._cards = [load_card(card) for card in deck_config]
 
+    def __len__(self):
+        return len(self._cards)
+
+    def return_cards(self, number, card_height):
+        number = min(number, len(self))
+        random.shuffle(self._cards)
+        cards = []
+        for i in range(number):
+            card_config = self._cards.pop()
+            cards.append(create_card(card_height, card_config))
+        return cards
+
+    def append(self, config):
+        self._cards.append(config)

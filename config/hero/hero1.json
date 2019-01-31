@@ -5,16 +5,16 @@
   "max_hp": 100,
   "mana": 100,
   "max_mana": 100,
-  "max_power":40,
-  "fire" : 55,
+  "max_power": 40,
+  "fire": 55,
   "water": 34,
-  "terra":95,
+  "terra": 95,
   "air": 14,
   "sword": 5,
   "archery": 1,
   "fists": 4,
   "hp_regen": 1,
   "mana_regen": 1,
-  "deck":"deck1.json"
+  "deck": "deck1.json"
 }
 

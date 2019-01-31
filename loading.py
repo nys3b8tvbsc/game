@@ -8,7 +8,7 @@ def __load_json(file):
     :rtype: dict
     """
     path = os.path.join('config', file)
-    with open(path, 'r') as config_file:
+    with open(path, 'r', encoding='utf-8') as config_file:
         return json.load(config_file)
 
 
@@ -20,9 +20,15 @@ def load_card(file):
     path = os.path.join('cards', file)
     return __load_json(path)
 
+
 def load_deck(file):
+    """
+    :param str file: path
+    :rtype: dict
+    """
     path = os.path.join('deck', file)
     return __load_json(path)
+
 
 def load_hero(file):
     """
@@ -30,9 +36,9 @@ def load_hero(file):
     :rtype: dict
     """
     path = os.path.join('hero', file)
-    player = __load_json(path)
-    player['cards'] = [load_card(card) for card in player['cards']]
-    return player
+    hero = __load_json(path)
+    hero['deck'] = load_deck(hero['deck'])
+    return hero
 
 
 def load_battle(file):
