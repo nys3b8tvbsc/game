@@ -77,7 +77,17 @@ class Hero(Unit):
             self._mana -= card.mana_cost
         elif card.subtype == 'physical':
             self._power -= card.energy
-
+    def level_up(self):
+        self._level+=1
+    @property
+    def new_level(self):
+        exp=0
+        for i in range(1,self._level+2):
+            exp+=100+(i-1)*50
+        if self.exp>=exp:
+            return True
+        else:
+            return False
 
 class Knight(Hero):
     def __init__(self, config):

@@ -116,3 +116,5 @@ def create_scene(screen_size, scene_config):
 
 def add_exp(hero,quest):
     hero.exp+=quest.exp
+    if hero.new_level:
+        hero.level_up()
