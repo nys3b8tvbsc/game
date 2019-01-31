@@ -32,15 +32,15 @@ class Label:
             for size in sizes:
                 if size[0] > width:
                     return font_size - 1
-            if (2 * len(strings) - 1) * font.get_linesize() > height:
+            if len(strings) * font.get_linesize() > height:
                 return font_size - 1
 
     def calc_pos(self, strings, pos):
         width, height = self.__size
         positions = []
-        for i, string in enumerate(strings):
-            x = pos[0] + (width - self.__font.size(string)[0]) / 2
-            y = pos[1] + i * self.__font.get_linesize()
+        for i, string in enumerate(strings, start=1):
+            x = pos[0] + (width - self.__font.size(string)[0]) // 2
+            y = pos[1] - self.__font.get_linesize() // 2 + i * height // (len(strings) + 1)
             positions.append((x, y))
         return tuple(positions)
 
