@@ -13,9 +13,9 @@ class Scene(metaclass=ABCMeta):
         width = screen_size[0]
         self._image = pygame.image.load(image).convert_alpha()
         height = int(self._image.get_height() * width / self._image.get_width())
-        self._image = pygame.transform.scale(self._image, (width, height))
+        self._image = pygame.transform.scale(self._image, screen_size)
         self._rect = self._image.get_rect()
-        self._rect.move_ip(0, screen_size[1] - height)
+        self._rect.move_ip(0, 0)
 
     @property
     def rect(self):
