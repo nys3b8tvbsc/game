@@ -7,7 +7,7 @@ from label import Label
 
 
 class Button:
-    def __init__(self, size=(0, 0), pos=(0, 0), on_press=lambda: None, text=''):
+    def __init__(self, size=(0, 0), pos=(0, 0), text='',on_press=0):
         """
         :param size: Tuple(width, height)
         :param pos: Tuple(x, y)
@@ -30,6 +30,10 @@ class Button:
     def blit_me(self, surface):
         self.__label.blit_me(self.__image)
         surface.blit(self.__image, self.__rect)
+
+    def click(self,xy):
+        if self.__rect.collidepoint(xy):
+            pygame.event.post(pygame.event.Event(self.on_press,{}))
 
     @property
     def rect(self):
