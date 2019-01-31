@@ -60,8 +60,8 @@ class Card(metaclass=ABCMeta):
             surface.blit(self._back, self._rect)
         surface.blit(self._image, self._rect)
 
-    def select(self):
-        self._select = True
+    def click(self):
+        self._select = not self._select
 
     def deselect(self):
         self._select = False

@@ -38,12 +38,15 @@ class Hand:
                 return
 
     def click(self, xy):
+        selected_card = None
         for card in reversed(self._cards):
             if card.rect.collidepoint(xy):
-                for card_ in self._cards:
-                    card_.deselect()
-                card.select()
-                return
+                card.click()
+                selected_card = card
+                break
+        for card in self._cards:
+            if card is not selected_card:
+                card.deselect()
 
     def __len__(self):
         return len(self._cards)
