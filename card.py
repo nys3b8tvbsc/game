@@ -119,8 +119,8 @@ class MagicAttack(AttackCard):
 class PhysicalAttack(AttackCard):
     def __init__(self, height, config):
         AttackCard.__init__(self, height, config)
-        self._energy = config['cost']
         self._type = config['type']
+        self._energy = config['cost']
         self._right_label = Label(text=config['cost'],
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling),
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling))

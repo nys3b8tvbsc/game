@@ -1,40 +1,34 @@
+import os
 import random
 
 import pygame
 
 from animation import Animation
-from constants import DEFAULT, APPEAR, DEAD
+from constants import APPEAR
 from constants import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
 from constants import RED
 from unit import Unit
 
 
 class Enemy(Unit):
-    """Base class for all enemies.
-    TODO implement base class methods"""
+    """Base class for all enemies."""
 
     def __init__(self, config, animations):
         """
+        :param dict config:
+        :param list animations:
         :rtype: Enemy
         """
-        Unit.__init__(self, config)
         self._power = config['power']
-        self._animations = animations
         self._state = APPEAR
-        self._image = self._animations[self._state].frame
-        self._rect = self._image.get_rect()
-        self._bar = pygame.image.load('pictures/manabar.png').convert_alpha()
+        bar_path = os.path.join('pictures', 'manabar.png')
+        self._bar = pygame.image.load(bar_path).convert_alpha()
         self._bar_rect = self._bar.get_rect(center=self._rect.center)
+        Unit.__init__(self, config, animations)
         # self.actions = actions
 
-    def animated(self):
-        self._animations[self._state].update()
-        if self._animations[self._state].is_finished:
-            self._state = DEFAULT
-        self._image = self._animations[self._state].frame
-
     def blit_me(self, surface):
-        surface.blit(self._image, self._rect)
+        Unit.blit_me(self, surface)
         self._bar_rect.y = self._rect.y - 25
         pygame.draw.rect(surface, RED,
                          (self._bar_rect.x + X_BAR, self._bar_rect.y + Y_BAR,
@@ -42,25 +36,16 @@ class Enemy(Unit):
                           H_BAR))
         surface.blit(self._bar, self._bar_rect)
 
+    def take_damage(self, damage):
+        Unit.take_damage(self, damage)
+
+    def attack(self, hero):
+        hero.take_damage(random.randint(int(0.7 * self._power), self._power))
+
     def make_action(self, hero):
         # action = random.choice(self.actions)
         # action(self, hero)
         pass
-
-    @property
-    def is_dead(self):
-        return self._hp == 0
-
-    def take_damage(self, damage):
-        """
-        :param damage: int
-        """
-        Unit.take_damage(self, damage)
-        if self.is_dead:
-            self._state = DEAD
-
-    def attack(self, hero):
-        hero.take_damage(random.randint(int(0.7 * self._power), self._power))
 
 
 class Golem(Enemy):
@@ -69,20 +54,20 @@ class Golem(Enemy):
         :rtype: Golem
         """
         animations = list()
-        animations.append(Animation('pictures/Archive (1)/idle-walk/idle', 6))
-        animations.append(Animation('pictures/Archive (1)/attack/hit', 6))
-        animations.append(Animation('pictures/Archive (1)/appear/appear', 15))
-        animations.append(Animation('pictures/Archive (1)/die/die', 7))
+        animations.append(Animation('pictures/Archive (1)/idle-walk/'))
+        animations.append(Animation('pictures/Archive (1)/attack/'))
+        animations.append(Animation('pictures/Archive (1)/appear/'))
+        animations.append(Animation('pictures/Archive (1)/die/'))
         Enemy.__init__(self, config, animations)
 
 
 class Vampire(Enemy):
     def __init__(self, config):
         animations = list()
-        animations.append(Animation('pictures/Archive/walk-idle/go', 8))
-        animations.append(Animation('pictures/Archive/attack/hit', 13))
-        animations.append(Animation('pictures/Archive/appear/appear', 12))
-        animations.append(Animation('pictures/Archive/die/appear', 12))
+        animations.append(Animation('pictures/Archive/walk-idle/'))
+        animations.append(Animation('pictures/Archive/attack/'))
+        animations.append(Animation('pictures/Archive/appear/'))
+        animations.append(Animation('pictures/Archive/die/'))
         Enemy.__init__(self, config, animations)
 
 
