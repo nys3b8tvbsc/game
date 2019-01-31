@@ -1,6 +1,6 @@
 {
   "type": "quest",
-  "name": "quest1",
+  "name": "Пушкин",
   "text": [
     "Я помню чудное мгновенье:",
     "Передо мной явилась ты,",
@@ -13,15 +13,15 @@
   ],
   "buttons": [
     {
-      "text": "test1",
-      "on_click": "game quit"
+      "text": "Выход",
+      "on_click": 24
     },
     {
-      "text": "test2",
-      "on_click": "gain max hp",
-      "value": 2
+      "text": "+Опыт",
+      "on_click": 25
     }
   ],
+  "exp":100,
   "next quest": null,
   "next next quest": null
 }

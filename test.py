@@ -5,7 +5,7 @@ import pygame
 from constants import *
 from deck import Deck
 from hand import hand_create
-from loading import load_deck, load_next_quest
+from loading import load_deck, load_next_quest,load_hero
 from button import Button
 from scene import *
 QUIT=pygame.USEREVENT
@@ -16,12 +16,9 @@ screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
 deck = Deck(load_deck('deck1.json'))
 print((screen.get_width(), screen.get_height()))
 q1=create_scene((screen.get_width(), screen.get_height()),load_next_quest())
-but1=Button(size=(DEFAULT_W,DEFAULT_H),text='Выход', on_press=QUIT)
-#h1 = hand_create(deck, (screen.get_width(), screen.get_height()), 450)
 screen.fill(WHITE)
 q1.blit_me(screen)
-#h1.blit_me(screen)
-but1.blit_me(screen)
+
 pygame.display.update()
 while True:
     clock.tick(FPS)
@@ -37,12 +34,8 @@ while True:
                 pygame.quit()
                 sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            #h1.click(pygame.mouse.get_pos())
-            but1.click(pygame.mouse.get_pos())
+            q1.click(pygame.mouse.get_pos())
 
-    #h1.hover(pygame.mouse.get_pos())
     screen.fill(WHITE)
     q1.blit_me(screen)
-    #h1.blit_me(screen)
-    but1.blit_me(screen)
     pygame.display.update()
