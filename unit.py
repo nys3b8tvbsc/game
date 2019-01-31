@@ -49,6 +49,7 @@ class Hero(Unit):
     def __init__(self, config, animations):
         self._state = DEFAULT
         Unit.__init__(self, config, animations)
+        self.exp = config['exp']
         self._max_mana = config['max_mana']
         self._mana = config['mana']
         self._max_power = config['max_power']

@@ -4,6 +4,7 @@ from button import *
 import pygame
 from  constants import *
 from label import Label
+from unit import Hero
 
 
 class Scene(metaclass=ABCMeta):
@@ -112,3 +113,6 @@ def create_scene(screen_size, scene_config):
         return Battle(screen_size, scene_config)
     else:
         raise ValueError('Scene has unknown type.')
+
+def add_exp(hero,quest):
+    hero.exp+=quest.exp
