@@ -11,5 +11,5 @@
     "пылать его."
   ],
   "image": "fire3.png",
-  "magic_type": "fire"
+  "type": "fire"
 }

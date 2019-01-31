@@ -105,7 +105,7 @@ class AttackCard(Card, metaclass=ABCMeta):
 class MagicAttack(AttackCard):
     def __init__(self, height, config):
         AttackCard.__init__(self, height, config)
-        self._type = config['magic_type']
+        self._type = config['type']
         self._mana_cost = config['cost']
         self._right_label = Label(text=config['cost'],
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling),

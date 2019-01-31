@@ -10,5 +10,5 @@
     "маны."
   ],
   "image": "fire2.png",
-  "magic_type": "fire"
+  "type": "fire"
 }

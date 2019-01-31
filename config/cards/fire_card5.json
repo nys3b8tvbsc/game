@@ -12,5 +12,5 @@
     "много маны."
   ],
   "image": "fire5.png",
-  "magic_type": "fire"
+  "type": "fire"
 }

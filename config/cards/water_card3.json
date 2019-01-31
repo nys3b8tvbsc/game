@@ -11,5 +11,5 @@
     "вырвется вода"
   ],
   "image": "water3.png",
-  "magic_type": "water"
+  "type": "water"
 }
