@@ -66,9 +66,16 @@ class Quest(Scene):
         self._image_path = os.path.join('pictures', 'blueframe2.png')
         Scene.__init__(self, self._image_path, screen_size, scene_config)
         self._buttons=[]
-        self._buttons.append(Button((DEFAULT_W,DEFAULT_H),BUT1_POS,scene_config["buttons"][0]["text"],scene_config["buttons"][0]["on_click"]))
-        self._buttons.append(Button((DEFAULT_W, DEFAULT_H), BUT2_POS, scene_config["buttons"][1]["text"],scene_config["buttons"][1]["on_click"]))
-        self._label=Label(scene_config["text"],pos=(DEFAULT_LABEL[0],DEFAULT_LABEL[1]),size=(DEFAULT_LABEL[2],DEFAULT_LABEL[3]),font_name='fonts/PhillippScript.ttf',color=WHITE)
+        trans_x=screen_size[0]/DEFAULT_SIZE[0]
+        trans_y = screen_size[1] / DEFAULT_SIZE[1]
+        but1_pos=(int(BUT1_POS[0]*trans_x),int(BUT1_POS[1]*trans_y))
+        but2_pos = (int(BUT2_POS[0] * trans_x), int(BUT2_POS[1] * trans_y))
+        but_size=(int(DEFAULT_W * trans_x), int(DEFAULT_H * trans_y))
+        self._buttons.append(Button(but_size,but1_pos,scene_config["buttons"][0]["text"],scene_config["buttons"][0]["on_click"]))
+        self._buttons.append(Button(but_size, but2_pos, scene_config["buttons"][1]["text"],scene_config["buttons"][1]["on_click"]))
+        lab_pos=(int(DEFAULT_LABEL[0]*trans_x),int(DEFAULT_LABEL[1]*trans_y))
+        lab_size = (int(DEFAULT_LABEL[2] * trans_x), int(DEFAULT_LABEL[3] * trans_y))
+        self._label=Label(scene_config["text"],pos=lab_pos,size=lab_size,font_name='fonts/PhillippScript.ttf',color=WHITE)
     def update(self):
         pass
 

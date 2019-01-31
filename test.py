@@ -12,7 +12,7 @@ QUIT=pygame.USEREVENT
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((1680, 1050))
 deck = Deck(load_deck('deck1.json'))
 print((screen.get_width(), screen.get_height()))
 q1=create_scene((screen.get_width(), screen.get_height()),load_next_quest())
