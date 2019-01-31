@@ -6,7 +6,7 @@ from constants import WHITE
 from deck import Deck
 from hand import hand_create
 from loading import load_deck
-
+QUIT=pygame.USEREVENT
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
