@@ -31,8 +31,10 @@ class Button:
         self.__label.blit_me(self.__image)
         surface.blit(self.__image, self.__rect)
 
-    def click(self):
-        pass
+    def click(self,xy):
+        if self.__rect.collidepoint(xy):
+            pygame.event.post(pygame.event.Event(self.on_press,{}))
+
     @property
     def rect(self):
         return self.__rect
