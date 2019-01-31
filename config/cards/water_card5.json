@@ -9,5 +9,5 @@
     "потоками воды"
   ],
   "image": "water5.png",
-  "magic_type": "water"
+  "type": "water"
 }

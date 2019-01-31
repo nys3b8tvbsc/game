@@ -11,5 +11,5 @@
     "урон врагу."
   ],
   "image": "fire1.png",
-  "magic_type": "fire"
+  "type": "fire"
 }

@@ -11,5 +11,5 @@
     "разорвут его."
   ],
   "image": "terra4.png",
-  "magic_type": "terra"
+  "type": "terra"
 }

@@ -9,5 +9,5 @@
     "до смерти."
   ],
   "image": "air2.png",
-  "magic_type": "air"
+  "type": "air"
 }

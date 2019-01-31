@@ -11,5 +11,5 @@
     "не выжил"
   ],
   "image": "air1.png",
-  "magic_type": "air"
+  "type": "air"
 }

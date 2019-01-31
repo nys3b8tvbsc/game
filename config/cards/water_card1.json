@@ -9,5 +9,5 @@
     "смертоносная магия."
   ],
   "image": "water1.png",
-  "magic_type": "water"
+  "type": "water"
 }

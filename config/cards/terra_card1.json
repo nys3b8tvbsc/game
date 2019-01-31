@@ -11,5 +11,5 @@
     "смертельно опасны"
   ],
   "image": "terra1.png",
-  "magic_type": "terra"
+  "type": "terra"
 }

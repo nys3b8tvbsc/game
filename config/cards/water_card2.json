@@ -9,5 +9,5 @@
     "простое заклинание."
   ],
   "image": "water2.png",
-  "magic_type": "water"
+  "type": "water"
 }

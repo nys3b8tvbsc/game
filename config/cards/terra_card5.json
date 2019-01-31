@@ -10,5 +10,5 @@
     "а его яд смертелен."
   ],
   "image": "terra5.png",
-  "magic_type": "terra"
+  "type": "terra"
 }

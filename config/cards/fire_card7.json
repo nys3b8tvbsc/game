@@ -10,5 +10,5 @@
     "атака."
   ],
   "image": "fire7.png",
-  "magic_type": "fire"
+  "type": "fire"
 }

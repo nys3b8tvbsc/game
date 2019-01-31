@@ -10,5 +10,5 @@
     "огнём."
   ],
   "image": "fire4.png",
-  "magic_type": "fire"
+  "type": "fire"
 }
