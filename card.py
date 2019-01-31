@@ -16,15 +16,14 @@ from label import Label
 
 
 class Card(metaclass=ABCMeta):
-    def __init__(self, pos, height, config):
+    def __init__(self, height, config):
         self._config = config
-        image = os.path.join('card_images', config['image'])
+        image = os.path.join('pictures', 'card_images', config['image'])
         self._image = pygame.image.load(image).convert_alpha()
         self._scaling = height / self._image.get_height()
         width = int(round(self._image.get_width() * self._scaling))
         self._image = pygame.transform.scale(self._image, (width, height))
         self._rect = self._image.get_rect()
-        self._rect.move_ip(pos)
 
         self._name_label = Label(text=config['name'],
                                  size=(NAME_LABEL[2] * self._scaling, NAME_LABEL[3] * self._scaling),
@@ -36,11 +35,11 @@ class Card(metaclass=ABCMeta):
                                  pos=(TEXT_LABEL[0] * self._scaling, TEXT_LABEL[1] * self._scaling),
                                  font_name='fonts/PhillippScript.ttf')
 
-        back_path = os.path.join('card_images', 'background.png')
+        back_path = os.path.join('pictures', 'card_images', 'background.png')
         self._back = pygame.image.load(back_path).convert_alpha()
         self._back = pygame.transform.scale(self._back, (width, height))
 
-        back_path1 = os.path.join('card_images', 'background1.png')
+        back_path1 = os.path.join('pictures', 'card_images', 'background1.png')
         self._back1 = pygame.image.load(back_path1).convert_alpha()
         self._back1 = pygame.transform.scale(self._back1, (width, height))
 
@@ -90,8 +89,8 @@ class Card(metaclass=ABCMeta):
 
 
 class AttackCard(Card, metaclass=ABCMeta):
-    def __init__(self, pos, height, config):
-        Card.__init__(self, pos, height, config)
+    def __init__(self, height, config):
+        Card.__init__(self, height, config)
         self._damage = config['value']
         self._left_label = Label(text=config['value'],
                                  size=(LEFT_LABEL[2] * self._scaling, LEFT_LABEL[3] * self._scaling),
@@ -104,8 +103,8 @@ class AttackCard(Card, metaclass=ABCMeta):
 
 
 class MagicAttack(AttackCard):
-    def __init__(self, pos, height, config):
-        AttackCard.__init__(self, pos, height, config)
+    def __init__(self, height, config):
+        AttackCard.__init__(self, height, config)
         self._type = config['magic_type']
         self._mana_cost = config['cost']
         self._right_label = Label(text=config['cost'],
@@ -118,8 +117,8 @@ class MagicAttack(AttackCard):
 
 
 class PhysicalAttack(AttackCard):
-    def __init__(self, pos, height, config):
-        AttackCard.__init__(self, pos, height, config)
+    def __init__(self, height, config):
+        AttackCard.__init__(self, height, config)
         self._energy = config['cost']
         self._type = config['type']
         self._right_label = Label(text=config['cost'],
@@ -131,12 +130,12 @@ class PhysicalAttack(AttackCard):
         return "physical"
 
 
-def create_card(height, config, pos=(0, 0)):
+def create_card(height, config):
     if config['card_type'] == 'attack':
         if config['subtype'] == 'magic':
-            return MagicAttack(pos, height, config)
+            return MagicAttack(height, config)
         elif config['subtype'] == 'physical':
-            return PhysicalAttack(pos, height, config)
+            return PhysicalAttack(height, config)
         else:
             raise ValueError('Wrong subtype')
     else:
