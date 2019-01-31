@@ -24,6 +24,8 @@ SILVER = (192, 192, 192)
 # button
 DEFAULT_W = 190
 DEFAULT_H = 74
+LABEL_XY=(14,10)
+LABEL_SIZE=(163,51)
 
 # card label`s positions
 NAME_LABEL = (110, 18, 170, 43)
