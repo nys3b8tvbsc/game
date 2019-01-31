@@ -98,7 +98,7 @@ class AttackCard(Card, metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def get_type(self):
+    def subtype(self):
         pass
 
 
@@ -112,7 +112,7 @@ class MagicAttack(AttackCard):
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling))
 
     @property
-    def get_type(self):
+    def subtype(self):
         return "magic"
 
 
@@ -126,7 +126,7 @@ class PhysicalAttack(AttackCard):
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling))
 
     @property
-    def get_type(self):
+    def subtype(self):
         return "physical"
 
 
