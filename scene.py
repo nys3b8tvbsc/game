@@ -1,7 +1,9 @@
 import os
 from abc import ABCMeta, abstractmethod
-
+from button import *
 import pygame
+from  constants import *
+from label import Label
 
 
 class Scene(metaclass=ABCMeta):
@@ -63,7 +65,10 @@ class Quest(Scene):
     def __init__(self, screen_size, scene_config):
         self._image_path = os.path.join('pictures', 'blueframe2.png')
         Scene.__init__(self, self._image_path, screen_size, scene_config)
-
+        self._buttons=[]
+        self._buttons.append(Button((DEFAULT_W,DEFAULT_H),BUT1_POS,scene_config["buttons"][0]["text"],scene_config["buttons"][0]["on_click"]))
+        self._buttons.append(Button((DEFAULT_W, DEFAULT_H), BUT2_POS, scene_config["buttons"][1]["text"],scene_config["buttons"][1]["on_click"]))
+        self._label=Label(scene_config["text"],pos=(DEFAULT_LABEL[0],DEFAULT_LABEL[1]),size=(DEFAULT_LABEL[2],DEFAULT_LABEL[3]),font_name='fonts/PhillippScript.ttf',color=WHITE)
     def update(self):
         pass
 
