@@ -115,6 +115,10 @@ class MagicAttack(AttackCard):
     def subtype(self):
         return "magic"
 
+    @property
+    def type(self):
+        return self._type
+
 
 class PhysicalAttack(AttackCard):
     def __init__(self, height, config):
@@ -128,6 +132,10 @@ class PhysicalAttack(AttackCard):
     @property
     def subtype(self):
         return "physical"
+
+    @property
+    def type(self):
+        return self._type
 
 
 def create_card(height, config):
