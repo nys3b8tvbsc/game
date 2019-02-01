@@ -7,11 +7,11 @@ from label import Label
 
 
 class Button:
-    def __init__(self, size=(0, 0), pos=(0, 0), text='', on_press=0):
+    def __init__(self, size=(0, 0), pos=(0, 0), text='', event=0):
         """
         :param size: Tuple(width, height)
         :param pos: Tuple(x, y)
-        :param on_press: Callable
+        :param event: Callable
         :param str text: label text
         :rtype: Button
         """
@@ -30,7 +30,7 @@ class Button:
 
         self.__label = Label(text, size=lab_size, pos=lab_pos, font_name='fonts/DECOR6DI.TTF', color=WHITE)
 
-        self.on_press = on_press
+        self._event = event
 
     def blit_me(self, surface):
         self.__label.blit_me(self.__image)
@@ -38,7 +38,7 @@ class Button:
 
     def click(self, xy):
         if self.__rect.collidepoint(xy):
-            pygame.event.post(pygame.event.Event(self.on_press, {}))
+            pygame.event.post(pygame.event.Event(self._event, {}))
 
     @property
     def rect(self):
