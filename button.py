@@ -2,7 +2,8 @@ import os
 
 import pygame
 
-from constants import *
+from const.button import DEFAULT_H, DEFAULT_W, LABEL_XY, LABEL_SIZE
+from const.color import WHITE
 from label import Label
 
 
@@ -43,7 +44,3 @@ class Button:
     @property
     def rect(self):
         return self.__rect
-
-
-def create_button(config, creator, size=(0, 0), pos=(0, 0)):
-    pass

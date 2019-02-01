@@ -4,9 +4,9 @@ import random
 import pygame
 
 from animation import Animation
-from constants import APPEAR
-from constants import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
-from constants import RED
+from const.animation import APPEAR
+from const.color import RED
+from const.enemy import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
 from unit import Unit
 
 

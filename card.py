@@ -11,7 +11,8 @@ from abc import ABCMeta, abstractmethod
 
 import pygame
 
-from constants import NAME_LABEL, TEXT_LABEL, LEFT_LABEL, RIGHT_LABEL, WHITE
+from const.card import NAME_LABEL, TEXT_LABEL, LEFT_LABEL, RIGHT_LABEL
+from const.color import WHITE
 from label import Label
 
 

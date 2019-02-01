@@ -1,7 +1,6 @@
-# TODO min size ? / line wrap
 import pygame
 
-from constants import BLACK
+from const.color import BLACK
 
 
 class Label:

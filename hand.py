@@ -1,5 +1,5 @@
-from constants import MAX_HAND
-from deck import *
+from const.hand import MAX_HAND
+from deck import create_card
 
 
 class Hand:

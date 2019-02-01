@@ -1,12 +1,6 @@
 import sys
 
-import pygame
-
-from constants import *
-from deck import Deck
-from hand import hand_create
 from loading import load_deck, load_next_quest, load_hero
-from button import Button
 from scene import *
 from unit import *
 

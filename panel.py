@@ -1,7 +1,6 @@
 """
 Module provides top panel.
 """
-
 import os
 
 import pygame
@@ -73,5 +72,5 @@ class Panel:
         if event.type == pygame.MOUSEMOTION:
             self._selected = self.rect.collidepoint(event.pos)
         if self._selected and event.type == pygame.MOUSEBUTTONDOWN:
-            pass
-            # TODO buttons
+            for button in self._buttons:
+                button.click(event.pos)

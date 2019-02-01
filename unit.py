@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 from animation import Animation
-from constants import DEFAULT, DEAD
+from const.animation import DEFAULT, DEAD
 from deck import Deck
 
 
@@ -35,10 +35,6 @@ class Unit(metaclass=ABCMeta):
         self._hp = max(0, self._hp - damage)
         if self.is_dead:
             self._state = DEAD
-
-    @abstractmethod
-    def attack(self):
-        pass
 
     @property
     def is_dead(self):
