@@ -16,9 +16,21 @@ class Gang:
                 pygame.event.post(pygame.event.Event(ENEMY_TOUCH, {}))
 
     def blit_me(self,screen):
-        for i in range(len(self.enemies)):
-            self.enemies[i].blit_me(screen)
+        if self.__len__()>0:
+            for i in range(len(self.enemies)):
+                self.enemies[i].blit_me(screen)
 
     def animated(self):
-        for i in range(len(self.enemies)):
-            self.enemies[i].animated()
+        if self.__len__()>0:
+            for i in range(len(self.enemies)):
+                self.enemies[i].animated()
+
+    def dead(self):
+        for i in range(self.__len__()):
+            if self.enemies[i].is_dead:
+                del self.enemies[i]
+                return 0
+
+
+    def __len__(self):
+        return len(self.enemies)

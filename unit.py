@@ -39,7 +39,7 @@ class Unit(metaclass=ABCMeta):
 
     @property
     def is_dead(self):
-        return self._hp == 0
+        return self._hp <= 0
 
 
 class Hero(Unit):

@@ -12,7 +12,7 @@ ADD_EXP = pygame.USEREVENT + 1
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
+screen = pygame.display.set_mode((1500, 1200))
 deck = Deck(load_deck('deck1.json'))
 print((screen.get_width(), screen.get_height()))
 screen.fill(WHITE)
@@ -47,6 +47,7 @@ while True:
             print(p1._mana)
             h1.delete_active()
             h1.append(deck.return_cards(6-len(h1),450))
+            g1.dead()
     screen.fill(WHITE)
     g1.blit_me(screen)
     h1.blit_me(screen)
