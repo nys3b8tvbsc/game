@@ -4,9 +4,9 @@ import random
 import pygame
 
 from animation import Animation
-from constants import APPEAR
-from constants import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
-from constants import RED
+from const.animation import APPEAR
+from const.color import RED
+from const.enemy import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
 from unit import Unit
 
 
@@ -19,12 +19,11 @@ class Enemy(Unit):
         :param list animations:
         :rtype: Enemy
         """
+        Unit.__init__(self, config, animations, state=APPEAR)
         self._power = config['power']
-        self._state = APPEAR
         bar_path = os.path.join('pictures', 'manabar.png')
         self._bar = pygame.image.load(bar_path).convert_alpha()
         self._bar_rect = self._bar.get_rect(center=self._rect.center)
-        Unit.__init__(self, config, animations)
         # self.actions = actions
 
     def blit_me(self, surface):

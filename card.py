@@ -11,7 +11,8 @@ from abc import ABCMeta, abstractmethod
 
 import pygame
 
-from constants import NAME_LABEL, TEXT_LABEL, LEFT_LABEL, RIGHT_LABEL, WHITE
+from const.card import NAME_LABEL, TEXT_LABEL, LEFT_LABEL, RIGHT_LABEL
+from const.color import WHITE
 from label import Label
 
 
@@ -115,6 +116,10 @@ class MagicAttack(AttackCard):
     def subtype(self):
         return "magic"
 
+    @property
+    def type(self):
+        return self._type
+
 
 class PhysicalAttack(AttackCard):
     def __init__(self, height, config):
@@ -128,6 +133,10 @@ class PhysicalAttack(AttackCard):
     @property
     def subtype(self):
         return "physical"
+
+    @property
+    def type(self):
+        return self._type
 
 
 def create_card(height, config):

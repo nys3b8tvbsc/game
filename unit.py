@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 from animation import Animation
-from constants import DEFAULT, DEAD
+from const.animation import DEFAULT, DEAD
 from deck import Deck
 
 
@@ -11,12 +11,13 @@ class Unit(metaclass=ABCMeta):
     And methods for interaction between characters.
     """
 
-    def __init__(self, config, animations):
+    def __init__(self, config, animations, state):
         self._config = config
         self._level = config['level']
         self._max_hp = config['max_hp']
         self._hp = config['hp']
         self._animations = animations
+        self._state = state
         self._image = self._animations[self._state].frame
         self._rect = self._image.get_rect()
 
@@ -36,10 +37,6 @@ class Unit(metaclass=ABCMeta):
         if self.is_dead:
             self._state = DEAD
 
-    @abstractmethod
-    def attack(self):
-        pass
-
     @property
     def is_dead(self):
         return self._hp == 0
@@ -47,8 +44,7 @@ class Unit(metaclass=ABCMeta):
 
 class Hero(Unit):
     def __init__(self, config, animations):
-        self._state = DEFAULT
-        Unit.__init__(self, config, animations)
+        Unit.__init__(self, config, animations, state=DEFAULT)
         self.exp = config['exp']
         self._max_mana = config['max_mana']
         self._mana = config['mana']
@@ -77,17 +73,20 @@ class Hero(Unit):
             self._mana -= card.mana_cost
         elif card.subtype == 'physical':
             self._power -= card.energy
+
     def level_up(self):
-        self._level+=1
+        self._level += 1
+
     @property
     def new_level(self):
-        exp=0
-        for i in range(1,self._level+2):
-            exp+=100+(i-1)*50
-        if self.exp>=exp:
+        exp = 0
+        for i in range(1, self._level + 2):
+            exp += 100 + (i - 1) * 50
+        if self.exp >= exp:
             return True
         else:
             return False
+
 
 class Knight(Hero):
     def __init__(self, config):

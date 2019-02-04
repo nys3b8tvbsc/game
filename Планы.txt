@@ -7,4 +7,3 @@ Quest End
 next scene -> create_scene
 quest -> battle -> next scene = quest end
 
-lable центровка по высоте

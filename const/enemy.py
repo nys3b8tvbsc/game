@@ -1,0 +1,4 @@
+MAX_HP_BAR = 192
+X_BAR = 7
+Y_BAR = 7
+H_BAR = 10

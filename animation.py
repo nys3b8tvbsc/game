@@ -7,24 +7,20 @@ from itertools import cycle
 import pygame
 
 
-def count_files(path):
-    return len([0 for obj in os.scandir(path) if obj.is_file()])
+def iter_files(path):
+    files = os.listdir(path)
+    for file in files:
+        frame_path = os.path.join(path, file)
+        yield pygame.image.load(frame_path).convert_alpha()
 
 
 class Animation:
-    def __init__(self, animation_path):
+    def __init__(self, path):
         """
-        :param animation_path: str
+        :param path: str
         :rtype: Animation object
         """
-        cycle_len = count_files(animation_path)
-        frames = []
-        for i in range(cycle_len):
-            frame_path = animation_path + '_{}.png'.format(i)
-            frame = pygame.image.load(frame_path).convert_alpha()
-            frames.append(frame)
-
-        self._frames = cycle(frames)
+        self._frames = cycle(iter_files(path))
         self._current_frame = next(self._frames)
         self._start_frame = self._current_frame
 

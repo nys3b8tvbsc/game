@@ -1,12 +1,12 @@
 """
 Module provides top panel.
 """
-
 import os
 
 import pygame
 
-from constants import BLACK
+from button import Button
+from label import Label
 
 
 class Panel:
@@ -18,34 +18,59 @@ class Panel:
         width = screen_width
         path = os.path.join('pictures', 'panel.png')
         self._image = pygame.image.load(path).convert_alpha()
-        height = int(self._image.get_height() * width / self._image.get_width())
+        self._scaling = width / self._image.get_width()
+        height = int(self._image.get_height() * self._scaling)
         self._image = pygame.transform.scale(self._image, (width, height))
         self._rect = self._image.get_rect()
-        self._font = pygame.font.Font(None, 20)
-        self._text_color = BLACK
+        self._selected = False
+        self._labels = [Label() for _ in range(4)]
+        self._label_size = (100 * self._scaling, 100 * self._scaling)
+        self._label_pos = [(10 * self._scaling, 10 * self._scaling),
+                           (110 * self._scaling, 10 * self._scaling),
+                           (10 * self._scaling, 110 * self._scaling),
+                           (110 * self._scaling, 110 * self._scaling)]
+        self._buttons = [Button() for _ in range(2)]  # TODO
 
     @property
     def rect(self):
         return self._rect
 
-    def blit_me(self, surface, hero):
-        hp = '{}/{}'.format(hero['hp'], hero['max_hp'])
-        mana = '{}/{}'.format(hero['mana'], hero['max_mana'])  # TODO refactor energy
-        t_hp = self._font.render('HP', 0, self._text_color)
-        i_hp = self._font.render(hp, 0, self._text_color)
-        t_mana = self._font.render('Mana', 0, self._text_color)
-        i_mana = self._font.render(mana, 0, self._text_color)
-        self._image.blit(t_hp, (10, 10))
-        self._image.blit(t_mana, (10, 30))
-        self._image.blit(i_hp, (70, 10))
-        self._image.blit(i_mana, (70, 30))
+    def blit_me(self, surface):
+        if not self._selected:
+            return
+
+        for label in self._labels:
+            label.blit_me(surface)
+        for button in self._buttons:
+            button.blit_me(surface)
         surface.blit(self._image, self._rect)
 
-    """
-    def update(self, hero):
-        self.hp = '{}/{}'.format(hero['hp'], hero['max_hp'])
-        self.mana = '{}/{}'.format(hero['mana'], hero['max_mana'])
-    """
+    def update(self, hero_config):
+        size = self._label_size
+        pos = self._label_pos
+        self._labels[0] = Label('Hp', size, pos[0])
+
+        current = hero_config['hp']
+        maximum = hero_config['max_hp']
+        self._labels[1] = Label(f'{current}/{maximum}', size, pos[1])
+
+        if hero_config['type'] == 'mage':
+            resource = 'Mana'
+            current = hero_config['mana']
+            maximum = hero_config['max_mana']
+        elif hero_config['type'] == 'warrior':
+            resource = 'Energy'
+            current = hero_config['energy']
+            maximum = hero_config['max_energy']
+        else:
+            raise ValueError('Unknown hero type.')
+
+        self._labels[2] = Label(resource, size, pos[2])
+        self._labels[3] = Label(f'{current}/{maximum}', size, pos[3])
 
     def handle_event(self, event):
-        pass
+        if event.type == pygame.MOUSEMOTION:
+            self._selected = self.rect.collidepoint(event.pos)
+        if self._selected and event.type == pygame.MOUSEBUTTONDOWN:
+            for button in self._buttons:
+                button.click(event.pos)
