@@ -1,6 +1,7 @@
 {
   "type": "golem",
   "max_hp": 100,
+  "hp": 100,
   "power": 100,
   "level": 1
 }

@@ -7,6 +7,7 @@ from animation import Animation
 from const.animation import APPEAR
 from const.color import RED
 from const.enemy import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
+from const.event import ENEMY_TOUCH
 from unit import Unit
 
 
@@ -46,6 +47,13 @@ class Enemy(Unit):
         # action(self, hero)
         pass
 
+    def click(self, xy):
+        if self._rect.collidepoint(xy):
+            return True
+        else:
+            return False
+
+
 
 class Golem(Enemy):
     def __init__(self, config):
@@ -76,7 +84,7 @@ def create_enemy(enemy_config):
     elif enemy_config["type"] == 'vampire':
         return Vampire(enemy_config)
     else:
-        raise ValueError('Wrong enemy type.')
+        raise ValueError('Wrong enemies type.')
 
 
 """
@@ -84,7 +92,7 @@ pygame.init()
 srf = pygame.display.set_mode((1000, 500))
 with open('config/cards/fire_card1.json', 'r', encoding='utf-8') as fh:
     card = card.create_card(json.load(fh))
-with open('config/enemy/enemy1.json', 'r', encoding='utf-8') as fh:
+with open('config/enemies/enemy1.json', 'r', encoding='utf-8') as fh:
     enemy_config = json.load(fh)
 gol = create_enemy(enemy_config)
 with open('config/hero/hero1.json', 'r', encoding='utf-8') as fh:

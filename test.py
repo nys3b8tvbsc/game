@@ -1,21 +1,27 @@
 import sys
 
-from loading import load_deck, load_next_quest, load_hero
+from loading import load_deck, load_next_quest, load_hero,load_enemy
 from scene import *
 from unit import *
-
+from enemy import *
+from gang import Gang
+from hand import *
 QUIT = pygame.USEREVENT
 ADD_EXP = pygame.USEREVENT + 1
 
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
 deck = Deck(load_deck('deck1.json'))
 print((screen.get_width(), screen.get_height()))
-q1 = create_scene((screen.get_width(), screen.get_height()), load_next_quest())
 screen.fill(WHITE)
-q1.blit_me(screen)
+enemies=[]
+enemies.append(create_enemy(load_enemy('enemy1.json')))
+h1=hand_create(deck,(screen.get_width(), screen.get_height()),450)
+enemies[0]._rect.y=30
+g1=Gang(enemies)
+g1.blit_me(screen)
 p1 = create_hero(load_hero('hero1.json'))
 print(p1.new_level)
 pygame.display.update()
@@ -34,11 +40,12 @@ while True:
                 pygame.quit()
                 sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            q1.click(pygame.mouse.get_pos())
-        elif event.type == ADD_EXP:
-            add_exp(p1, q1)
-            print(p1._level)
-
+            g1.click(pygame.mouse.get_pos())
+            h1.click(pygame.mouse.get_pos())
+        elif event.type == ENEMY_TOUCH:
+            p1.attack(g1.enemies[g1.active],h1.selected_card)
     screen.fill(WHITE)
-    q1.blit_me(screen)
+    g1.blit_me(screen)
+    h1.blit_me(screen)
+    g1.animated()
     pygame.display.update()

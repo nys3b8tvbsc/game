@@ -70,9 +70,9 @@ class Hero(Unit):
     def attack(self, enemy, card):
         enemy.take_damage(int(self._specifications[card._type] / 100 * card._damage))
         if card.subtype == 'magic':
-            self._mana -= card.mana_cost
+            self._mana -= card._mana_cost
         elif card.subtype == 'physical':
-            self._power -= card.energy
+            self._power -= card._energy
 
     def level_up(self):
         self._level += 1

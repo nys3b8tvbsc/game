@@ -11,6 +11,7 @@ class Hand:
         self._card_width = cards[0].rect.width
         self.positioning()
         self._active = 0
+        self.selected_card=None
 
     def positioning(self):
         width = int(self._width / len(self._cards))
@@ -38,14 +39,14 @@ class Hand:
                 return
 
     def click(self, xy):
-        selected_card = None
+        #selected_card = None
         for card in reversed(self._cards):
             if card.rect.collidepoint(xy):
                 card.click()
-                selected_card = card
+                self.selected_card = card
                 break
         for card in self._cards:
-            if card is not selected_card:
+            if card is not self.selected_card:
                 card.deselect()
 
     def __len__(self):
