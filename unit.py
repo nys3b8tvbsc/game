@@ -11,12 +11,13 @@ class Unit(metaclass=ABCMeta):
     And methods for interaction between characters.
     """
 
-    def __init__(self, config, animations):
+    def __init__(self, config, animations, state):
         self._config = config
         self._level = config['level']
         self._max_hp = config['max_hp']
         self._hp = config['hp']
         self._animations = animations
+        self._state = state
         self._image = self._animations[self._state].frame
         self._rect = self._image.get_rect()
 
@@ -43,8 +44,7 @@ class Unit(metaclass=ABCMeta):
 
 class Hero(Unit):
     def __init__(self, config, animations):
-        self._state = DEFAULT
-        Unit.__init__(self, config, animations)
+        Unit.__init__(self, config, animations, state=DEFAULT)
         self.exp = config['exp']
         self._max_mana = config['max_mana']
         self._mana = config['mana']

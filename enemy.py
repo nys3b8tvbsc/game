@@ -19,12 +19,11 @@ class Enemy(Unit):
         :param list animations:
         :rtype: Enemy
         """
+        Unit.__init__(self, config, animations, state=APPEAR)
         self._power = config['power']
-        self._state = APPEAR
         bar_path = os.path.join('pictures', 'manabar.png')
         self._bar = pygame.image.load(bar_path).convert_alpha()
         self._bar_rect = self._bar.get_rect(center=self._rect.center)
-        Unit.__init__(self, config, animations)
         # self.actions = actions
 
     def blit_me(self, surface):
