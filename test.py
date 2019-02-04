@@ -44,6 +44,8 @@ while True:
             h1.click(pygame.mouse.get_pos())
         elif event.type == ENEMY_TOUCH:
             p1.attack(g1.enemies[g1.active],h1.selected_card)
+            print(p1._mana)
+            h1.delete_active()
     screen.fill(WHITE)
     g1.blit_me(screen)
     h1.blit_me(screen)

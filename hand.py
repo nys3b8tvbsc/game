@@ -49,6 +49,14 @@ class Hand:
             if card is not self.selected_card:
                 card.deselect()
 
+    def delete_active(self):
+        for i in range(self.__len__()):
+            if self._cards[i]==self.selected_card:
+                del self._cards[i]
+                self.positioning()
+                self.selected_card=None
+                return 0
+
     def __len__(self):
         return len(self._cards)
 

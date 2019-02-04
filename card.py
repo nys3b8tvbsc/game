@@ -86,7 +86,8 @@ class Card(metaclass=ABCMeta):
         return self._rect
 
     def move_to(self, x, y):
-        self._rect.move_ip((x, y))
+        self._rect.x=x
+        self._rect.y=y
 
 
 class AttackCard(Card, metaclass=ABCMeta):
