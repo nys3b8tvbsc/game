@@ -46,6 +46,7 @@ while True:
             p1.attack(g1.enemies[g1.active],h1.selected_card)
             print(p1._mana)
             h1.delete_active()
+            h1.append(deck.return_cards(6-len(h1),450))
     screen.fill(WHITE)
     g1.blit_me(screen)
     h1.blit_me(screen)

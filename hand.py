@@ -26,8 +26,9 @@ class Hand:
         for card in self._cards:
             card.blit_me(surface)
 
-    def append(self, config):
-        self._cards.append(create_card(self._height, config))
+    def append(self, cards):
+        for card in cards:
+            self._cards.append(card)
         self.positioning()
 
     def hover(self, xy):
