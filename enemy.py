@@ -7,7 +7,6 @@ from animation import Animation
 from const.animation import APPEAR
 from const.color import RED
 from const.enemy import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
-from const.event import ENEMY_TOUCH
 from unit import Unit
 
 
@@ -53,6 +52,7 @@ class Enemy(Unit):
         else:
             return False
 
+    # Может стоит сделать click через поле вроде is_clicked ?
 
 
 class Golem(Enemy):

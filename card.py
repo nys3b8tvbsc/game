@@ -19,6 +19,7 @@ from label import Label
 class Card(metaclass=ABCMeta):
     def __init__(self, height, config):
         self._config = config
+
         image = os.path.join('pictures', 'card_images', config['image'])
         self._image = pygame.image.load(image).convert_alpha()
         self._scaling = height / self._image.get_height()
@@ -86,8 +87,8 @@ class Card(metaclass=ABCMeta):
         return self._rect
 
     def move_to(self, x, y):
-        self._rect.x=x
-        self._rect.y=y
+        self._rect.x = x
+        self._rect.y = y
 
 
 class AttackCard(Card, metaclass=ABCMeta):
@@ -147,6 +148,6 @@ def create_card(height, config):
         elif config['subtype'] == 'physical':
             return PhysicalAttack(height, config)
         else:
-            raise ValueError('Wrong subtype')
+            raise ValueError('Wrong card subtype.')
     else:
-        raise ValueError('Wrong type')
+        raise ValueError('Wrong card type.')

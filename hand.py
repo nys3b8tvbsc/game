@@ -1,5 +1,4 @@
 from const.hand import MAX_HAND
-from deck import create_card
 
 
 class Hand:
@@ -10,8 +9,8 @@ class Hand:
         self._y = screen_size[1] - self._height
         self._card_width = cards[0].rect.width
         self.positioning()
-        self._active = 0
-        self.selected_card=None
+        self._active = 0  # TODO remove ??
+        self._selected_card = None
 
     def positioning(self):
         width = int(self._width / len(self._cards))
@@ -31,7 +30,7 @@ class Hand:
             self._cards.append(card)
         self.positioning()
 
-    def hover(self, xy):
+    def hover(self, xy):  # TODO selected_card ?
         for card in self._cards:
             card.defocus()
         for card in reversed(self._cards):
@@ -40,23 +39,22 @@ class Hand:
                 return
 
     def click(self, xy):
-        #selected_card = None
         for card in reversed(self._cards):
             if card.rect.collidepoint(xy):
                 card.click()
-                self.selected_card = card
+                self._selected_card = card
                 break
         for card in self._cards:
-            if card is not self.selected_card:
+            if card is not self._selected_card:
                 card.deselect()
 
     def delete_active(self):
-        for i in range(self.__len__()):
-            if self._cards[i]==self.selected_card:
-                del self._cards[i]
+        for card in self._cards.copy():
+            if card is self._selected_card:
+                self._cards.remove(card)
                 self.positioning()
-                self.selected_card=None
-                return 0
+                self._selected_card = None
+                return 0  # ?
 
     def __len__(self):
         return len(self._cards)
