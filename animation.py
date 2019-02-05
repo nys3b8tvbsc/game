@@ -8,7 +8,7 @@ import pygame
 
 
 def iter_files(path):
-    files = sorted(os.listdir(path))
+    files = sorted(os.listdir(path), key=lambda file_name: len(file_name))
     for file in files:
         frame_path = os.path.join(path, file)
         yield pygame.image.load(frame_path).convert_alpha()
