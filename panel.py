@@ -24,11 +24,11 @@ class Panel:
         self._rect = self._image.get_rect()
         self._selected = False
         self._labels = [Label() for _ in range(4)]
-        self._label_size = (100 * self._scaling, 100 * self._scaling)
-        self._label_pos = [(10 * self._scaling, 10 * self._scaling),
-                           (110 * self._scaling, 10 * self._scaling),
-                           (10 * self._scaling, 110 * self._scaling),
-                           (110 * self._scaling, 110 * self._scaling)]
+        self._label_size = (40 * self._scaling, 10 * self._scaling)
+        self._label_pos = [(0 * self._scaling, 10 * self._scaling),
+                           (35 * self._scaling, 10 * self._scaling),
+                           (5 * self._scaling, 25 * self._scaling),
+                           (35 * self._scaling, 25 * self._scaling)]
         self._buttons = [Button() for _ in range(2)]  # TODO
 
     @property
@@ -40,7 +40,7 @@ class Panel:
             return
 
         for label in self._labels:
-            label.blit_me(surface)
+            label.blit_me(self._image)
         for button in self._buttons:
             button.blit_me(surface)
         surface.blit(self._image, self._rect)
