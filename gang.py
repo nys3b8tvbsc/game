@@ -26,7 +26,6 @@ class Gang:
         for enemy in self._enemies.copy():
             if enemy.is_dead:
                 self._enemies.remove(enemy)
-                return 0
 
     def __len__(self):
         return len(self._enemies)

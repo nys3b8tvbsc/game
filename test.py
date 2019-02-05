@@ -6,6 +6,7 @@ from hand import *
 from loading import load_deck, load_hero, load_enemy
 from scene import *
 from unit import *
+from const.event import ENEMY_TOUCH
 
 QUIT = pygame.USEREVENT
 ADD_EXP = pygame.USEREVENT + 1
@@ -13,7 +14,7 @@ ADD_EXP = pygame.USEREVENT + 1
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((1500, 1200))
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 deck = Deck(load_deck('deck1.json'))
 print((screen.get_width(), screen.get_height()))
 screen.fill(WHITE)

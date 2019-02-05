@@ -9,7 +9,6 @@ class Hand:
         self._y = screen_size[1] - self._height
         self._card_width = cards[0].rect.width
         self.positioning()
-        self._active = 0  # TODO remove ??
         self._selected_card = None
 
     def positioning(self):
@@ -30,7 +29,7 @@ class Hand:
             self._cards.append(card)
         self.positioning()
 
-    def hover(self, xy):  # TODO selected_card ?
+    def hover(self, xy):
         for card in self._cards:
             card.defocus()
         for card in reversed(self._cards):

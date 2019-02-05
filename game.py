@@ -8,6 +8,7 @@ import pygame
 from loading import load_hero, load_next_quest
 from panel import Panel
 from scene import create_scene
+from const.event import QUIT, ADD_EXP, ENEMY_TOUCH
 
 
 class Game:
@@ -50,16 +51,19 @@ class Game:
             game quit
             alt + f4
             mouse left click
-            TODO
+            buttons` events
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F4 and event.mod == pygame.KMOD_LALT:
                     pygame.quit()
                     sys.exit()
+            elif event.type == QUIT:
+                pygame.quit()
+                sys.exit()
             else:
                 self._scene.handle_event(event)
                 self._panel.handle_event(event)

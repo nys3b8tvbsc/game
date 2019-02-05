@@ -31,7 +31,7 @@ class Enemy(Unit):
         self._bar_rect.y = self._rect.y - 25
         pygame.draw.rect(surface, RED,
                          (self._bar_rect.x + X_BAR, self._bar_rect.y + Y_BAR,
-                          int(MAX_HP_BAR * (float(self._hp / self._max_hp))),
+                          int(MAX_HP_BAR * (self._hp / self._max_hp)),
                           H_BAR))
         surface.blit(self._bar, self._bar_rect)
 
