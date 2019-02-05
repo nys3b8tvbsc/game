@@ -12,7 +12,7 @@ ADD_EXP = pygame.USEREVENT + 1
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((1500, 1200))
+screen = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
 deck = Deck(load_deck('deck1.json'))
 print((screen.get_width(), screen.get_height()))
 screen.fill(WHITE)
