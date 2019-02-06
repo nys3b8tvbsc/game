@@ -7,20 +7,23 @@ from itertools import cycle
 import pygame
 
 
-def iter_files(path):
+def iter_files(path,size,screen_height):
     files = sorted(sorted(os.listdir(path)), key=str.__len__)
     for file in files:
         frame_path = os.path.join(path, file)
-        yield pygame.image.load(frame_path).convert_alpha()
+        image=pygame.image.load(frame_path).convert_alpha()
+        height=int(size*screen_height)
+        width=int(image.get_width()*height/image.get_height())
+        yield pygame.transform.scale(image,(width,height))
 
 
 class Animation:
-    def __init__(self, path, pause=1):
+    def __init__(self, path, size, screen_height, pause=1):
         """
         :param path: str
         :rtype: Animation object
         """
-        t=list(iter_files(path))
+        t=list(iter_files(path,size,screen_height))
         self._end=t[-1]
         self._frames = cycle(t)
         self._current_frame = next(self._frames)

@@ -2,6 +2,6 @@
   "type": "battle",
   "image": "Paralax/battleback1-2.png",
   "enemies": [
-    "enemy1.json"
+    "enemy2.json"
   ]
 }

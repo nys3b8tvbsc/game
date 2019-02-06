@@ -49,7 +49,7 @@ class Battle(Scene):
         Scene.__init__(self, image_path, screen_size, scene_config)
         self._enemies=[]
         for temp in scene_config["enemies"]:
-           self._enemies.append(create_enemy(load_enemy(temp)))
+           self._enemies.append(create_enemy(load_enemy(temp),screen_size[0]))
         self._enemies=Gang(self._enemies)
 
     def update(self):

@@ -8,6 +8,7 @@ from const.animation import APPEAR
 from const.color import RED
 from const.enemy import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
 from unit import Unit
+from const.unit_size import GOLEM,VAMPIRE
 
 
 class Enemy(Unit):
@@ -56,33 +57,33 @@ class Enemy(Unit):
 
 
 class Golem(Enemy):
-    def __init__(self, config):
+    def __init__(self, config, screen_heigth):
         """
         :rtype: Golem
         """
         animations = list()
-        animations.append(Animation('pictures/Archive (1)/idle-walk/',4))
-        animations.append(Animation('pictures/Archive (1)/attack/'))
-        animations.append(Animation('pictures/Archive (1)/appear/',2))
-        animations.append(Animation('pictures/Archive (1)/die/',2))
+        animations.append(Animation('pictures/Archive (1)/idle-walk/',GOLEM,screen_heigth,4))
+        animations.append(Animation('pictures/Archive (1)/attack/',GOLEM,screen_heigth))
+        animations.append(Animation('pictures/Archive (1)/appear/',GOLEM,screen_heigth,2))
+        animations.append(Animation('pictures/Archive (1)/die/',GOLEM,screen_heigth,2))
         Enemy.__init__(self, config, animations)
 
 
 class Vampire(Enemy):
-    def __init__(self, config):
+    def __init__(self, config,screen_heigth):
         animations = list()
-        animations.append(Animation('pictures/Archive/walk-idle/'))
-        animations.append(Animation('pictures/Archive/attack/'))
-        animations.append(Animation('pictures/Archive/appear/'))
-        animations.append(Animation('pictures/Archive/die/'))
+        animations.append(Animation('pictures/Archive/walk-idle/',VAMPIRE,screen_heigth,5))
+        animations.append(Animation('pictures/Archive/attack/',VAMPIRE,screen_heigth))
+        animations.append(Animation('pictures/Archive/appear/',VAMPIRE,screen_heigth,3))
+        animations.append(Animation('pictures/Archive/die/',VAMPIRE,screen_heigth))
         Enemy.__init__(self, config, animations)
 
 
-def create_enemy(enemy_config):
+def create_enemy(enemy_config, screen_heigth):
     if enemy_config["type"] == 'golem':
-        return Golem(enemy_config)
+        return Golem(enemy_config,screen_heigth)
     elif enemy_config["type"] == 'vampire':
-        return Vampire(enemy_config)
+        return Vampire(enemy_config,screen_heigth)
     else:
         raise ValueError('Wrong enemies type.')
 
