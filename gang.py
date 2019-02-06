@@ -1,6 +1,7 @@
 import pygame
 
 from const.event import ENEMY_TOUCH
+from const.animation import DEFAULT
 
 
 class Gang:
@@ -24,7 +25,7 @@ class Gang:
 
     def dead(self):
         for enemy in self._enemies.copy():
-            if enemy.is_dead:
+            if enemy.is_dead and enemy._state==DEFAULT:
                 self._enemies.remove(enemy)
 
     def __len__(self):

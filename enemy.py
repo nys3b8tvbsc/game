@@ -61,10 +61,10 @@ class Golem(Enemy):
         :rtype: Golem
         """
         animations = list()
-        animations.append(Animation('pictures/Archive (1)/idle-walk/'))
+        animations.append(Animation('pictures/Archive (1)/idle-walk/',4))
         animations.append(Animation('pictures/Archive (1)/attack/'))
-        animations.append(Animation('pictures/Archive (1)/appear/'))
-        animations.append(Animation('pictures/Archive (1)/die/'))
+        animations.append(Animation('pictures/Archive (1)/appear/',2))
+        animations.append(Animation('pictures/Archive (1)/die/',2))
         Enemy.__init__(self, config, animations)
 
 
