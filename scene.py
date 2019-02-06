@@ -9,6 +9,9 @@ from const.color import WHITE
 from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LABEL
 from const.screen import DEFAULT_SIZE
 from label import Label
+from gang import Gang
+from loading import load_enemy
+from enemy import create_enemy
 
 
 class Scene(metaclass=ABCMeta):
@@ -42,14 +45,19 @@ class Scene(metaclass=ABCMeta):
 
 class Battle(Scene):
     def __init__(self, screen_size, scene_config):
-        image_path = os.path.join('BG', scene_config['image'])
+        image_path = os.path.join('pictures/BG', scene_config['image'])
         Scene.__init__(self, image_path, screen_size, scene_config)
+        self._enemies=[]
+        for temp in scene_config["enemies"]:
+           self._enemies.append(create_enemy(load_enemy(temp)))
+        self._enemies=Gang(self._enemies)
 
     def update(self):
-        pass
+        self._enemies.animated()
 
     def blit_me(self, surface):
-        Scene.blit_me(self, surface)
+        surface.blit(self._image, self._rect)
+        self._enemies.blit_me(surface)
 
     def handle_event(self, event):
         pass

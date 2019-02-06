@@ -17,11 +17,11 @@
       "on_click": 24
     },
     {
-      "text": "+Опыт",
-      "on_click": 25
+      "text": "Бой",
+      "on_click": 27
     }
   ],
   "exp":100,
   "next quest": null,
-  "next next quest": null
+  "battle": "battle1.json"
 }

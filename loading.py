@@ -47,8 +47,7 @@ def load_battle(file):
     :rtype: dict
     """
     path = os.path.join('battles', file)
-    battle = __load_json(path)
-    battle['enemies'] = [load_enemy(enemy) for enemy in battle['enemies']]
+    return __load_json(path)
 
 
 def load_enemy(file):
