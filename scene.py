@@ -54,13 +54,20 @@ class Battle(Scene):
 
     def update(self):
         self._enemies.animated()
+        self._enemies.dead()
 
     def blit_me(self, surface):
         surface.blit(self._image, self._rect)
         self._enemies.blit_me(surface)
 
+    def click(self, xy):
+        self._enemies.click(xy)
+
     def handle_event(self, event):
-        pass
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            self.click(event.pos)
+        else:
+            pass  # TODO
 
     @property
     def is_over(self):
