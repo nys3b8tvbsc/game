@@ -52,7 +52,7 @@ class Panel:
 
         current = hero_config['hp']
         maximum = hero_config['max_hp']
-        self._labels[1] = Label(f'{current}/{maximum}', size, pos[1])
+        self._labels[1] = Label('{}/{}'.format(current,maximum), size, pos[1])
 
         if hero_config['type'] == 'mage':
             resource = 'Mana'
@@ -66,7 +66,7 @@ class Panel:
             raise ValueError('Unknown hero type.')
 
         self._labels[2] = Label(resource, size, pos[2])
-        self._labels[3] = Label(f'{current}/{maximum}', size, pos[3])
+        self._labels[3] = Label('{}/{}'.format(current,maximum), size, pos[3])
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEMOTION:
