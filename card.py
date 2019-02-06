@@ -151,3 +151,6 @@ def create_card(height, config):
             raise ValueError('Wrong card subtype.')
     else:
         raise ValueError('Wrong card type.')
+
+def card_heigth(screen_heigt):
+    return int((400/1080)*screen_heigt)

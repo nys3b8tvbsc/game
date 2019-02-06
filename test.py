@@ -6,6 +6,7 @@ from hand import *
 from loading import load_deck, load_hero, load_enemy,load_battle
 from scene import *
 from unit import *
+from card import card_heigth
 from const.event import ENEMY_TOUCH
 
 QUIT = pygame.USEREVENT
