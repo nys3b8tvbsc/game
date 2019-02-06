@@ -10,7 +10,7 @@ from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_L
 from const.screen import DEFAULT_SIZE
 from label import Label
 from gang import Gang
-from loading import load_enemy
+from loading import load_enemy, load_battle
 from enemy import create_enemy
 
 
@@ -128,7 +128,11 @@ def create_scene(screen_size, scene_config):
         raise ValueError('Scene has unknown type.')
 
 
-def add_exp(hero, quest):
-    hero.exp += quest.exp
+def add_exp(hero, quest_config):
+    hero.exp += quest_config["exp"]
     if hero.new_level:
         hero.level_up()
+
+def new_battle(quest_config):
+    return load_battle(quest_config['battle'])
+

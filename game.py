@@ -7,8 +7,8 @@ import pygame
 
 from loading import load_hero, load_next_quest
 from panel import Panel
-from scene import create_scene
-from const.event import QUIT, ADD_EXP, ENEMY_TOUCH
+from scene import create_scene, new_battle
+from const.event import QUIT, ADD_EXP, ENEMY_TOUCH, START_BATTLE
 
 
 class Game:
@@ -64,6 +64,8 @@ class Game:
             elif event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+            elif event.type == START_BATTLE:
+                self._scene=create_scene(self._screen.get_size(),new_battle(self._quest))
             else:
                 self._scene.handle_event(event)
                 self._panel.handle_event(event)
