@@ -7,6 +7,7 @@
   "max_mana": 100,
   "max_power": 40,
   "power": 40,
+  "points": 0,
   "fire": 55,
   "water": 34,
   "terra": 95,

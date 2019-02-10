@@ -1,7 +1,9 @@
+import pygame
 from abc import ABCMeta, abstractmethod
 
 from animation import Animation
 from const.animation import DEFAULT, DEAD
+from const.event import GAME_OVER
 from deck import Deck
 
 
@@ -50,6 +52,7 @@ class Hero(Unit):
         self._mana = config['mana']
         self._max_power = config['max_power']
         self._power = config['power']
+        self._points = config['points']
         self._specifications = dict()
         self._specifications['fire'] = config['fire']
         self._specifications['water'] = config['water']
@@ -66,16 +69,24 @@ class Hero(Unit):
 
     def take_damage(self, damage):
         Unit.take_damage(self, damage)
+        if self.is_dead:
+            self._state = DEAD
+            pygame.event.post(pygame.event.Event(GAME_OVER,{}))
 
     def attack(self, enemy, card):
-        enemy.take_damage(int(self._specifications[card._type] / 100 * card._damage))
-        if card.subtype == 'magic':
+        if card.subtype == 'magic' and self._mana-card._mana_cost>=0:
             self._mana -= card._mana_cost
-        elif card.subtype == 'physical':
+            enemy.take_damage(int(self._specifications[card._type] / 100 * card._damage))
+            return True
+        elif card.subtype == 'physical' and self._power-card._energy>=0:
             self._power -= card._energy
+            enemy.take_damage(int(self._specifications[card._type] / 100 * card._damage))
+            return True
+        return False
 
     def level_up(self):
         self._level += 1
+        self._points += 5
 
     @property
     def new_level(self):
