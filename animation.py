@@ -23,9 +23,7 @@ class Animation:
         :param path: str
         :rtype: Animation object
         """
-        t=list(iter_files(path,size,screen_height))
-        self._end=t[-1]
-        self._frames = cycle(t)
+        self._frames = cycle(iter_files(path,size,screen_height))
         self._current_frame = next(self._frames)
         self._start_frame = self._current_frame
         self._pause=pause
@@ -37,7 +35,7 @@ class Animation:
 
     @property
     def is_finished(self):
-        return self._current_frame == self._end
+        return self._current_frame == self._start_frame and self._pause_rem==self._pause
 
     def update(self):
         self._pause_rem-=1
