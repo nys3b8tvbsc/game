@@ -7,3 +7,4 @@ Quest End
 next scene -> create_scene
 quest -> battle -> next scene = quest end
 
+Даня, добавь рассположение врагов и отображение на сцене при смене размера кадра
