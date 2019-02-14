@@ -1,13 +1,11 @@
 import sys
 
-from enemy import *
-from gang import Gang
-from hand import *
-from loading import load_deck, load_hero, load_enemy,load_battle
-from scene import *
-from unit import *
-from card import card_heigth
-from const.event import ENEMY_TOUCH
+import pygame
+
+from const.color import WHITE
+from deck import Deck
+from loading import load_deck, load_battle
+from scene import Battle
 
 QUIT = pygame.USEREVENT
 ADD_EXP = pygame.USEREVENT + 1
@@ -15,10 +13,10 @@ ADD_EXP = pygame.USEREVENT + 1
 FPS = 60
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 deck = Deck(load_deck('deck1.json'))
 print((screen.get_width(), screen.get_height()))
-b1=Battle((screen.get_width(), screen.get_height()),load_battle("battle1.json"))
+b1 = Battle((screen.get_width(), screen.get_height()), load_battle("battle1.json"))
 b1.blit_me(screen)
 pygame.display.update()
 while True:

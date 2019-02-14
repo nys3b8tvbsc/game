@@ -5,19 +5,21 @@
   "max_hp": 100,
   "mana": 100,
   "max_mana": 100,
-  "max_power": 40,
-  "power": 40,
-  "points": 0,
-  "fire": 55,
-  "water": 34,
-  "terra": 95,
-  "air": 14,
-  "sword": 5,
-  "archery": 1,
-  "fists": 4,
-  "exp": 0,
+  "energy": 40,
+  "max_energy": 40,
   "hp_regen": 1,
   "mana_regen": 1,
-  "deck": "deck1.json"
+  "points": 0,
+  "exp": 0,
+  "deck": "deck1.json",
+  "specifications": {
+    "fire": 55,
+    "water": 34,
+    "terra": 95,
+    "air": 14,
+    "sword": 5,
+    "archery": 1,
+    "fists": 4
+  }
 }
 

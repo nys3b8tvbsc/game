@@ -1,7 +1,7 @@
 import pygame
 
-from const.event import ENEMY_TOUCH
 from const.animation import DEFAULT
+from const.event import ENEMY_TOUCH
 
 
 class Gang:
@@ -10,10 +10,13 @@ class Gang:
         self._active = None
 
     def click(self, xy):
-        for i, enemy in enumerate(self._enemies):
+        for enemy in self._enemies:
             if enemy.click(xy):
-                self._active = i
+                self._active = enemy
                 pygame.event.post(pygame.event.Event(ENEMY_TOUCH, {}))
+
+    def positioning(self):
+        pass
 
     def blit_me(self, surface):
         for enemy in self._enemies:
@@ -25,7 +28,7 @@ class Gang:
 
     def dead(self):
         for enemy in self._enemies.copy():
-            if enemy.is_dead and enemy._state==DEFAULT:
+            if enemy.is_dead and enemy.state == DEFAULT:
                 self._enemies.remove(enemy)
 
     def __len__(self):
