@@ -54,8 +54,8 @@ class Hero(Unit):
         self._exp = config['_exp']
         self._max_mana = config['max_mana']
         self._mana = config['mana']
-        self._max_power = config['max_power']
-        self._power = config['power']
+        self._max_power = config['max_energy']
+        self._power = config['energy']
         self._points = config['points']
         self._specifications = config['specifications']
         self._deck = config["deck"]
@@ -106,18 +106,18 @@ class Knight(Hero):
 
 
 class Mage(Hero):
-    def __init__(self, config):
+    def __init__(self, config, screen_height):
         animations = list()
-        animations.append(Animation('pictures/IceWizard/Stand/'))
-        animations.append(Animation('pictures/IceWizard/Cast1H/'))
-        animations.append(Animation('pictures/IceWizard/Die/'))
+        animations.append(Animation('pictures/IceWizard/Stand/', 0.15, screen_height, 4))
+        animations.append(Animation('pictures/IceWizard/Cast1H/', 0.15, screen_height, 4))
+        animations.append(Animation('pictures/IceWizard/Die/', 0.15, screen_height, 4))
         Hero.__init__(self, config, animations)
 
 
-def create_hero(player_config):
+def create_hero(player_config, screen_height):
     if player_config['type'] == 'warrior':
         return Knight(player_config)
     elif player_config['type'] == 'mage':
-        return Mage(player_config)
+        return Mage(player_config, screen_height)
     else:
         raise ValueError('Wrong hero type.')

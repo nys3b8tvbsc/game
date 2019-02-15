@@ -10,7 +10,7 @@
   "hp_regen": 1,
   "mana_regen": 1,
   "points": 0,
-  "exp": 0,
+  "_exp": 0,
   "deck": "deck1.json",
   "specifications": {
     "fire": 55,

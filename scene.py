@@ -12,6 +12,7 @@ from enemy import create_enemy
 from gang import Gang
 from label import Label
 from loading import load_enemy, load_battle
+from unit import create_hero
 
 
 class Scene(metaclass=ABCMeta):
@@ -32,19 +33,23 @@ class Scene(metaclass=ABCMeta):
 
 
 class Battle(Scene):
-    def __init__(self, screen_size, scene_config):
+    def __init__(self, screen_size, scene_config, hero_config):
         image_path = os.path.join('pictures', 'BG', scene_config['image'])
         Scene.__init__(self, image_path, screen_size, scene_config)
         self._enemies = [create_enemy(load_enemy(enemy), screen_size[0]) for enemy in scene_config['enemies']]
         self._enemies = Gang(self._enemies)
+        self._hero = create_hero(hero_config, screen_size[0])
+        self._hero.move_to(int(screen_size[1] * 0.05), int(screen_size[1] * 0.35))
 
     def update(self):
         self._enemies.animated()
+        self._hero.animated()
         self._enemies.dead()
 
     def blit_me(self, surface):
         surface.blit(self._image, self._rect)
         self._enemies.blit_me(surface)
+        self._hero.blit_me(surface)
 
     def click(self, xy):
         self._enemies.click(xy)
@@ -111,11 +116,11 @@ class Quest(Scene):
         pass
 
 
-def create_scene(screen_size, scene_config):
+def create_scene(screen_size, scene_config, hero_config=None):
     if scene_config['type'] == 'quest':
         return Quest(screen_size, scene_config)
     elif scene_config['type'] == 'battle':
-        return Battle(screen_size, scene_config)
+        return Battle(screen_size, scene_config, hero_config)
     else:
         raise ValueError('Scene has unknown type.')
 
