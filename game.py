@@ -36,6 +36,7 @@ class Game:
         self._quest = load_next_quest()  # Type dict
         self._scene = create_scene(self._screen.get_size(), self._quest)
 
+
     def start(self):
         """Main game loop."""
         clock = pygame.time.Clock()
