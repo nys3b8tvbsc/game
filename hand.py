@@ -1,3 +1,5 @@
+import pygame
+
 from const.hand import MAX_HAND
 
 
@@ -25,9 +27,14 @@ class Hand:
             card.blit_me(surface)
 
     def append(self, cards):
-        for card in cards:
-            self._cards.append(card)
+        self._cards.extend(cards)
         self.positioning()
+
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            self.click(event.pos)
+        elif event.type == pygame.MOUSEMOTION:
+            self.hover(event.pos)
 
     def hover(self, xy):
         for card in self._cards:
@@ -53,7 +60,7 @@ class Hand:
                 self._cards.remove(card)
                 self.positioning()
                 self._selected_card = None
-                return 0  # ?
+                return 0
 
     def __len__(self):
         return len(self._cards)
@@ -62,39 +69,3 @@ class Hand:
 def hand_create(deck, screen_size, height):
     cards = deck.return_cards(MAX_HAND, height)
     return Hand(screen_size, cards)
-
-
-"""
-pygame.init()
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode((1500, 1000))
-cards=[]
-with open('config/cards/fire_card1.json', 'r', encoding='utf-8') as fh:
-    c1=create_card((0,0),500,json.load(fh))
-with open('config/cards/sword_card1.json', 'r', encoding='utf-8') as fh:
-    c2=create_card((0,0),500,json.load(fh))
-with open('config/cards/fire_card1.json', 'r', encoding='utf-8') as fh:
-    c3=create_card((0,0),500,json.load(fh))
-cards.append(c1)
-cards.append(c2)
-cards.append(c3)
-h1=Hand((1500,1000),cards)
-screen.fill(WHITE)
-h1.blit_me(screen)
-pygame.display.update()
-while True:
-    clock.tick(60)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            with open('config/cards/fire_card1.json', 'r', encoding='utf-8') as fh:
-                h1.app_card(json.load(fh))
-        elif event.type==pygame.MOUSEBUTTONDOWN:
-            h1.click(pygame.mouse.get_pos())
-    h1.hover(pygame.mouse.get_pos())
-    screen.fill(WHITE)
-    h1.blit_me(screen)
-    pygame.display.update()
-"""

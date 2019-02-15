@@ -23,18 +23,18 @@ class Card(metaclass=ABCMeta):
         image = os.path.join('pictures', 'card_images', config['image'])
         self._image = pygame.image.load(image).convert_alpha()
         self._scaling = height / self._image.get_height()
-        width = int(round(self._image.get_width() * self._scaling))
+        width = int(self._image.get_width() * self._scaling)
         self._image = pygame.transform.scale(self._image, (width, height))
         self._rect = self._image.get_rect()
 
         self._name_label = Label(text=config['name'],
-                                 size=(NAME_LABEL[2] * self._scaling, NAME_LABEL[3] * self._scaling),
                                  pos=(NAME_LABEL[0] * self._scaling, NAME_LABEL[1] * self._scaling),
+                                 size=(NAME_LABEL[2] * self._scaling, NAME_LABEL[3] * self._scaling),
                                  font_name='fonts/CharlemagneC.ttf', color=WHITE)
 
         self._text_label = Label(text=config['text'],
-                                 size=(TEXT_LABEL[2] * self._scaling, TEXT_LABEL[3] * self._scaling),
                                  pos=(TEXT_LABEL[0] * self._scaling, TEXT_LABEL[1] * self._scaling),
+                                 size=(TEXT_LABEL[2] * self._scaling, TEXT_LABEL[3] * self._scaling),
                                  font_name='fonts/PhillippScript.ttf')
 
         back_path = os.path.join('pictures', 'card_images', 'background.png')
@@ -52,7 +52,7 @@ class Card(metaclass=ABCMeta):
         self._select = False
 
     def blit_me(self, surface):
-        self._name_label.blit_me(self._image)
+        self._name_label.blit_me(self._image)  # TODO ??
         self._text_label.blit_me(self._image)
         self._left_label.blit_me(self._image)
         self._right_label.blit_me(self._image)
@@ -86,6 +86,11 @@ class Card(metaclass=ABCMeta):
     def rect(self):
         return self._rect
 
+    @property
+    @abstractmethod
+    def cost(self):
+        pass
+
     def move_to(self, x, y):
         self._rect.x = x
         self._rect.y = y
@@ -96,13 +101,17 @@ class AttackCard(Card, metaclass=ABCMeta):
         Card.__init__(self, height, config)
         self._damage = config['value']
         self._left_label = Label(text=config['value'],
-                                 size=(LEFT_LABEL[2] * self._scaling, LEFT_LABEL[3] * self._scaling),
-                                 pos=(LEFT_LABEL[0] * self._scaling, LEFT_LABEL[1] * self._scaling))
+                                 pos=(LEFT_LABEL[0] * self._scaling, LEFT_LABEL[1] * self._scaling),
+                                 size=(LEFT_LABEL[2] * self._scaling, LEFT_LABEL[3] * self._scaling))
 
     @property
     @abstractmethod
     def subtype(self):
         pass
+
+    @property
+    def damage(self):
+        return self._damage
 
 
 class MagicAttack(AttackCard):
@@ -111,8 +120,8 @@ class MagicAttack(AttackCard):
         self._type = config['type']
         self._mana_cost = config['cost']
         self._right_label = Label(text=config['cost'],
-                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling),
-                                  pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling))
+                                  pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
+                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
 
     @property
     def subtype(self):
@@ -122,15 +131,19 @@ class MagicAttack(AttackCard):
     def type(self):
         return self._type
 
+    @property
+    def cost(self):
+        return self._mana_cost
+
 
 class PhysicalAttack(AttackCard):
     def __init__(self, height, config):
         AttackCard.__init__(self, height, config)
         self._type = config['type']
-        self._energy = config['cost']
+        self._energy_cost = config['cost']
         self._right_label = Label(text=config['cost'],
-                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling),
-                                  pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling))
+                                  pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
+                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
 
     @property
     def subtype(self):
@@ -139,6 +152,10 @@ class PhysicalAttack(AttackCard):
     @property
     def type(self):
         return self._type
+
+    @property
+    def cost(self):
+        return self._energy_cost
 
 
 def create_card(height, config):
@@ -152,5 +169,6 @@ def create_card(height, config):
     else:
         raise ValueError('Wrong card type.')
 
-def card_heigth(screen_heigt):
-    return int((400/1080)*screen_heigt)
+
+def card_height(screen_height):
+    return int((400 / 1080) * screen_height)

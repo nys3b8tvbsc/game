@@ -1,5 +1,6 @@
-import pygame
 from abc import ABCMeta, abstractmethod
+
+import pygame
 
 from animation import Animation
 from const.animation import DEFAULT, DEAD
@@ -8,11 +9,6 @@ from deck import Deck
 
 
 class Unit(metaclass=ABCMeta):
-    """Abstract base class for all other units.
-    Provides methods for display on screen.
-    And methods for interaction between characters.
-    """
-
     def __init__(self, config, animations, state):
         self._config = config
         self._level = config['level']
@@ -22,6 +18,10 @@ class Unit(metaclass=ABCMeta):
         self._state = state
         self._image = self._animations[self._state].frame
         self._rect = self._image.get_rect()
+
+    @property
+    def state(self):
+        return self._state
 
     @abstractmethod
     def blit_me(self, surface):
@@ -43,24 +43,21 @@ class Unit(metaclass=ABCMeta):
     def is_dead(self):
         return self._hp <= 0
 
+    def move_to(self, x, y):
+        self._rect.x = x
+        self._rect.y = y
+
 
 class Hero(Unit):
     def __init__(self, config, animations):
         Unit.__init__(self, config, animations, state=DEFAULT)
-        self.exp = config['exp']
+        self._exp = config['_exp']
         self._max_mana = config['max_mana']
         self._mana = config['mana']
         self._max_power = config['max_power']
         self._power = config['power']
         self._points = config['points']
-        self._specifications = dict()
-        self._specifications['fire'] = config['fire']
-        self._specifications['water'] = config['water']
-        self._specifications['terra'] = config['terra']
-        self._specifications['air'] = config['air']
-        self._specifications['sword'] = config['sword']
-        self._specifications['archery'] = config['archery']
-        self._specifications['fists'] = config['fists']
+        self._specifications = config['specifications']
         self._deck = config["deck"]
         self._stack = Deck()
 
@@ -71,16 +68,16 @@ class Hero(Unit):
         Unit.take_damage(self, damage)
         if self.is_dead:
             self._state = DEAD
-            pygame.event.post(pygame.event.Event(GAME_OVER,{}))
+            pygame.event.post(pygame.event.Event(GAME_OVER, {}))
 
     def attack(self, enemy, card):
-        if card.subtype == 'magic' and self._mana-card._mana_cost>=0:
-            self._mana -= card._mana_cost
-            enemy.take_damage(int(self._specifications[card._type] / 100 * card._damage))
+        if card.subtype == 'magic' and self._mana - card.cost >= 0:
+            self._mana -= card.cost
+            enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
             return True
-        elif card.subtype == 'physical' and self._power-card._energy>=0:
-            self._power -= card._energy
-            enemy.take_damage(int(self._specifications[card._type] / 100 * card._damage))
+        elif card.subtype == 'physical' and self._power - card.cost >= 0:
+            self._power -= card.cost
+            enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
             return True
         return False
 
@@ -93,7 +90,7 @@ class Hero(Unit):
         exp = 0
         for i in range(1, self._level + 2):
             exp += 100 + (i - 1) * 50
-        if self.exp >= exp:
+        if self._exp >= exp:
             return True
         else:
             return False

@@ -8,10 +8,10 @@ from const.button import DEFAULT_H, DEFAULT_W
 from const.color import WHITE
 from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LABEL
 from const.screen import DEFAULT_SIZE
-from label import Label
-from gang import Gang
-from loading import load_enemy, load_battle
 from enemy import create_enemy
+from gang import Gang
+from label import Label
+from loading import load_enemy, load_battle
 
 
 class Scene(metaclass=ABCMeta):
@@ -25,18 +25,6 @@ class Scene(metaclass=ABCMeta):
     def rect(self):
         return self._rect
 
-    @abstractmethod
-    def update(self):
-        pass
-
-    @abstractmethod
-    def blit_me(self, surface):
-        surface.blit(self._image, self._rect)
-
-    @abstractmethod
-    def handle_event(self, event):
-        pass
-
     @property
     @abstractmethod
     def is_over(self):
@@ -45,12 +33,10 @@ class Scene(metaclass=ABCMeta):
 
 class Battle(Scene):
     def __init__(self, screen_size, scene_config):
-        image_path = os.path.join('pictures/BG', scene_config['image'])
+        image_path = os.path.join('pictures', 'BG', scene_config['image'])
         Scene.__init__(self, image_path, screen_size, scene_config)
-        self._enemies=[]
-        for temp in scene_config["enemies"]:
-           self._enemies.append(create_enemy(load_enemy(temp),screen_size[0]))
-        self._enemies=Gang(self._enemies)
+        self._enemies = [create_enemy(load_enemy(enemy), screen_size[0]) for enemy in scene_config['enemies']]
+        self._enemies = Gang(self._enemies)
 
     def update(self):
         self._enemies.animated()
@@ -109,17 +95,16 @@ class Quest(Scene):
         self._lab_exp.blit_me(self._image)
         for button in self._buttons:
             button.blit_me(self._image)
-        Scene.blit_me(self, surface)
+        surface.blit(self._image, self._rect)
 
     def click(self, xy):
         for button in self._buttons:
             button.click(xy)
 
     def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            self.click(event.pos)
-        else:
-            pass  # TODO
+        for button in self._buttons:
+            button.handle_event(event)
+        # TODO
 
     @property
     def is_over(self):
@@ -136,10 +121,10 @@ def create_scene(screen_size, scene_config):
 
 
 def add_exp(hero, quest_config):
-    hero.exp += quest_config["exp"]
+    hero.exp += quest_config["_exp"]
     if hero.new_level:
         hero.level_up()
 
+
 def new_battle(quest_config):
     return load_battle(quest_config['battle'])
-
