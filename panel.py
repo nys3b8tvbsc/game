@@ -3,7 +3,7 @@ import os
 import pygame
 
 from button import Button
-from const.event import TAKE_DAMAGE
+from const.event import TAKE_DAMAGE, START_BATTLE
 from label import Label
 
 
@@ -74,5 +74,5 @@ class Panel:
         elif self._selected and event.type == pygame.MOUSEBUTTONDOWN:
             for button in self._buttons:
                 button.handle_event(event)
-        elif event.type == TAKE_DAMAGE:  # TODO
+        elif event.type == TAKE_DAMAGE or event.type == START_BATTLE:  # TODO
             self._updated = True
