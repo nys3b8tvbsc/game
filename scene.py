@@ -38,7 +38,7 @@ class Battle(Scene):
         image_path = os.path.join('pictures', 'BG', scene_config['image'])
         Scene.__init__(self, image_path, screen_size, scene_config)
         self._enemies = [create_enemy(load_enemy(enemy), screen_size[0]) for enemy in scene_config['enemies']]
-        self._enemies = Gang(self._enemies)
+        self._enemies = Gang(self._enemies, screen_size)
         self._hero = create_hero(hero_config, screen_size)
         self._hero.move_to(int(screen_size[1] * 0.05), int(screen_size[1] * 0.35))
         H = int(DEFAULT_H * screen_size[1] / DEFAULT_SIZE[1])
@@ -69,7 +69,7 @@ class Battle(Scene):
             if self._hero._hand._selected_card != None:
                 self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         elif event.type == TURN_END:
-            pygame.mouse.set_visible(False)
+            pass
         else:
             pass  # TODO
 

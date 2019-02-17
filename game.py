@@ -13,7 +13,7 @@ class Game:
 
     def __init__(self, player_file):
         pygame.init()
-        self._screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self._screen = pygame.display.set_mode((0, 0), (pygame.FULLSCREEN | pygame.DOUBLEBUF))
         self._panel = Panel(self._screen.get_width())
         self._hero = load_hero(player_file)  # Type dict
         self._quest = load_next_quest()  # Type dict

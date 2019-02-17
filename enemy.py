@@ -22,6 +22,7 @@ class Enemy(Unit):
 
     def blit_me(self, surface):
         Unit.blit_me(self, surface)
+        self._bar_rect.x = self._rect.x + int(0.5 * self._rect.width) - int(0.5 * self._bar_rect.width)
         self._bar_rect.y = self._rect.y - 25
         pygame.draw.rect(surface, RED,
                          (self._bar_rect.x + X_BAR, self._bar_rect.y + Y_BAR,

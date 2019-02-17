@@ -5,9 +5,10 @@ from const.event import ENEMY_TOUCH
 
 
 class Gang:
-    def __init__(self, enemies):
+    def __init__(self, enemies, screen_size):
         self._enemies = list(enemies)
         self._active = None
+        self.positioning(screen_size)
 
     def click(self, xy):
         for enemy in self._enemies:
@@ -25,6 +26,13 @@ class Gang:
     def animated(self):
         for enemy in self._enemies:
             enemy.animated()
+
+    def positioning(self, screen_size):
+        pos = int(0.25 * screen_size[0])
+        y = int(0.6 * screen_size[1])
+        for enemy in self._enemies:
+            enemy.move_to(pos, y - enemy._rect.height)
+            pos += enemy._rect.width + int(0.03 * screen_size[0])
 
     def dead(self):
         for enemy in self._enemies.copy():
