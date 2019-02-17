@@ -3,9 +3,13 @@ from abc import ABCMeta, abstractmethod
 import pygame
 
 from animation import Animation
+from card import card_height
 from const.animation import DEFAULT, DEAD
 from const.event import GAME_OVER
+from const.unit_size import HERO
 from deck import Deck
+from hand import hand_create
+
 
 
 class Unit(metaclass=ABCMeta):
@@ -49,7 +53,7 @@ class Unit(metaclass=ABCMeta):
 
 
 class Hero(Unit):
-    def __init__(self, config, animations):
+    def __init__(self, config, animations, screen_size):
         Unit.__init__(self, config, animations, state=DEFAULT)
         self._exp = config['_exp']
         self._max_mana = config['max_mana']
@@ -58,11 +62,13 @@ class Hero(Unit):
         self._power = config['energy']
         self._points = config['points']
         self._specifications = config['specifications']
-        self._deck = config["deck"]
+        self._deck = Deck(config["deck"])
+        self._hand = hand_create(self._deck, screen_size, card_height(screen_size[1]))
         self._stack = Deck()
 
     def blit_me(self, surface):
         Unit.blit_me(self, surface)
+        self._hand.blit_me(surface)
 
     def take_damage(self, damage):
         Unit.take_damage(self, damage)
@@ -97,26 +103,26 @@ class Hero(Unit):
 
 
 class Knight(Hero):
-    def __init__(self, config):
+    def __init__(self, config, screen_size):
         animations = list()
-        animations.append(Animation('pictures/Knight/Stand/'))
-        animations.append(Animation('pictures/Knight/Attack1H/'))
-        animations.append(Animation('pictures/Knight/Die/'))
-        Hero.__init__(self, config, animations)
+        animations.append(Animation('pictures/Knight/Stand/', HERO, screen_size[0], 4))
+        animations.append(Animation('pictures/Knight/Attack1H/', HERO, screen_size[0], 4))
+        animations.append(Animation('pictures/Knight/Die/', HERO, screen_size[0], 4))
+        Hero.__init__(self, config, animations, screen_size)
 
 
 class Mage(Hero):
-    def __init__(self, config, screen_height):
+    def __init__(self, config, screen_size):
         animations = list()
-        animations.append(Animation('pictures/IceWizard/Stand/', 0.15, screen_height, 4))
-        animations.append(Animation('pictures/IceWizard/Cast1H/', 0.15, screen_height, 4))
-        animations.append(Animation('pictures/IceWizard/Die/', 0.15, screen_height, 4))
-        Hero.__init__(self, config, animations)
+        animations.append(Animation('pictures/IceWizard/Stand/', HERO, screen_size[0], 4))
+        animations.append(Animation('pictures/IceWizard/Cast1H/', HERO, screen_size[0], 4))
+        animations.append(Animation('pictures/IceWizard/Die/', HERO, screen_size[0], 4))
+        Hero.__init__(self, config, animations, screen_size)
 
 
 def create_hero(player_config, screen_height):
     if player_config['type'] == 'warrior':
-        return Knight(player_config)
+        return Knight(player_config, screen_height)
     elif player_config['type'] == 'mage':
         return Mage(player_config, screen_height)
     else:

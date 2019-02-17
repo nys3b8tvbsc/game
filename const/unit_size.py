@@ -1,2 +1,3 @@
 GOLEM = 0.15
 VAMPIRE = 0.1
+HERO = 0.15

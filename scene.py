@@ -38,13 +38,14 @@ class Battle(Scene):
         Scene.__init__(self, image_path, screen_size, scene_config)
         self._enemies = [create_enemy(load_enemy(enemy), screen_size[0]) for enemy in scene_config['enemies']]
         self._enemies = Gang(self._enemies)
-        self._hero = create_hero(hero_config, screen_size[0])
+        self._hero = create_hero(hero_config, screen_size)
         self._hero.move_to(int(screen_size[1] * 0.05), int(screen_size[1] * 0.35))
 
     def update(self):
         self._enemies.animated()
         self._hero.animated()
         self._enemies.dead()
+        self._hero._hand.hover(pygame.mouse.get_pos())
 
     def blit_me(self, surface):
         surface.blit(self._image, self._rect)
@@ -57,6 +58,7 @@ class Battle(Scene):
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.click(event.pos)
+            self._hero._hand.click(event.pos)
         else:
             pass  # TODO
 
