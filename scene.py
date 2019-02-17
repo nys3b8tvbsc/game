@@ -69,6 +69,9 @@ class Battle(Scene):
     def is_over(self):
         pass
 
+    @property
+    def return_hero(self):
+        return self._hero._config
 
 class Quest(Scene):
     def __init__(self, screen_size, scene_config):

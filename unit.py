@@ -72,6 +72,7 @@ class Hero(Unit):
 
     def take_damage(self, damage):
         Unit.take_damage(self, damage)
+        self._config['hp'] = self._hp
         if self.is_dead:
             self._state = DEAD
             pygame.event.post(pygame.event.Event(GAME_OVER, {}))
@@ -80,11 +81,13 @@ class Hero(Unit):
         if card.subtype == 'magic' and self._mana - card.cost >= 0:
             self._mana -= card.cost
             enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
+            self._config['mana'] = self._mana
             self._hand.delete_active()
             return True
         elif card.subtype == 'physical' and self._power - card.cost >= 0:
             self._power -= card.cost
             enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
+            self._config['energy'] = self._power
             self._hand.delete_active()
             return True
         return False
