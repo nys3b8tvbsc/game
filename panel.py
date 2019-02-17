@@ -3,7 +3,9 @@ import os
 import pygame
 
 from button import Button
-from const.event import TAKE_DAMAGE, START_BATTLE, ENEMY_TOUCH
+from const.button import DEFAULT_W, DEFAULT_H
+from const.event import TAKE_DAMAGE, START_BATTLE, ENEMY_TOUCH, QUIT
+from const.screen import DEFAULT_SIZE
 from label import Label
 
 
@@ -25,7 +27,10 @@ class Panel:
                            (150 * self._scaling, 15 * self._scaling),
                            (200 * self._scaling, 15 * self._scaling),
                            (250 * self._scaling, 15 * self._scaling)]
-        self._buttons = [Button() for _ in range(2)]  # TODO
+        W = int(0.7 * DEFAULT_W * screen_width / DEFAULT_SIZE[0])
+        H = int(DEFAULT_H * W / DEFAULT_W)
+        self._buttons = [Button((W, H), (screen_width - W, 0), "Выход", QUIT)
+                         ]  # TODO
         self._updated = False
 
     @property
