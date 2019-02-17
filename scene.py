@@ -6,7 +6,7 @@ import pygame
 from button import Button
 from const.button import DEFAULT_H, DEFAULT_W
 from const.color import WHITE
-from const.event import ENEMY_TOUCH
+from const.event import ENEMY_TOUCH, TURN_END
 from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LABEL
 from const.screen import DEFAULT_SIZE
 from enemy import create_enemy
@@ -41,6 +41,9 @@ class Battle(Scene):
         self._enemies = Gang(self._enemies)
         self._hero = create_hero(hero_config, screen_size)
         self._hero.move_to(int(screen_size[1] * 0.05), int(screen_size[1] * 0.35))
+        H = int(DEFAULT_H * screen_size[1] / DEFAULT_SIZE[1])
+        W = int(DEFAULT_W * screen_size[0] / DEFAULT_SIZE[0])
+        self._button = Button((W, H), (int(0.05 * screen_size[0]), int(0.3 * screen_size[1])), "Конец хода", TURN_END)
 
     def update(self):
         self._enemies.animated()
@@ -52,6 +55,7 @@ class Battle(Scene):
         surface.blit(self._image, self._rect)
         self._enemies.blit_me(surface)
         self._hero.blit_me(surface)
+        self._button.blit_me(surface)
 
     def click(self, xy):
         self._enemies.click(xy)
@@ -60,8 +64,11 @@ class Battle(Scene):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.click(event.pos)
             self._hero._hand.click(event.pos)
+            self._button.handle_event(event)
         elif event.type == ENEMY_TOUCH:
             self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
+        elif event.type == TURN_END:
+            pass
         else:
             pass  # TODO
 
