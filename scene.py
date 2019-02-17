@@ -6,6 +6,7 @@ import pygame
 from button import Button
 from const.button import DEFAULT_H, DEFAULT_W
 from const.color import WHITE
+from const.event import ENEMY_TOUCH
 from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LABEL
 from const.screen import DEFAULT_SIZE
 from enemy import create_enemy
@@ -59,6 +60,8 @@ class Battle(Scene):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.click(event.pos)
             self._hero._hand.click(event.pos)
+        elif event.type == ENEMY_TOUCH:
+            self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         else:
             pass  # TODO
 
