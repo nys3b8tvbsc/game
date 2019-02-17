@@ -4,7 +4,7 @@ import pygame
 
 from animation import Animation
 from card import card_height
-from const.animation import DEFAULT, DEAD
+from const.animation import DEFAULT, DEAD, ATTACK
 from const.event import GAME_OVER
 from const.unit_size import HERO
 from deck import Deck
@@ -82,12 +82,14 @@ class Hero(Unit):
             self._mana -= card.cost
             enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
             self._config['mana'] = self._mana
+            self._state = ATTACK
             self._hand.delete_active()
             return True
         elif card.subtype == 'physical' and self._power - card.cost >= 0:
             self._power -= card.cost
             enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
             self._config['energy'] = self._power
+            self._state = ATTACK
             self._hand.delete_active()
             return True
         return False
