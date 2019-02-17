@@ -46,6 +46,8 @@ class Enemy(Unit):
         else:
             return False
 
+    def walking(self, speed):
+        self._rect.x += speed
 
 class Golem(Enemy):
     def __init__(self, config, screen_height):
