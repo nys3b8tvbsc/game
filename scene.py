@@ -37,6 +37,7 @@ class Battle(Scene):
     def __init__(self, screen_size, scene_config, hero_config):
         image_path = os.path.join('pictures', 'BG', scene_config['image'])
         Scene.__init__(self, image_path, screen_size, scene_config)
+        self._turn_hero = True
         self._enemies = [create_enemy(load_enemy(enemy), screen_size[0]) for enemy in scene_config['enemies']]
         self._enemies = Gang(self._enemies, screen_size)
         self._hero = create_hero(hero_config, screen_size)
@@ -49,19 +50,23 @@ class Battle(Scene):
         self._enemies.animated()
         self._hero.animated()
         self._enemies.dead()
-        self._hero._hand.hover(pygame.mouse.get_pos())
+        if self._turn_hero:
+            self._hero._hand.hover(pygame.mouse.get_pos())
+
+
 
     def blit_me(self, surface):
         surface.blit(self._image, self._rect)
-        self._enemies.blit_me(surface)
         self._hero.blit_me(surface)
-        self._button.blit_me(surface)
+        self._enemies.blit_me(surface)
+        if self._turn_hero:
+            self._button.blit_me(surface)
 
     def click(self, xy):
         self._enemies.click(xy)
 
     def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and self._turn_hero:
             self.click(event.pos)
             self._hero._hand.click(event.pos)
             self._button.handle_event(event)
@@ -69,7 +74,7 @@ class Battle(Scene):
             if self._hero._hand._selected_card != None:
                 self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         elif event.type == TURN_END:
-            pass
+            self._turn_hero = not self._turn_hero
         else:
             pass  # TODO
 
