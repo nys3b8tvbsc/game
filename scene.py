@@ -66,9 +66,10 @@ class Battle(Scene):
             self._hero._hand.click(event.pos)
             self._button.handle_event(event)
         elif event.type == ENEMY_TOUCH:
-            self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
+            if self._hero._hand._selected_card != None:
+                self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         elif event.type == TURN_END:
-            pass
+            pygame.mouse.set_visible(False)
         else:
             pass  # TODO
 

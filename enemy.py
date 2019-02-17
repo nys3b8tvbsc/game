@@ -7,6 +7,7 @@ from animation import Animation
 from const.animation import APPEAR
 from const.color import RED
 from const.enemy import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
+from const.event import ENEMY_DAMAGE
 from const.unit_size import GOLEM, VAMPIRE
 from unit import Unit
 
@@ -30,6 +31,7 @@ class Enemy(Unit):
 
     def take_damage(self, damage):
         Unit.take_damage(self, damage)
+        pygame.event.post(pygame.event.Event(ENEMY_DAMAGE, {}))
 
     def attack(self, hero):
         hero.take_damage(random.randint(int(0.7 * self._power), self._power))
