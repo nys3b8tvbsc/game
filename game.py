@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from const.event import QUIT, START_BATTLE, TAKE_DAMAGE, REGEN, ENEMY_DAMAGE
+from const.event import QUIT, START_BATTLE, TAKE_DAMAGE, ENEMY_DAMAGE, BATLE_END
 from loading import load_hero, load_next_quest
 from panel import Panel
 from scene import create_scene, new_battle
@@ -13,6 +13,7 @@ class Game:
 
     def __init__(self, player_file):
         pygame.init()
+
         self._screen = pygame.display.set_mode((0, 0), (pygame.FULLSCREEN | pygame.DOUBLEBUF))
         self._panel = Panel(self._screen.get_width())
         self._hero = load_hero(player_file)  # Type dict
@@ -41,7 +42,6 @@ class Game:
 
             elif event.type == ENEMY_DAMAGE:
                 self._hero = self._scene.return_hero
-                self._panel.handle_event(event)
                 self._panel.update(self._hero)
 
 
@@ -51,13 +51,10 @@ class Game:
 
             elif event.type == TAKE_DAMAGE:
                 self._hero = self._scene.return_hero
-                self._panel.handle_event(event)
                 self._panel.update(self._hero)
 
-            elif event.type == REGEN:
-                self._hero = self._scene.return_hero
-                self._panel.handle_event(event)
-                self._panel.update(self._hero)
+            elif event.type == BATLE_END:
+                print("Бой окончен")
             else:
                 self._scene.handle_event(event)
                 self._panel.handle_event(event)

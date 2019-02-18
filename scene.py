@@ -6,7 +6,7 @@ import pygame
 from button import Button
 from const.button import DEFAULT_H, DEFAULT_W
 from const.color import WHITE
-from const.event import ENEMY_TOUCH, TURN_END, REGEN
+from const.event import ENEMY_TOUCH, TURN_END, TAKE_DAMAGE, BATLE_END
 from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LABEL
 from const.screen import DEFAULT_SIZE
 from enemy import create_enemy
@@ -54,6 +54,9 @@ class Battle(Scene):
             self._hero._hand.hover(pygame.mouse.get_pos())
         else:
             self._enemies.attack(self._hero)
+        if len(self._enemies) == 0:
+            pygame.event.post(pygame.event.Event(BATLE_END, {}))
+
 
 
     def blit_me(self, surface):
@@ -81,7 +84,7 @@ class Battle(Scene):
             else:
                 self._hero.regen()
                 self._hero.update_hand()
-                pygame.event.post(pygame.event.Event(REGEN))
+                pygame.event.post(pygame.event.Event(TAKE_DAMAGE, {}))
         else:
             pass  # TODO
 

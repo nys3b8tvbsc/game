@@ -4,7 +4,7 @@ import pygame
 
 from button import Button
 from const.button import DEFAULT_W, DEFAULT_H
-from const.event import TAKE_DAMAGE, START_BATTLE, ENEMY_DAMAGE, QUIT, REGEN
+from const.event import QUIT
 from const.screen import DEFAULT_SIZE
 from label import Label
 
@@ -31,7 +31,6 @@ class Panel:
         H = int(DEFAULT_H * W / DEFAULT_W)
         self._buttons = [Button((W, H), (screen_width - W, 0), "Выход", QUIT)
                          ]  # TODO
-        self._updated = False
 
     @property
     def rect(self):
@@ -48,8 +47,6 @@ class Panel:
             button.blit_me(surface)
 
     def update(self, hero_config):
-        if not self._updated:
-            return
 
         size = self._label_size
         pos = self._label_pos
@@ -79,5 +76,3 @@ class Panel:
         elif self._selected and event.type == pygame.MOUSEBUTTONDOWN:
             for button in self._buttons:
                 button.handle_event(event)
-        elif event.type in (TAKE_DAMAGE, START_BATTLE, ENEMY_DAMAGE, REGEN):  # TODO
-            self._updated = True
