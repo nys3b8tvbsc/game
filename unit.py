@@ -6,6 +6,7 @@ from animation import Animation
 from card import card_height
 from const.animation import DEFAULT, DEAD, ATTACK
 from const.event import GAME_OVER
+from const.hand import MAX_HAND
 from const.unit_size import HERO
 from deck import Deck
 from hand import hand_create
@@ -57,13 +58,16 @@ class Hero(Unit):
         Unit.__init__(self, config, animations, state=DEFAULT)
         self._exp = config['_exp']
         self._max_mana = config['max_mana']
+        self._max_hp = config['max_hp']
         self._mana = config['mana']
         self._max_power = config['max_energy']
         self._power = config['energy']
         self._points = config['points']
         self._specifications = config['specifications']
+        self._regen = config["regen"]
         self._deck = Deck(config["deck"])
-        self._hand = hand_create(self._deck, screen_size, card_height(screen_size[1]))
+        self._card_height = card_height(screen_size[1])
+        self._hand = hand_create(self._deck, screen_size, self._card_height)
         self._stack = Deck()
 
     def blit_me(self, surface):
@@ -77,18 +81,36 @@ class Hero(Unit):
             self._state = DEAD
             pygame.event.post(pygame.event.Event(GAME_OVER, {}))
 
+    def update_hand(self):
+        self._hand.append(self._deck.return_cards(MAX_HAND - len(self._hand), self._card_height))
+
+    def regen(self):
+        self._hp += self._regen['hp']
+        if self._hp > self._max_hp:
+            self._hp = self._max_hp
+        self._mana += self._regen['mana']
+        if self._mana > self._max_mana:
+            self._mana = self._max_mana
+        self._power += self._regen['energy']
+        if self._power > self._max_power:
+            self._power = self._max_power
+
+        self._config['hp'] = self._hp
+        self._config['mana'] = self._mana
+        self._config['energy'] = self._power
+
     def attack(self, enemy, card):
         if card.subtype == 'magic' and self._mana - card.cost >= 0:
             self._mana -= card.cost
-            enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
             self._config['mana'] = self._mana
+            enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
             self._state = ATTACK
             self._hand.delete_active()
             return True
         elif card.subtype == 'physical' and self._power - card.cost >= 0:
             self._power -= card.cost
-            enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
             self._config['energy'] = self._power
+            enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
             self._state = ATTACK
             self._hand.delete_active()
             return True

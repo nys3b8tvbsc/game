@@ -6,7 +6,7 @@ import pygame
 from button import Button
 from const.button import DEFAULT_H, DEFAULT_W
 from const.color import WHITE
-from const.event import ENEMY_TOUCH, TURN_END
+from const.event import ENEMY_TOUCH, TURN_END, REGEN
 from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LABEL
 from const.screen import DEFAULT_SIZE
 from enemy import create_enemy
@@ -78,6 +78,10 @@ class Battle(Scene):
             self._turn_hero = not self._turn_hero
             if not self._turn_hero:
                 self._enemies.attack_init()
+            else:
+                self._hero.regen()
+                self._hero.update_hand()
+                pygame.event.post(pygame.event.Event(REGEN))
         else:
             pass  # TODO
 

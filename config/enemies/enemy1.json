@@ -2,7 +2,7 @@
   "type": "golem",
   "max_hp": 100,
   "hp": 100,
-  "power": 100,
+  "power": 30,
   "at_pos": 0.55,
   "level": 1
 }
