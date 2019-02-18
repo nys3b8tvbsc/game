@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from const.event import QUIT, START_BATTLE, ENEMY_TOUCH
+from const.event import QUIT, START_BATTLE, ENEMY_TOUCH, TAKE_DAMAGE
 from loading import load_hero, load_next_quest
 from panel import Panel
 from scene import create_scene, new_battle
@@ -38,6 +38,7 @@ class Game:
                 if event.key == pygame.K_F4 and event.mod == pygame.KMOD_LALT:
                     pygame.quit()
                     sys.exit()
+
             elif event.type == ENEMY_TOUCH:
                 self._scene.handle_event(event)
                 self._hero = self._scene.return_hero
@@ -45,6 +46,11 @@ class Game:
             elif event.type == START_BATTLE:
                 self._scene = create_scene(self._screen.get_size(), new_battle(self._quest), self._hero)
                 self._panel.handle_event(event)
+
+            elif event.type == TAKE_DAMAGE:
+                self._hero = self._scene.return_hero
+                self._panel.handle_event(event)
+
             else:
                 self._scene.handle_event(event)
                 self._panel.handle_event(event)

@@ -3,5 +3,6 @@
   "max_hp": 100,
   "hp": 100,
   "power": 100,
+  "at_pos": 0.55,
   "level": 1
 }

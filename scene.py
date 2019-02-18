@@ -52,7 +52,8 @@ class Battle(Scene):
         self._enemies.dead()
         if self._turn_hero:
             self._hero._hand.hover(pygame.mouse.get_pos())
-
+        else:
+            self._enemies.attack(self._hero)
 
 
     def blit_me(self, surface):
@@ -75,6 +76,8 @@ class Battle(Scene):
                 self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         elif event.type == TURN_END:
             self._turn_hero = not self._turn_hero
+            if not self._turn_hero:
+                self._enemies.attack_init()
         else:
             pass  # TODO
 
