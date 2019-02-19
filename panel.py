@@ -69,8 +69,6 @@ class Panel:
         self._labels[5] = Label('{}/{}'.format(current, maximum), size, pos[5])
 
     def handle_event(self, event):
-        self._updated = False
-
         if event.type == pygame.MOUSEMOTION:
             self._selected = self.rect.collidepoint(event.pos)
         elif self._selected and event.type == pygame.MOUSEBUTTONDOWN:

@@ -1,7 +1,3 @@
-"""
-Main game module.
-Create game object and starts it up.
-"""
 from game import Game
 
 

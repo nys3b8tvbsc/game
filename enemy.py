@@ -53,6 +53,7 @@ class Enemy(Unit):
         if self._state != ATTACK:
             self._rect.x += speed
 
+
 class Golem(Enemy):
     def __init__(self, config, screen_height):
         animations = list()

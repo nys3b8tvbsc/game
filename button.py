@@ -9,8 +9,8 @@ from label import Label
 
 class Button:
     def __init__(self, size=(0, 0), pos=(0, 0), text='', event=0):
-        self.__image_path = os.path.join('pictures', 'button1.png')
-        self.__image = pygame.image.load(self.__image_path).convert_alpha()
+        image_path = os.path.join('pictures', 'button1.png')
+        self.__image = pygame.image.load(image_path).convert_alpha()
         self.__image = pygame.transform.scale(self.__image, size)
 
         self.__rect = self.__image.get_rect()
@@ -23,16 +23,17 @@ class Button:
 
         self.__label = Label(text, size=lab_size, pos=lab_pos, font_name='fonts/DECOR6DI.TTF', color=WHITE)
 
-        self._event = event
+        self.__event = event
+
+        self.__label.blit_me(self.__image)
 
     def blit_me(self, surface):
-        self.__label.blit_me(self.__image)  # TODO ??
         surface.blit(self.__image, self.__rect)
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
-                pygame.event.post(pygame.event.Event(self._event, {}))
+                pygame.event.post(pygame.event.Event(self.__event, {}))
 
     @property
     def rect(self):

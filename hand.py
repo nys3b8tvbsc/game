@@ -1,5 +1,3 @@
-import pygame
-
 from const.hand import MAX_HAND
 
 
@@ -30,12 +28,6 @@ class Hand:
         self._cards.extend(cards)
         self.positioning()
 
-    def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            self.click(event.pos)
-        elif event.type == pygame.MOUSEMOTION:
-            self.hover(event.pos)
-
     def hover(self, xy):
         for card in self._cards:
             card.defocus()
@@ -61,6 +53,10 @@ class Hand:
                 self.positioning()
                 self._selected_card = None
                 return 0
+
+    def clear_selection(self):
+        self.hover((-1, -1))
+        self.click((-1, -1))
 
     def __len__(self):
         return len(self._cards)

@@ -12,7 +12,7 @@ from const.screen import DEFAULT_SIZE
 from enemy import create_enemy
 from gang import Gang
 from label import Label
-from loading import load_enemy, load_battle
+from loading import load_enemy
 from unit import create_hero
 
 
@@ -51,13 +51,11 @@ class Battle(Scene):
         self._hero.animated()
         self._enemies.dead()
         if self._turn_hero:
-            self._hero._hand.hover(pygame.mouse.get_pos())
+            self._hero.hand.hover(pygame.mouse.get_pos())
         else:
             self._enemies.attack(self._hero)
         if len(self._enemies) == 0:
             pygame.event.post(BATLE_END_POST)
-
-
 
     def blit_me(self, surface):
         surface.blit(self._image, self._rect)
@@ -72,10 +70,10 @@ class Battle(Scene):
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and self._turn_hero:
             self.click(event.pos)
-            self._hero._hand.click(event.pos)
+            self._hero.hand.click(event.pos)
             self._button.handle_event(event)
         elif event.type == ENEMY_TOUCH:
-            if self._hero._hand._selected_card != None:
+            if self._hero.hand._selected_card != None:
                 self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         elif event.type == TURN_END:
             self._turn_hero = not self._turn_hero
@@ -93,8 +91,9 @@ class Battle(Scene):
         pass
 
     @property
-    def return_hero(self):
-        return self._hero._config
+    def hero_info(self):
+        return self._hero.get_info()
+
 
 class Quest(Scene):
     def __init__(self, screen_size, scene_config):
@@ -160,7 +159,3 @@ def add_exp(hero, quest_config):
     hero.exp += quest_config["_exp"]
     if hero.new_level:
         hero.level_up()
-
-
-def new_battle(quest_config):
-    return load_battle(quest_config['battle'])

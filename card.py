@@ -51,11 +51,10 @@ class Card(metaclass=ABCMeta):
         self._focus = False
         self._select = False
 
-    def blit_me(self, surface):
-        self._name_label.blit_me(self._image)  # TODO ??
+        self._name_label.blit_me(self._image)
         self._text_label.blit_me(self._image)
-        self._left_label.blit_me(self._image)
-        self._right_label.blit_me(self._image)
+
+    def blit_me(self, surface):
         if self.selected:
             surface.blit(self._back1, self._rect)
         elif self.focused:
@@ -95,6 +94,10 @@ class Card(metaclass=ABCMeta):
         self._rect.x = x
         self._rect.y = y
 
+    @staticmethod
+    def card_height(screen_height):
+        return int((400 / 1080) * screen_height)
+
 
 class AttackCard(Card, metaclass=ABCMeta):
     def __init__(self, height, config):
@@ -103,6 +106,8 @@ class AttackCard(Card, metaclass=ABCMeta):
         self._left_label = Label(text=config['value'],
                                  pos=(LEFT_LABEL[0] * self._scaling, LEFT_LABEL[1] * self._scaling),
                                  size=(LEFT_LABEL[2] * self._scaling, LEFT_LABEL[3] * self._scaling))
+
+        self._left_label.blit_me(self._image)
 
     @property
     @abstractmethod
@@ -122,6 +127,8 @@ class MagicAttack(AttackCard):
         self._right_label = Label(text=config['cost'],
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
+
+        self._right_label.blit_me(self._image)
 
     @property
     def subtype(self):
@@ -144,6 +151,8 @@ class PhysicalAttack(AttackCard):
         self._right_label = Label(text=config['cost'],
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
+
+        self._right_label.blit_me(self._image)
 
     @property
     def subtype(self):
@@ -168,7 +177,3 @@ def create_card(height, config):
             raise ValueError('Wrong card subtype.')
     else:
         raise ValueError('Wrong card type.')
-
-
-def card_height(screen_height):
-    return int((400 / 1080) * screen_height)

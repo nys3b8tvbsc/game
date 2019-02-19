@@ -2,10 +2,10 @@ import sys
 
 import pygame
 
-from const.event import QUIT, START_BATTLE, TAKE_DAMAGE, ENEMY_DAMAGE, BATLE_END, REGEN
-from loading import load_hero, load_next_quest
+from const.event import QUIT, START_BATTLE, TAKE_DAMAGE, ENEMY_DAMAGE, BATTLE_END, REGEN
+from loading import load_hero, load_next_quest, load_battle
 from panel import Panel
-from scene import create_scene, new_battle
+from scene import create_scene
 
 
 class Game:
@@ -15,10 +15,9 @@ class Game:
         pygame.init()
         self._screen = pygame.display.set_mode((0, 0), (pygame.FULLSCREEN | pygame.DOUBLEBUF))
         self._panel = Panel(self._screen.get_width())
-        self._hero = load_hero(player_file)  # Type dict
-        self._quest = load_next_quest()  # Type dict
+        self._hero = load_hero(player_file)
+        self._quest = load_next_quest()
         self._scene = create_scene(self._screen.get_size(), self._quest)
-
 
     def start(self):
         clock = pygame.time.Clock()
@@ -26,7 +25,7 @@ class Game:
         while True:
             clock.tick(self.FPS)
             self.handle_events()
-            self.game_logic()
+            self.update()
             self.screen_blit()
 
     def handle_events(self):
@@ -38,39 +37,36 @@ class Game:
                 if event.key == pygame.K_F4 and event.mod == pygame.KMOD_LALT:
                     pygame.quit()
                     sys.exit()
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.pos == BATLE_END:
+                if event.pos == BATTLE_END:
                     print("jjj")
                 elif event.pos == REGEN:
-                    self._hero = self._scene.return_hero
+                    self._hero = self._scene.hero_info
                     self._panel.update(self._hero)
-                self._scene.handle_event(event)
+                self._scene.handle_event(event)  # TODO ??
                 self._panel.handle_event(event)
 
             elif event.type == ENEMY_DAMAGE:
-                self._hero = self._scene.return_hero
+                self._hero = self._scene.hero_info
                 self._panel.update(self._hero)
 
-
             elif event.type == START_BATTLE:
-                self._scene = create_scene(self._screen.get_size(), new_battle(self._quest), self._hero)
+                self._scene = create_scene(self._screen.get_size(), load_battle(self._quest['battle']), self._hero)
                 self._panel.handle_event(event)
 
             elif event.type == TAKE_DAMAGE:
-                self._hero = self._scene.return_hero
+                self._hero = self._scene.hero_info
                 self._panel.update(self._hero)
 
             else:
                 self._scene.handle_event(event)
                 self._panel.handle_event(event)
 
-    def game_logic(self):
+    def update(self):
         self._scene.update()
 
     def screen_blit(self):
         self._scene.blit_me(self._screen)
         self._panel.blit_me(self._screen)
         pygame.display.update()
-        if self._scene.is_over:
-            self._scene.get_data()  # TODO refactor ??
-            # TODO if data ...

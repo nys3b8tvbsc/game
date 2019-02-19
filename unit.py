@@ -3,14 +3,13 @@ from abc import ABCMeta, abstractmethod
 import pygame
 
 from animation import Animation
-from card import card_height
+from card import Card
 from const.animation import DEFAULT, DEAD, ATTACK
 from const.event import GAME_OVER
 from const.hand import MAX_HAND
 from const.unit_size import HERO
 from deck import Deck
 from hand import hand_create
-
 
 
 class Unit(metaclass=ABCMeta):
@@ -52,6 +51,10 @@ class Unit(metaclass=ABCMeta):
         self._rect.x = x
         self._rect.y = y
 
+    @property
+    def rect(self):
+        return self._rect
+
 
 class Hero(Unit):
     def __init__(self, config, animations, screen_size):
@@ -66,7 +69,7 @@ class Hero(Unit):
         self._specifications = config['specifications']
         self._regen = config["regen"]
         self._deck = Deck(config["deck"])
-        self._card_height = card_height(screen_size[1])
+        self._card_height = Card.card_height(screen_size[1])
         self._hand = hand_create(self._deck, screen_size, self._card_height)
         self._stack = Deck()
 
@@ -129,6 +132,13 @@ class Hero(Unit):
             return True
         else:
             return False
+
+    def get_info(self):
+        return self._config
+
+    @property
+    def hand(self):
+        return self._hand
 
 
 class Knight(Hero):
