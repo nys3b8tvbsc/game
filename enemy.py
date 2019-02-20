@@ -20,6 +20,7 @@ class Enemy(Unit):
         bar_path = os.path.join('pictures', 'manabar.png')
         self._bar = pygame.image.load(bar_path).convert_alpha()
         self._bar_rect = self._bar.get_rect(center=self._rect.center)
+        self._v = config['v']
 
     def blit_me(self, surface):
         Unit.blit_me(self, surface)
@@ -49,9 +50,9 @@ class Enemy(Unit):
         else:
             return False
 
-    def walking(self, speed):
+    def walking(self, vector):
         if self._state != ATTACK:
-            self._rect.x += speed
+            self._rect.x += vector * self._v
 
 
 class Golem(Enemy):

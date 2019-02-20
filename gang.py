@@ -45,14 +45,14 @@ class Gang:
 
     def attack(self, hero):
         self._enemies[self.attacking].walking(self.v)
-        if self._enemies[self.attacking].rect.x == self.start_pos:
+        if self._enemies[self.attacking].rect.x >= self.start_pos:
             self.v = -self.v
             self.attacking += 1
             if self.attacking == len(self):
                 pygame.event.post(pygame.event.Event(TURN_END, {}))
                 return
             self.start_pos = self._enemies[self.attacking].rect.x
-        elif self._enemies[self.attacking].rect.x == hero.rect.x + int(
+        elif self._enemies[self.attacking].rect.x <= hero.rect.x + int(
                 self._enemies[self.attacking]._at_pos * hero.rect.width):
             self.v = -self.v
             self._enemies[self.attacking].walking(self.v)
