@@ -9,6 +9,6 @@ TAKE_DAMAGE = pygame.USEREVENT + 5
 TURN_END = pygame.USEREVENT + 6
 ENEMY_DAMAGE = pygame.USEREVENT + 7
 BATTLE_END = (-10, -10)
-BATLE_END_POST = pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=BATTLE_END)
+BATTLE_END_POST = pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=BATTLE_END)
 REGEN = (-10, -11)
 REGEN_POST = pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=REGEN)

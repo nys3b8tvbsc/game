@@ -120,9 +120,10 @@ class AttackCard(Card, metaclass=ABCMeta):
 
 
 class MagicAttack(AttackCard):
-    def __init__(self, height, config):
-        AttackCard.__init__(self, height, config)
+    def __init__(self, height, config, hero):
         self._type = config['type']
+        config['value'] = max(int(config['value'] * hero[self._type] / 100), 1)
+        AttackCard.__init__(self, height, config)
         self._mana_cost = config['cost']
         self._right_label = Label(text=config['cost'],
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
@@ -144,9 +145,10 @@ class MagicAttack(AttackCard):
 
 
 class PhysicalAttack(AttackCard):
-    def __init__(self, height, config):
-        AttackCard.__init__(self, height, config)
+    def __init__(self, height, config, hero):
         self._type = config['type']
+        config['value'] = max(int(config['value'] * hero[self._type] / 100), 1)
+        AttackCard.__init__(self, height, config)
         self._energy_cost = config['cost']
         self._right_label = Label(text=config['cost'],
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
@@ -167,12 +169,12 @@ class PhysicalAttack(AttackCard):
         return self._energy_cost
 
 
-def create_card(height, config):
+def create_card(height, config, hero):
     if config['card_type'] == 'attack':
         if config['subtype'] == 'magic':
-            return MagicAttack(height, config)
+            return MagicAttack(height, config, hero)
         elif config['subtype'] == 'physical':
-            return PhysicalAttack(height, config)
+            return PhysicalAttack(height, config, hero)
         else:
             raise ValueError('Wrong card subtype.')
     else:

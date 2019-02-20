@@ -6,7 +6,7 @@ import pygame
 from button import Button
 from const.button import DEFAULT_H, DEFAULT_W
 from const.color import WHITE
-from const.event import ENEMY_TOUCH, TURN_END, BATLE_END_POST, REGEN_POST
+from const.event import ENEMY_TOUCH, TURN_END, BATTLE_END_POST, REGEN_POST
 from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LABEL
 from const.screen import DEFAULT_SIZE
 from enemy import create_enemy
@@ -55,7 +55,7 @@ class Battle(Scene):
         else:
             self._enemies.attack(self._hero)
         if len(self._enemies) == 0:
-            pygame.event.post(BATLE_END_POST)
+            pygame.event.post(BATTLE_END_POST)
 
     def blit_me(self, surface):
         surface.blit(self._image, self._rect)

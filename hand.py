@@ -62,6 +62,6 @@ class Hand:
         return len(self._cards)
 
 
-def hand_create(deck, screen_size, height):
-    cards = deck.return_cards(MAX_HAND, height)
+def hand_create(deck, screen_size, height, hero):
+    cards = deck.return_cards(MAX_HAND, height, hero)
     return Hand(screen_size, cards)

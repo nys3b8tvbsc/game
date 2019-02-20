@@ -70,7 +70,7 @@ class Hero(Unit):
         self._regen = config["regen"]
         self._deck = Deck(config["deck"])
         self._card_height = Card.card_height(screen_size[1])
-        self._hand = hand_create(self._deck, screen_size, self._card_height)
+        self._hand = hand_create(self._deck, screen_size, self._card_height, self._specifications)
         self._stack = Deck()
 
     def blit_me(self, surface):
@@ -85,7 +85,7 @@ class Hero(Unit):
             pygame.event.post(pygame.event.Event(GAME_OVER, {}))
 
     def update_hand(self):
-        self._hand.append(self._deck.return_cards(MAX_HAND - len(self._hand), self._card_height))
+        self._hand.append(self._deck.return_cards(MAX_HAND - len(self._hand), self._card_height, self._specifications))
 
     def regen(self):
         self._hp += self._regen['hp']
