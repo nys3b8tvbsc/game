@@ -4,17 +4,17 @@ import random
 import pygame
 
 from animation import Animation
-from const.animation import APPEAR, ATTACK
+from const.animation import APPEAR, ATTACK, MOVE, DEFAULT
 from const.color import RED
 from const.enemy import MAX_HP_BAR, X_BAR, Y_BAR, H_BAR
 from const.event import ENEMY_DAMAGE, TAKE_DAMAGE
-from const.unit_size import GOLEM, VAMPIRE
+from const.unit_size import GOLEM, VAMPIRE, SKELETON, HERO
 from unit import Unit
 
 
 class Enemy(Unit):
-    def __init__(self, config, animations):
-        Unit.__init__(self, config, animations, state=APPEAR)
+    def __init__(self, config, animations, state=APPEAR):
+        Unit.__init__(self, config, animations, state)
         self._at_pos = config['at_pos']
         self._power = config['power']
         bar_path = os.path.join('pictures', 'manabar.png')
@@ -53,6 +53,7 @@ class Enemy(Unit):
     def walking(self, vector):
         if self._state != ATTACK:
             self._rect.x += vector * self._v
+            self._state = MOVE
 
 
 class Golem(Enemy):
@@ -61,6 +62,7 @@ class Golem(Enemy):
         animations.append(Animation('pictures/Archive (1)/idle-walk/', GOLEM, screen_height, 4))
         animations.append(Animation('pictures/Archive (1)/attack/', GOLEM, screen_height, 3))
         animations.append(Animation('pictures/Archive (1)/die/', GOLEM, screen_height, 2))
+        animations.append(Animation('pictures/Archive (1)/idle-walk/', GOLEM, screen_height, 4))
         animations.append(Animation('pictures/Archive (1)/appear/', GOLEM, screen_height, 2))
         Enemy.__init__(self, config, animations)
 
@@ -71,14 +73,42 @@ class Vampire(Enemy):
         animations.append(Animation('pictures/Archive/walk-idle/', VAMPIRE, screen_height, 5))
         animations.append(Animation('pictures/Archive/attack/', VAMPIRE, screen_height))
         animations.append(Animation('pictures/Archive/die/', VAMPIRE, screen_height))
+        animations.append(Animation('pictures/Archive/walk-idle/', VAMPIRE, screen_height, 5))
         animations.append(Animation('pictures/Archive/appear/', VAMPIRE, screen_height, 3))
         Enemy.__init__(self, config, animations)
 
+
+class Skeleton(Enemy):
+    def __init__(self, config, screen_height):
+        animations = list()
+        animations.append(
+            Animation('pictures/Knight Skeleton/Knight Skeleton/Idle/Separate sp', SKELETON, screen_height, 5))
+        animations.append(
+            Animation('pictures/Knight Skeleton/Knight Skeleton/Attack 1/Separated sp/', SKELETON, screen_height, 3))
+        animations.append(
+            Animation('pictures/Knight Skeleton/Knight Skeleton/Dead/Separate sp/', SKELETON, screen_height, 3))
+        animations.append(
+            Animation('pictures/Knight Skeleton/Knight Skeleton/Walk/Separate sp/', SKELETON, screen_height, 5))
+        Enemy.__init__(self, config, animations, DEFAULT)
+
+
+class Barbarian1(Enemy):
+    def __init__(self, config, screen_height):
+        animations = list()
+        animations.append(Animation('pictures/Viking1/Stand1/', HERO, screen_height, 5))
+        animations.append(Animation('pictures/Viking1/Attack', HERO, screen_height, 3))
+        animations.append(Animation('pictures/Viking1/Dead', HERO, screen_height, 3))
+        animations.append(Animation('pictures/Viking1/Walking1', HERO, screen_height, 5))
+        Enemy.__init__(self, config, animations, DEFAULT)
 
 def create_enemy(enemy_config, screen_height):
     if enemy_config["type"] == 'golem':
         return Golem(enemy_config, screen_height)
     elif enemy_config["type"] == 'vampire':
         return Vampire(enemy_config, screen_height)
+    elif enemy_config["type"] == 'skeleton':
+        return Skeleton(enemy_config, screen_height)
+    elif enemy_config["type"] == 'barbarian1':
+        return Barbarian1(enemy_config, screen_height)
     else:
         raise ValueError('Wrong enemies type.')

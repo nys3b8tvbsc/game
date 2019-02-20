@@ -1,0 +1,9 @@
+{
+  "type": "barbarian1",
+  "max_hp": 20,
+  "hp": 20,
+  "power": 15,
+  "at_pos": 0.35,
+  "v": 2,
+  "level": 1
+}

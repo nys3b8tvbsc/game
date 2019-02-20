@@ -1,0 +1,9 @@
+{
+  "type": "skeleton",
+  "max_hp": 50,
+  "hp": 30,
+  "power": 25,
+  "at_pos": 0.45,
+  "v": 2,
+  "level": 1
+}
