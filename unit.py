@@ -106,14 +106,14 @@ class Hero(Unit):
         if card.subtype == 'magic' and self._mana - card.cost >= 0:
             self._mana -= card.cost
             self._config['mana'] = self._mana
-            enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
+            enemy.take_damage(card.damage)
             self._state = ATTACK
             self._hand.delete_active()
             return True
         elif card.subtype == 'physical' and self._power - card.cost >= 0:
             self._power -= card.cost
             self._config['energy'] = self._power
-            enemy.take_damage(int(self._specifications[card.type] / 100 * card.damage))
+            enemy.take_damage(card.damage)
             self._state = ATTACK
             self._hand.delete_active()
             return True

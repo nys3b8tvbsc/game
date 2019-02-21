@@ -3,6 +3,7 @@
   "image": "Paralax/battleback1-2.png",
   "enemies": [
     "enemy4.json",
+    "enemy3.json",
     "enemy1.json"
   ]
 }

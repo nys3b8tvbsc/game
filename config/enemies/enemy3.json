@@ -1,6 +1,6 @@
 {
   "type": "skeleton",
-  "max_hp": 50,
+  "max_hp": 30,
   "hp": 30,
   "power": 25,
   "at_pos": 0.45,
