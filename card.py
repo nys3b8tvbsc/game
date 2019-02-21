@@ -71,6 +71,10 @@ class Card(metaclass=ABCMeta):
     def selected(self):
         return self._select
 
+    @property
+    def conf_name(self):
+        return self._config["conf_name"]
+
     def focus(self):
         self._focus = True
 

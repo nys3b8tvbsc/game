@@ -86,6 +86,9 @@ class Hero(Unit):
 
     def update_hand(self):
         self._hand.append(self._deck.return_cards(MAX_HAND - len(self._hand), self._card_height, self._specifications))
+        if len(self._deck) == 0:
+            self._deck = self._stack
+            self._stack = Deck()
 
     def regen(self):
         self._hp += self._regen['hp']
@@ -108,6 +111,7 @@ class Hero(Unit):
             self._config['mana'] = self._mana
             enemy.take_damage(card.damage)
             self._state = ATTACK
+            self._stack.append(card.conf_name)
             self._hand.delete_active()
             return True
         elif card.subtype == 'physical' and self._power - card.cost >= 0:
@@ -115,6 +119,7 @@ class Hero(Unit):
             self._config['energy'] = self._power
             enemy.take_damage(card.damage)
             self._state = ATTACK
+            self._stack.append(card.conf_name)
             self._hand.delete_active()
             return True
         return False

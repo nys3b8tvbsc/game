@@ -18,7 +18,9 @@ def load_card(file):
     :rtype: dict
     """
     path = os.path.join('cards', file)
-    return __load_json(path)
+    config = __load_json(path)
+    config["conf_name"] = file
+    return config
 
 
 def load_deck(file):

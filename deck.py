@@ -21,4 +21,4 @@ class Deck:
         return cards
 
     def append(self, config):
-        self._cards.append(config)
+        self._cards.append(load_card(config))
