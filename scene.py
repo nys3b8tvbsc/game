@@ -73,7 +73,8 @@ class Battle(Scene):
             self._hero.hand.click(event.pos)
             self._button.handle_event(event)
             if self._hero.rect.collidepoint(
-                    event.pos) and self._hero.hand._selected_card != None and self._hero.hand._selected_card.subtype == 'regen':
+                    event.pos) and self._hero.hand._selected_card != None and self._hero.hand._selected_card.subtype in (
+            'regen', 'effect'):
                 self._hero.action_card(self._hero._hand._selected_card)
                 pygame.event.post(REGEN_POST)
 
@@ -84,6 +85,7 @@ class Battle(Scene):
             self._turn_hero = not self._turn_hero
             if not self._turn_hero:
                 self._enemies.attack_init()
+                self._hero.update_effect()
             else:
                 self._hero.regen()
                 self._hero.update_hand()

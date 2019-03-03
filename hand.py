@@ -61,7 +61,15 @@ class Hand:
     def __len__(self):
         return len(self._cards)
 
+    def on_effect(self, effect):
+        for card in self._cards:
+            effect.on(card)
+
+    def off_effect(self, effect):
+        for card in self._cards:
+            effect.off(card)
+
 
 def hand_create(deck, screen_size, height, hero):
-    cards = deck.return_cards(MAX_HAND, height, hero)
+    cards = deck.return_cards(MAX_HAND, height, hero, effects=[])
     return Hand(screen_size, cards)

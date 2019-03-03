@@ -24,6 +24,7 @@ class Card(metaclass=ABCMeta):
         self._image = pygame.image.load(image).convert_alpha()
         self._scaling = height / self._image.get_height()
         width = int(self._image.get_width() * self._scaling)
+        self._def_im = pygame.transform.scale(self._image, (width, height))
         self._image = pygame.transform.scale(self._image, (width, height))
         self._rect = self._image.get_rect()
 
@@ -122,9 +123,25 @@ class AttackCard(Card, metaclass=ABCMeta):
     def damage(self):
         return self._damage
 
+    @abstractmethod
+    def update_image(self):
+        self._left_label = Label(text=self._damage,
+                                 pos=(LEFT_LABEL[0] * self._scaling, LEFT_LABEL[1] * self._scaling),
+                                 size=(LEFT_LABEL[2] * self._scaling, LEFT_LABEL[3] * self._scaling))
+        image = os.path.join('pictures', 'card_images', self._config['image'])
+        self._image = pygame.image.load(image).convert_alpha()
+        height = int(self._image.get_height() * self._scaling)
+        width = int(self._image.get_width() * self._scaling)
+        self._image = pygame.transform.scale(self._image, (width, height))
+        self._name_label.blit_me(self._image)
+        self._text_label.blit_me(self._image)
+        self._left_label.blit_me(self._image)
+        self._right_label.blit_me(self._image)
+
+
 
 class MagicAttack(AttackCard):
-    def __init__(self, height, config, hero):
+    def __init__(self, height, config, hero, effects):
         self._type = config['type']
         config['value'] = max(int(config['value'] * hero[self._type] / 100), 1)
         AttackCard.__init__(self, height, config)
@@ -134,6 +151,8 @@ class MagicAttack(AttackCard):
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
 
         self._right_label.blit_me(self._image)
+        for effect in effects:
+            effect.on(self)
 
     @property
     def subtype(self):
@@ -147,9 +166,14 @@ class MagicAttack(AttackCard):
     def cost(self):
         return self._mana_cost
 
+    def update_image(self):
+        self._right_label = Label(text=self._mana_cost,
+                                  pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
+                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
+        AttackCard.update_image(self)
 
 class PhysicalAttack(AttackCard):
-    def __init__(self, height, config, hero):
+    def __init__(self, height, config, hero, effects):
         self._type = config['type']
         config['value'] = max(int(config['value'] * hero[self._type] / 100), 1)
         AttackCard.__init__(self, height, config)
@@ -159,7 +183,8 @@ class PhysicalAttack(AttackCard):
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
 
         self._right_label.blit_me(self._image)
-
+        for effect in effects:
+            effect.on(self)
     @property
     def subtype(self):
         return "physical"
@@ -172,6 +197,11 @@ class PhysicalAttack(AttackCard):
     def cost(self):
         return self._energy_cost
 
+    def update_image(self):
+        self._right_label = Label(text=self._energy_cost,
+                                  pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
+                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
+        AttackCard.update_image(self)
 
 class RegenCard(Card):
     def __init__(self, height, config):
@@ -198,15 +228,66 @@ class RegenCard(Card):
             hero._energy = min(hero._max_energy, hero._energy + self._value)
             hero._config['hp'] = hero._energy
 
-def create_card(height, config, hero):
+
+class EffectCard(Card):
+    def __init__(self, height, config):
+        Card.__init__(self, height, config)
+        self._value = config['value']
+        self._round = config['round']
+        self._type = config['type']
+        self._type2 = config['type2']
+
+    @property
+    def cost(self):
+        pass
+
+    @property
+    def subtype(self):
+        return "effect"
+
+    def on(self, card):
+        if card._type == self._type and card.subtype != 'effect':
+            if self._type2 == 'damage':
+                card._damage += int(self._value * card._config['value'])
+                card.update_image()
+            elif self._type2 == 'cost':
+                if card.subtype == 'magic':
+                    card._mana_cost -= int(self._value * card._config['cost'])
+                elif card.subtype == 'physycal':
+                    card._energy_cost -= int(self._value * card._config['cost'])
+                card.update_image()
+
+    def off(self, card):
+        if card._type == self._type and card.subtype != 'effect':
+            if self._type2 == 'damage':
+                card._damage -= int(self._value * card._config['value'])
+                card.update_image()
+            elif self._type2 == 'cost':
+                if card.subtype == 'magic':
+                    card._mana_cost += int(self._value * card._config['cost'])
+                elif card.subtype == 'physycal':
+                    card._energy_cost += int(self._value * card._config['cost'])
+                card.update_image()
+
+    def action(self, hero):
+        hero._effects.append(self)
+        hero._hand.on_effect(self)
+
+    def update(self):
+        self._round -= 1
+
+
+def create_card(height, config, hero, effects):
     if config['card_type'] == 'attack':
         if config['subtype'] == 'magic':
-            return MagicAttack(height, config, hero)
+            return MagicAttack(height, config, hero, effects)
         elif config['subtype'] == 'physical':
-            return PhysicalAttack(height, config, hero)
+            return PhysicalAttack(height, config, hero, effects)
         else:
             raise ValueError('Wrong card subtype.')
     elif config['card_type'] == 'regen':
         return RegenCard(height, config)
+    elif config['card_type'] == 'effect':
+        return EffectCard(height, config)
     else:
         raise ValueError('Wrong card type.')
