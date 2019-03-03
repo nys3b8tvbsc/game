@@ -1,0 +1,15 @@
+{
+  "card_type": "effect",
+  "value": 0.10,
+  "round": 2,
+  "name": "Единение с природой",
+  "text": [
+    "Добавляет 10%",
+    "урона земляным",
+    "картам на 2",
+    "хода."
+  ],
+  "image": "effect3.png",
+  "type": "terra",
+  "type2": "damage"
+}

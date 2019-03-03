@@ -225,7 +225,7 @@ class RegenCard(Card):
             hero._mana = min(hero._max_mana, hero._mana + self._value)
             hero._config['mana'] = hero._mana
         elif self._type == 'energy':
-            hero._energy = min(hero._max_energy, hero._energy + self._value)
+            hero._power = min(hero._max_power, hero._power + self._value)
             hero._config['hp'] = hero._energy
 
 
@@ -248,7 +248,7 @@ class EffectCard(Card):
     def on(self, card):
         if card._type == self._type and card.subtype != 'effect':
             if self._type2 == 'damage':
-                card._damage += int(self._value * card._config['value'])
+                card._damage += max(int(self._value * card._config['value']), 1)
                 card.update_image()
             elif self._type2 == 'cost':
                 if card.subtype == 'magic':
@@ -260,7 +260,7 @@ class EffectCard(Card):
     def off(self, card):
         if card._type == self._type and card.subtype != 'effect':
             if self._type2 == 'damage':
-                card._damage -= int(self._value * card._config['value'])
+                card._damage -= max(int(self._value * card._config['value']), 1)
                 card.update_image()
             elif self._type2 == 'cost':
                 if card.subtype == 'magic':

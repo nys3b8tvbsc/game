@@ -1,0 +1,15 @@
+{
+  "card_type": "effect",
+  "value": 0.45,
+  "round": 3,
+  "name": "Прилив сил",
+  "text": [
+    "Снижае цену",
+    "укопашных карт",
+    "на 45% на 3",
+    "хода."
+  ],
+  "image": "effect6.png",
+  "type": "fists",
+  "type2": "cost"
+}

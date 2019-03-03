@@ -1,0 +1,15 @@
+{
+  "card_type": "effect",
+  "value": 0.35,
+  "round": 2,
+  "name": "Буря в бутылке",
+  "text": [
+    "Добавляет 35%",
+    "урона картам",
+    "воздуха на 2",
+    "хода."
+  ],
+  "image": "effect4.png",
+  "type": "air",
+  "type2": "damage"
+}

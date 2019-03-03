@@ -1,0 +1,15 @@
+{
+  "card_type": "effect",
+  "value": 0.2,
+  "round": 1,
+  "name": "Водная роза",
+  "text": [
+    "Снижает стоимость",
+    "водных карт",
+    "на 20%",
+    "на 1 ход."
+  ],
+  "image": "effect2.png",
+  "type": "water",
+  "type2": "cost"
+}
