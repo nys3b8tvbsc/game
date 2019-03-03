@@ -124,6 +124,11 @@ class Hero(Unit):
             return True
         return False
 
+    def action_card(self, card):
+        card.action(self)
+        self._stack.append(card.conf_name)
+        self._hand.delete_active()
+
     def level_up(self):
         self._level += 1
         self._points += 5

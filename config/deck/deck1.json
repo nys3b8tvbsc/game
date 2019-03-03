@@ -35,5 +35,8 @@
   "terra_card3.json",
   "terra_card4.json",
   "terra_card5.json",
-  "terra_card6.json"
+  "terra_card6.json",
+  "hp1.json",
+  "mana1.json",
+  "energy1.json"
 ]

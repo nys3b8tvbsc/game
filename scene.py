@@ -72,8 +72,13 @@ class Battle(Scene):
             self.click(event.pos)
             self._hero.hand.click(event.pos)
             self._button.handle_event(event)
+            if self._hero.rect.collidepoint(
+                    event.pos) and self._hero.hand._selected_card != None and self._hero.hand._selected_card.subtype == 'regen':
+                self._hero.action_card(self._hero._hand._selected_card)
+                pygame.event.post(REGEN_POST)
+
         elif event.type == ENEMY_TOUCH:
-            if self._hero.hand._selected_card != None:
+            if self._hero.hand._selected_card != None and self._hero.hand._selected_card.subtype != 'regen':
                 self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         elif event.type == TURN_END:
             self._turn_hero = not self._turn_hero
@@ -146,11 +151,74 @@ class Quest(Scene):
         pass
 
 
+class Upgrade(Scene):
+    def __init__(self, screen_size, scene_config):
+        image_path = os.path.join('pictures', 'pergament.png')
+        Scene.__init__(self, image_path, screen_size, scene_config)
+        image_path = os.path.join('pictures', 'flamer.png')
+        image = pygame.image.load(image_path).convert_alpha()
+        size = int(0.05 * screen_size[0])
+        image = pygame.transform.scale(image, (size, size))
+        x = int(0.15 * screen_size[0])
+        y = int(0.15 * screen_size[1])
+        self._image.blit(image, (x, y))
+        image_path = os.path.join('pictures', 'drop.png')
+        image = pygame.image.load(image_path).convert_alpha()
+        image = pygame.transform.scale(image, (size, size))
+        y = int(0.35 * screen_size[1])
+        self._image.blit(image, (x, y))
+
+        image_path = os.path.join('pictures', 'stone-tablet.png')
+        image = pygame.image.load(image_path).convert_alpha()
+        image = pygame.transform.scale(image, (size, size))
+        y = int(0.55 * screen_size[1])
+        self._image.blit(image, (x, y))
+
+        image_path = os.path.join('pictures', 'tornado.png')
+        image = pygame.image.load(image_path).convert_alpha()
+        image = pygame.transform.scale(image, (size, size))
+        y = int(0.75 * screen_size[1])
+        self._image.blit(image, (x, y))
+
+        x = int(0.55 * screen_size[0])
+        image_path = os.path.join('pictures', 'swords-power.png')
+        image = pygame.image.load(image_path).convert_alpha()
+        image = pygame.transform.scale(image, (size, size))
+        y = int(0.15 * screen_size[1])
+        self._image.blit(image, (x, y))
+
+        image_path = os.path.join('pictures', 'fist.png')
+        image = pygame.image.load(image_path).convert_alpha()
+        image = pygame.transform.scale(image, (size, size))
+        y = int(0.35 * screen_size[1])
+        self._image.blit(image, (x, y))
+
+        image_path = os.path.join('pictures', 'archer.png')
+        image = pygame.image.load(image_path).convert_alpha()
+        image = pygame.transform.scale(image, (size, size))
+        y = int(0.55 * screen_size[1])
+        self._image.blit(image, (x, y))
+
+    @property
+    def is_over(self):
+        pass
+
+    def blit_me(self, surface):
+        surface.blit(self._image, self._rect)
+
+    def handle_event(self, event):
+        pass
+
+    def update(self):
+        pass
+
 def create_scene(screen_size, scene_config, hero_config=None):
     if scene_config['type'] == 'quest':
         return Quest(screen_size, scene_config)
     elif scene_config['type'] == 'battle':
         return Battle(screen_size, scene_config, hero_config)
+    elif scene_config['type'] == 'upgrade':
+        return Upgrade(screen_size, scene_config)
     else:
         raise ValueError('Scene has unknown type.')
 

@@ -173,6 +173,31 @@ class PhysicalAttack(AttackCard):
         return self._energy_cost
 
 
+class RegenCard(Card):
+    def __init__(self, height, config):
+        Card.__init__(self, height, config)
+        self._value = config['value']
+        self._type = config['type']
+
+    @property
+    def cost(self):
+        pass
+
+    @property
+    def subtype(self):
+        return "regen"
+
+    def action(self, hero):
+        if self._type == 'hp':
+            hero._hp = min(hero._max_hp, hero._hp + self._value)
+            hero._config['hp'] = hero._hp
+        elif self._type == 'mana':
+            hero._mana = min(hero._max_mana, hero._mana + self._value)
+            hero._config['mana'] = hero._mana
+        elif self._type == 'energy':
+            hero._energy = min(hero._max_energy, hero._energy + self._value)
+            hero._config['hp'] = hero._energy
+
 def create_card(height, config, hero):
     if config['card_type'] == 'attack':
         if config['subtype'] == 'magic':
@@ -181,5 +206,7 @@ def create_card(height, config, hero):
             return PhysicalAttack(height, config, hero)
         else:
             raise ValueError('Wrong card subtype.')
+    elif config['card_type'] == 'regen':
+        return RegenCard(height, config)
     else:
         raise ValueError('Wrong card type.')

@@ -1,0 +1,12 @@
+{
+  "card_type": "regen",
+  "value": 15,
+  "name": "Зелье энергии",
+  "text": [
+    "Восстанавливает",
+    "15",
+    "единиц энергии."
+  ],
+  "image": "energy.png",
+  "type": "energy"
+}

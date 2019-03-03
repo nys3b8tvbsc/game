@@ -38,14 +38,12 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONUP:
                 if event.pos == BATTLE_END:
-                    print("jjj")
+                    pass
                 elif event.pos == REGEN:
                     self._hero = self._scene.hero_info
                     self._panel.update(self._hero)
-                self._scene.handle_event(event)  # TODO ??
-                self._panel.handle_event(event)
 
             elif event.type == ENEMY_DAMAGE:
                 self._hero = self._scene.hero_info
