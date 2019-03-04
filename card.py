@@ -12,7 +12,7 @@ from abc import ABCMeta, abstractmethod
 import pygame
 
 from const.card import NAME_LABEL, TEXT_LABEL, LEFT_LABEL, RIGHT_LABEL
-from const.color import WHITE
+from const.color import WHITE, BLACK, GREEN
 from label import Label
 
 
@@ -125,9 +125,12 @@ class AttackCard(Card, metaclass=ABCMeta):
 
     @abstractmethod
     def update_image(self):
+        color = BLACK
+        if self._damage > self._config['value']:
+            color = GREEN
         self._left_label = Label(text=self._damage,
                                  pos=(LEFT_LABEL[0] * self._scaling, LEFT_LABEL[1] * self._scaling),
-                                 size=(LEFT_LABEL[2] * self._scaling, LEFT_LABEL[3] * self._scaling))
+                                 size=(LEFT_LABEL[2] * self._scaling, LEFT_LABEL[3] * self._scaling), color=color)
         image = os.path.join('pictures', 'card_images', self._config['image'])
         self._image = pygame.image.load(image).convert_alpha()
         height = int(self._image.get_height() * self._scaling)
@@ -167,9 +170,12 @@ class MagicAttack(AttackCard):
         return self._mana_cost
 
     def update_image(self):
+        color = BLACK
+        if self._mana_cost < self._config['cost']:
+            color = GREEN
         self._right_label = Label(text=self._mana_cost,
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
-                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
+                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling), color=color)
         AttackCard.update_image(self)
 
 class PhysicalAttack(AttackCard):
@@ -198,9 +204,12 @@ class PhysicalAttack(AttackCard):
         return self._energy_cost
 
     def update_image(self):
+        color = BLACK
+        if self._energy_cost < self._config['cost']:
+            color = GREEN
         self._right_label = Label(text=self._energy_cost,
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
-                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling))
+                                  size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling), color=color)
         AttackCard.update_image(self)
 
 class RegenCard(Card):
@@ -253,7 +262,7 @@ class EffectCard(Card):
             elif self._type2 == 'cost':
                 if card.subtype == 'magic':
                     card._mana_cost -= int(self._value * card._config['cost'])
-                elif card.subtype == 'physycal':
+                else:
                     card._energy_cost -= int(self._value * card._config['cost'])
                 card.update_image()
 

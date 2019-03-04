@@ -79,7 +79,8 @@ class Battle(Scene):
                 pygame.event.post(REGEN_POST)
 
         elif event.type == ENEMY_TOUCH:
-            if self._hero.hand._selected_card != None and self._hero.hand._selected_card.subtype != 'regen':
+            if self._hero.hand._selected_card != None and self._hero.hand._selected_card.subtype not in (
+            'regen', 'effect'):
                 self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         elif event.type == TURN_END:
             self._turn_hero = not self._turn_hero
