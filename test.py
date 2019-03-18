@@ -2,8 +2,8 @@ import sys
 
 import pygame
 
+from cards.deck import Deck
 from const.color import WHITE
-from deck import Deck
 from loading import load_deck, load_battle
 from scene import Battle
 

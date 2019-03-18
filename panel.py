@@ -2,11 +2,11 @@ import os
 
 import pygame
 
-from button import Button
 from const.button import DEFAULT_W, DEFAULT_H
 from const.event import QUIT
 from const.screen import DEFAULT_SIZE
-from label import Label
+from engine.button import Button
+from engine.label import Label
 
 
 class Panel:

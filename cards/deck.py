@@ -1,6 +1,6 @@
 import random
 
-from card import create_card
+from cards.card import create_card
 from loading import load_card
 
 

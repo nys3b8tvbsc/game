@@ -1,5 +1,5 @@
 """
-Module provides all card types:
+Module provides all cards types:
     Attack cards:
         Magic
         Physical
@@ -13,7 +13,7 @@ import pygame
 
 from const.card import NAME_LABEL, TEXT_LABEL, LEFT_LABEL, RIGHT_LABEL
 from const.color import WHITE, BLACK, GREEN
-from label import Label
+from engine.label import Label
 
 
 class Card(metaclass=ABCMeta):
@@ -291,10 +291,10 @@ def create_card(height, config, hero, effects):
         elif config['subtype'] == 'physical':
             return PhysicalAttack(height, config, hero, effects)
         else:
-            raise ValueError('Wrong card subtype.')
+            raise ValueError('Wrong cards subtype.')
     elif config['card_type'] == 'regen':
         return RegenCard(height, config)
     elif config['card_type'] == 'effect':
         return EffectCard(height, config)
     else:
-        raise ValueError('Wrong card type.')
+        raise ValueError('Wrong cards type.')

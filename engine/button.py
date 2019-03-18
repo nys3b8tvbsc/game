@@ -4,7 +4,7 @@ import pygame
 
 from const.button import DEFAULT_H, DEFAULT_W, LABEL_XY, LABEL_SIZE
 from const.color import WHITE
-from label import Label
+from engine.label import Label
 
 
 class Button:

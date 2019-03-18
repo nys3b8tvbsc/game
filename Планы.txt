@@ -1,5 +1,3 @@
-треугольники
-
 Quest
 Battle
 Quest End

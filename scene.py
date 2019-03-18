@@ -3,17 +3,17 @@ from abc import ABCMeta, abstractmethod
 
 import pygame
 
-from button import Button
 from const.button import DEFAULT_H, DEFAULT_W
 from const.color import WHITE
 from const.event import ENEMY_TOUCH, TURN_END, BATTLE_END_POST, REGEN_POST
 from const.panel import BUT1_POS, BUT2_POS, DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LABEL
 from const.screen import DEFAULT_SIZE
-from enemy import create_enemy
-from gang import Gang
-from label import Label
+from engine.button import Button
+from engine.label import Label
 from loading import load_enemy
-from unit import create_hero
+from units.enemy import create_enemy
+from units.gang import Gang
+from units.unit import create_hero
 
 
 class Scene(metaclass=ABCMeta):
