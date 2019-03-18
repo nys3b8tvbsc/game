@@ -103,6 +103,10 @@ class Card(metaclass=ABCMeta):
     def card_height(screen_height):
         return int((400 / 1080) * screen_height)
 
+    @property
+    def type(self):
+        return self._type
+
 
 class AttackCard(Card, metaclass=ABCMeta):
     def __init__(self, height, config):
@@ -142,7 +146,6 @@ class AttackCard(Card, metaclass=ABCMeta):
         self._right_label.blit_me(self._image)
 
 
-
 class MagicAttack(AttackCard):
     def __init__(self, height, config, hero, effects):
         self._type = config['type']
@@ -162,10 +165,6 @@ class MagicAttack(AttackCard):
         return "magic"
 
     @property
-    def type(self):
-        return self._type
-
-    @property
     def cost(self):
         return self._mana_cost
 
@@ -177,6 +176,7 @@ class MagicAttack(AttackCard):
                                   pos=(RIGHT_LABEL[0] * self._scaling, RIGHT_LABEL[1] * self._scaling),
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling), color=color)
         AttackCard.update_image(self)
+
 
 class PhysicalAttack(AttackCard):
     def __init__(self, height, config, hero, effects):
@@ -191,13 +191,10 @@ class PhysicalAttack(AttackCard):
         self._right_label.blit_me(self._image)
         for effect in effects:
             effect.on(self)
+
     @property
     def subtype(self):
         return "physical"
-
-    @property
-    def type(self):
-        return self._type
 
     @property
     def cost(self):
@@ -212,6 +209,7 @@ class PhysicalAttack(AttackCard):
                                   size=(RIGHT_LABEL[2] * self._scaling, RIGHT_LABEL[3] * self._scaling), color=color)
         AttackCard.update_image(self)
 
+
 class RegenCard(Card):
     def __init__(self, height, config):
         Card.__init__(self, height, config)
@@ -220,7 +218,7 @@ class RegenCard(Card):
 
     @property
     def cost(self):
-        pass
+        return 0
 
     @property
     def subtype(self):
@@ -255,7 +253,7 @@ class EffectCard(Card):
         return "effect"
 
     def on(self, card):
-        if card._type == self._type and card.subtype != 'effect':
+        if card.type == self._type and card.subtype != 'effect':
             if self._type2 == 'damage':
                 card._damage += max(int(self._value * card._config['value']), 1)
                 card.update_image()
@@ -267,14 +265,14 @@ class EffectCard(Card):
                 card.update_image()
 
     def off(self, card):
-        if card._type == self._type and card.subtype != 'effect':
+        if card.type == self._type and card.subtype != 'effect':
             if self._type2 == 'damage':
                 card._damage -= max(int(self._value * card._config['value']), 1)
                 card.update_image()
             elif self._type2 == 'cost':
                 if card.subtype == 'magic':
                     card._mana_cost += int(self._value * card._config['cost'])
-                elif card.subtype == 'physycal':
+                elif card.subtype == 'physical':
                     card._energy_cost += int(self._value * card._config['cost'])
                 card.update_image()
 

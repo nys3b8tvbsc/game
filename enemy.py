@@ -101,6 +101,7 @@ class Barbarian1(Enemy):
         animations.append(Animation('pictures/Viking1/Walking1', HERO, screen_height, 5))
         Enemy.__init__(self, config, animations, DEFAULT)
 
+
 def create_enemy(enemy_config, screen_height):
     if enemy_config["type"] == 'golem':
         return Golem(enemy_config, screen_height)

@@ -42,9 +42,9 @@ class Battle(Scene):
         self._enemies = Gang(self._enemies, screen_size)
         self._hero = create_hero(hero_config, screen_size)
         self._hero.move_to(int(screen_size[1] * 0.05), int(screen_size[1] * 0.35))
-        H = int(DEFAULT_H * screen_size[1] / DEFAULT_SIZE[1])
-        W = int(DEFAULT_W * screen_size[0] / DEFAULT_SIZE[0])
-        self._button = Button((W, H), (int(0.05 * screen_size[0]), int(0.3 * screen_size[1])), "Конец хода", TURN_END)
+        h = int(DEFAULT_H * screen_size[1] / DEFAULT_SIZE[1])
+        w = int(DEFAULT_W * screen_size[0] / DEFAULT_SIZE[0])
+        self._button = Button((w, h), (int(0.05 * screen_size[0]), int(0.3 * screen_size[1])), "Конец хода", TURN_END)
 
     def update(self):
         self._enemies.animated()
@@ -72,15 +72,15 @@ class Battle(Scene):
             self.click(event.pos)
             self._hero.hand.click(event.pos)
             self._button.handle_event(event)
-            if self._hero.rect.collidepoint(
-                    event.pos) and self._hero.hand._selected_card != None and self._hero.hand._selected_card.subtype in (
-            'regen', 'effect'):
+            if self._hero.rect.collidepoint(event.pos) \
+                    and self._hero.hand._selected_card is not None \
+                    and self._hero.hand._selected_card.subtype in ('regen', 'effect'):
                 self._hero.action_card(self._hero._hand._selected_card)
                 pygame.event.post(REGEN_POST)
 
         elif event.type == ENEMY_TOUCH:
-            if self._hero.hand._selected_card != None and self._hero.hand._selected_card.subtype not in (
-            'regen', 'effect'):
+            if self._hero.hand._selected_card is not None and self._hero.hand._selected_card.subtype not in (
+                    'regen', 'effect'):
                 self._hero.attack(self._enemies._active, self._hero._hand._selected_card)
         elif event.type == TURN_END:
             self._turn_hero = not self._turn_hero
@@ -139,10 +139,6 @@ class Quest(Scene):
         for button in self._buttons:
             button.blit_me(self._image)
         surface.blit(self._image, self._rect)
-
-    def click(self, xy):
-        for button in self._buttons:
-            button.click(xy)
 
     def handle_event(self, event):
         for button in self._buttons:
@@ -214,6 +210,7 @@ class Upgrade(Scene):
 
     def update(self):
         pass
+
 
 def create_scene(screen_size, scene_config, hero_config=None):
     if scene_config['type'] == 'quest':
